@@ -7,24 +7,35 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import HttpApi from 'i18next-http-backend';
+
+// Import translations directly
+import enTranslations from '../locales/en.json';
+import esTranslations from '../locales/es.json';
+import frTranslations from '../locales/fr.json';
+
+const resources = {
+  en: enTranslations,
+  es: esTranslations,
+  fr: frTranslations,
+};
 
 i18n
-  .use(HttpApi) // Load translations using http (default public/locales/{{lng}}/{{ns}}.json)
-  .use(LanguageDetector) // Detect user language
-  .use(initReactI18next) // Pass i18n instance to react-i18next
+  .use(LanguageDetector)
+  .use(initReactI18next)
   .init({
+    resources,
     supportedLngs: ['en', 'es', 'fr'],
-    fallbackLng: 'es',
+    fallbackLng: 'en',
+    debug: true,
     interpolation: {
-      escapeValue: false, // React already safes from xss
+      escapeValue: false,
     },
     detection: {
       order: ['localStorage', 'navigator', 'htmlTag'],
-      caches: ['localStorage'], // Cache found language in localStorage
+      caches: ['localStorage'],
     },
-    backend: {
-      loadPath: `${import.meta.env.BASE_URL}locales/{{lng}}.json`, // Path to translation files
+    react: {
+      useSuspense: false,
     },
   });
 

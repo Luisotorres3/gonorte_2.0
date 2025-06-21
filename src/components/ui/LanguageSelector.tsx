@@ -143,7 +143,7 @@ const LanguageSelector: React.FC = () => {
       <button
         ref={triggerButtonRef}
         type="button"
-        className="flex items-center justify-center px-3 py-2 bg-surface text-text-default hover:bg-neutral-border dark:hover:bg-neutral-border-dark rounded-radius-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-surface transition-colors"
+        className="flex items-center justify-center px-3 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 transition-colors"
         onClick={toggleDropdown}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
@@ -159,7 +159,7 @@ const LanguageSelector: React.FC = () => {
             role="listbox"
             tabIndex={-1} // Make the list focusable for keyboard events when open
             onKeyDown={handleKeyDown}
-            className="absolute z-50 mt-1 w-auto min-w-[150px] right-0 md:left-0 bg-surface border border-neutral-border dark:border-neutral-border-dark rounded-radius-md shadow-lg overflow-hidden focus:outline-none"
+            className="absolute z-50 mt-1 w-auto min-w-[150px] right-0 md:left-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg overflow-hidden focus:outline-none"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -173,10 +173,10 @@ const LanguageSelector: React.FC = () => {
                 aria-selected={i18n.language === lang.code}
                 className={`flex items-center px-3 py-2 text-sm cursor-pointer
                   ${ i18n.language === lang.code
-                    ? 'bg-primary text-white'
-                    : 'text-text-default hover:bg-primary-light hover:text-white dark:hover:bg-primary-dark dark:hover:text-text-default'
+                    ? 'bg-teal-500 text-white'
+                    : 'text-gray-700 dark:text-gray-200 hover:bg-teal-50 hover:text-teal-700 dark:hover:bg-teal-900/20 dark:hover:text-teal-300'
                   }
-                  focus:bg-primary-light focus:text-white dark:focus:bg-primary-dark dark:focus:text-text-default focus:outline-none`}
+                  focus:bg-teal-50 focus:text-teal-700 dark:focus:bg-teal-900/20 dark:focus:text-teal-300 focus:outline-none`}
                 onClick={() => selectLanguage(lang.code)}
                 onKeyDown={(e) => handleOptionKeyDown(e, lang.code)}
               >

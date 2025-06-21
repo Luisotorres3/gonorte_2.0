@@ -39,7 +39,7 @@ import NotFoundPage from '../pages/NotFoundPage';
 //
 // 5. Add translations (optional):
 //    If your page uses new text strings, add them to the translation files
-//    in `public/locales/` (see `public/locales/README.md` for details).
+//    in `src/locales/` (see the translation files for details).
 //
 // --- End of Guide ---
 

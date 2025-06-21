@@ -1,8 +1,7 @@
 /**
  * @file App.tsx
- * @description This is the root component of the application.
- * It sets up the main router using React Router.
- * All other content and layouts are rendered via this router.
+ * @description The main App component that serves as the entry point for the React application.
+ * It sets up the routing configuration and provides the overall application structure.
  */
 import React from 'react';
 import { RouterProvider } from 'react-router-dom';

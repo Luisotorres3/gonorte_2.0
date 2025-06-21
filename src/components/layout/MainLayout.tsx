@@ -30,7 +30,7 @@ const MainLayout: React.FC = () => {
       <ScrollToTop /> {/* Add ScrollToTop here, it doesn't render UI so position among visual elements is flexible */}
       <div className="flex flex-col min-h-screen bg-background text-default transition-colors duration-300">
         <Navbar />
-        <main className="flex-grow container mx-auto p-space-md">
+        <main className="flex-grow pt-16 lg:pt-20"> {/* Add padding-top for fixed navbar */}
           <AnimatePresence mode="wait">
           {/* Keying Outlet wrapper with location.pathname ensures AnimatePresence detects route changes */}
           <React.Fragment key={location.pathname}>

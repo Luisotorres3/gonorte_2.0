@@ -4,9 +4,10 @@
  * It includes links to different pages, a theme toggle, and a language selector.
  * It is typically used as part of the MainLayout.
  */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import ThemeToggle from '../ui/ThemeToggle';
 import LanguageSelector from '../ui/LanguageSelector';
 import Logo from '../ui/Logo'; // Import the new Logo component
@@ -17,9 +18,18 @@ import Logo from '../ui/Logo'; // Import the new Logo component
  * @returns {JSX.Element} The rendered Navbar component.
  */
 const Navbar: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // changeLanguage function is removed from here
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   /**
    * Generates the CSS classes for NavLink components based on their active state.
@@ -28,34 +38,153 @@ const Navbar: React.FC = () => {
    * @returns {string} A string of Tailwind CSS classes.
    */
   const navLinkClasses = ({ isActive }: { isActive: boolean }) =>
-    `px-3 py-2 rounded-radius-md text-sm font-medium transition-colors
+    `px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 relative overflow-hidden
     ${isActive
-      ? 'bg-primary text-white' // Assuming white text provides good contrast on primary
-      : 'text-text-muted hover:bg-primary-light dark:hover:bg-primary-dark hover:text-white'
+      ? 'text-white bg-gradient-to-r from-teal-500 to-cyan-500 shadow-lg'
+      : 'text-gray-700 dark:text-gray-200 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20'
     }`;
-  // TODO: Consider more advanced language persistence options if needed (e.g., user accounts, server-side preferences).
+
+  const mobileNavLinkClasses = ({ isActive }: { isActive: boolean }) =>
+    `block px-4 py-3 text-base font-medium transition-colors rounded-lg
+    ${isActive
+      ? 'text-white bg-gradient-to-r from-teal-500 to-cyan-500'
+      : 'text-gray-700 dark:text-gray-200 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20'
+    }`;
 
   return (
-    <nav className="bg-surface shadow-lg">
-      <div className="container mx-auto px-space-md sm:px-space-lg lg:px-space-xl">
-        <div className="flex items-center justify-between h-16"> {/* h-16 is 4rem, maps to space-xl*2 or keep as is if not in scale */}
-          <div className="flex items-center flex-shrink-0 mr-10"> {/* Más margen derecho */}
-            <Logo textClassName="h-12 w-auto" /> {/* Tamaño más grande, prop renamed */}
+    <motion.nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg border-b border-gray-200 dark:border-gray-700'
+          : 'bg-transparent'
+      }`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 lg:h-20">
+          {/* Logo */}
+          <motion.div 
+            className="flex items-center flex-shrink-0"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.2 }}
+          >
+            <Logo textClassName="h-10 lg:h-12 w-auto" />
+          </motion.div>
+
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-2">
+            <NavLink to="/" className={navLinkClasses}>
+              {t('navHome')}
+            </NavLink>
+            <NavLink to="/about" className={navLinkClasses}>
+              {t('navAbout')}
+            </NavLink>
+            <NavLink to="/services" className={navLinkClasses}>
+              {t('navServices')}
+            </NavLink>
+            <NavLink to="/testimonials" className={navLinkClasses}>
+              {t('navTestimonials')}
+            </NavLink>
+            <NavLink to="/contact" className={navLinkClasses}>
+              {t('navContact')}
+            </NavLink>
           </div>
-          <div className="hidden md:flex items-center space-x-space-md">
-            {/* TODO: Implement a responsive mobile menu (hamburger button) for smaller screens. This div would be part of that logic. */}
-            <NavLink to="/" className={navLinkClasses}>{t('navHome', 'Home')}</NavLink>
-            <NavLink to="/about" className={navLinkClasses}>{t('navAbout', 'About Me')}</NavLink>
-            <NavLink to="/services" className={navLinkClasses}>{t('navServices', 'Services')}</NavLink>
-            <NavLink to="/testimonials" className={navLinkClasses}>{t('navTestimonials', 'Testimonials')}</NavLink>
-            <NavLink to="/contact" className={navLinkClasses}>{t('navContact', 'Contact')}</NavLink>
+
+          {/* Desktop Controls */}
+          <div className="hidden lg:flex items-center space-x-3">
             <ThemeToggle />
-            <LanguageSelector /> {/* Use the new component here */}
+            <LanguageSelector />
           </div>
-          {/* Mobile menu button can be added here - This is where the hamburger button would likely go */}
+
+          {/* Mobile Menu Button */}
+          <div className="lg:hidden flex items-center space-x-3">
+            <ThemeToggle />
+            <LanguageSelector />
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="p-2 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-teal-50 dark:hover:bg-teal-900/20 transition-colors"
+              aria-label="Toggle mobile menu"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {isMobileMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              className="lg:hidden"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="py-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
+                <NavLink 
+                  to="/" 
+                  className={mobileNavLinkClasses}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {t('navHome')}
+                </NavLink>
+                <NavLink 
+                  to="/about" 
+                  className={mobileNavLinkClasses}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {t('navAbout')}
+                </NavLink>
+                <NavLink 
+                  to="/services" 
+                  className={mobileNavLinkClasses}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {t('navServices')}
+                </NavLink>
+                <NavLink 
+                  to="/testimonials" 
+                  className={mobileNavLinkClasses}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {t('navTestimonials')}
+                </NavLink>
+                <NavLink 
+                  to="/contact" 
+                  className={mobileNavLinkClasses}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {t('navContact')}
+                </NavLink>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 

@@ -1,14 +1,15 @@
 /**
  * @file FeaturesSection.tsx
  * @description Defines the Features section for the HomePage.
- * It showcases key features of the product/service in a responsive grid.
+ * It showcases key features of the fitness training services in a responsive grid.
+ * Updated for fitness trainer theme with elegant gym aesthetics and teal color palette.
  */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import FeatureIcon1 from './icons/FeatureIcon1';
-import FeatureIcon2 from './icons/FeatureIcon2';
-import FeatureIcon3 from './icons/FeatureIcon3';
+import FitnessIcon1 from './icons/FitnessIcon1';
+import FitnessIcon2 from './icons/FitnessIcon2';
+import FitnessIcon3 from './icons/FitnessIcon3';
 
 interface FeatureItem {
   id: string;
@@ -22,33 +23,33 @@ interface FeatureItem {
 const features: FeatureItem[] = [
   {
     id: 'feature1',
-    icon: FeatureIcon1,
+    icon: FitnessIcon1,
     titleKey: 'feature1Title',
-    defaultTitle: 'Robust Performance',
+    defaultTitle: 'Entrenamiento Personalizado',
     descriptionKey: 'feature1Desc',
-    defaultDescription: 'Experience lightning-fast interactions and seamless processing with our optimized architecture.',
+    defaultDescription: 'Planes de entrenamiento individualizados diseñados específicamente para tus objetivos y nivel de fitness.',
   },
   {
     id: 'feature2',
-    icon: FeatureIcon2,
+    icon: FitnessIcon2,
     titleKey: 'feature2Title',
-    defaultTitle: 'Secure & Reliable',
+    defaultTitle: 'Asesoría Nutricional',
     descriptionKey: 'feature2Desc',
-    defaultDescription: 'Built with top-tier security measures to protect your data and ensure constant availability.',
+    defaultDescription: 'Guía nutricional personalizada para complementar tu entrenamiento y maximizar tus resultados.',
   },
   {
     id: 'feature3',
-    icon: FeatureIcon3,
+    icon: FitnessIcon3,
     titleKey: 'feature3Title',
-    defaultTitle: 'Scalable Solutions',
+    defaultTitle: 'Entrenamiento Online',
     descriptionKey: 'feature3Desc',
-    defaultDescription: 'Our platform grows with you, offering flexible and scalable options to meet your evolving needs.',
+    defaultDescription: 'Accede a tus rutinas desde cualquier lugar con entrenamiento virtual flexible y efectivo.',
   },
 ];
 
 /**
  * FeaturesSection component for the landing page.
- * Displays a grid of key features, each with an icon, title, and description.
+ * Displays a grid of key fitness features, each with an icon, title, and description.
  * @returns {JSX.Element} The rendered FeaturesSection component.
  */
 const FeaturesSection: React.FC = () => {
@@ -59,7 +60,7 @@ const FeaturesSection: React.FC = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2, // Stagger animation of children
+        staggerChildren: 0.2,
       },
     },
   };
@@ -70,39 +71,84 @@ const FeaturesSection: React.FC = () => {
   };
 
   return (
-    <section className="w-full bg-background text-default py-16 md:py-24">
+    <section className="w-full bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 py-20 md:py-32">
       <div className="container mx-auto px-space-md text-center">
-        <motion.h2
-          className="text-3xl md:text-4xl font-bold mb-space-lg"
+        <motion.div
+          className="mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.5 }}
         >
-          {t('featuresTitle', 'Key Features')}
-        </motion.h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-slate-800 to-teal-800 dark:from-slate-200 dark:to-teal-300 bg-clip-text text-transparent">
+            {t('featuresTitle', 'Por Qué Elegir Gonorte')}
+          </h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            {t('featuresSubtitle', 'Descubre las ventajas de entrenar con una profesional certificada que se adapta a tus necesidades')}
+          </p>
+        </motion.div>
+
         <motion.div
-          className="grid md:grid-cols-3 gap-space-lg"
+          className="grid md:grid-cols-3 gap-8 lg:gap-12"
           variants={sectionVariants}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }} // amount: 0.2 means 20% of element is visible
+          viewport={{ once: true, amount: 0.2 }}
         >
-          {features.map((feature) => (
+          {features.map((feature, index) => (
             <motion.div
               key={feature.id}
-              className="bg-surface p-space-lg rounded-radius-lg shadow-md dark:shadow-neutral-700/50 flex flex-col items-center"
+              className="group relative bg-white dark:bg-slate-700 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-slate-600"
               variants={itemVariants}
             >
-              <feature.icon />
-              <h3 className="text-xl font-semibold mb-space-sm text-primary dark:text-primary-dark">
-                {t(feature.titleKey, feature.defaultTitle)}
-              </h3>
-              <p className="text-text-muted text-sm">
-                {t(feature.descriptionKey, feature.defaultDescription)}
-              </p>
+              {/* Background gradient on hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              
+              <div className="relative z-10">
+                <div className="flex justify-center mb-6">
+                  <feature.icon />
+                </div>
+                
+                <h3 className="text-2xl font-bold mb-4 text-slate-800 dark:text-slate-200 group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors duration-300">
+                  {t(feature.titleKey, feature.defaultTitle)}
+                </h3>
+                
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                  {t(feature.descriptionKey, feature.defaultDescription)}
+                </p>
+
+                {/* Feature number */}
+                <div className="absolute top-4 right-4 w-8 h-8 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-full flex items-center justify-center text-white text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  {index + 1}
+                </div>
+              </div>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* CTA Section */}
+        <motion.div
+          className="mt-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <div className="bg-gradient-to-r from-teal-600 to-cyan-600 rounded-2xl p-8 md:p-12 text-white">
+            <h3 className="text-2xl md:text-3xl font-bold mb-4">
+              {t('featuresCTA', '¿Listo para Transformar Tu Vida?')}
+            </h3>
+            <p className="text-lg mb-6 opacity-90">
+              {t('featuresCTASubtitle', 'Únete a cientos de personas que ya han alcanzado sus metas con Gonorte')}
+            </p>
+            <motion.button
+              className="bg-white text-teal-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors duration-300"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {t('featuresCTAButton', 'Comenzar Ahora')}
+            </motion.button>
+          </div>
         </motion.div>
       </div>
     </section>

@@ -24,11 +24,11 @@ export default tseslint.config({
   languageOptions: {
     // other options...
     parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
       tsconfigRootDir: import.meta.dirname,
     },
   },
-})
+});
 ```
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
@@ -57,13 +57,13 @@ export default tseslint.config({
 Here's an overview of the key directories and their purposes:
 
 -   `public/`: Contains static assets that are served directly.
-    -   `public/locales/`: Stores translation files (e.g., `en.json`, `es.json`) for internationalization (i18n) provided by `i18next-http-backend`.
 -   `src/`: Main application source code.
     -   `src/components/`: Contains reusable React components.
         -   `src/components/layout/`: Components responsible for the overall page structure (e.g., `Navbar.tsx`, `Footer.tsx`, `MainLayout.tsx`).
         -   `src/components/ui/`: Smaller, general-purpose UI elements (e.g., `ThemeToggle.tsx`, buttons, modals).
     -   `src/contexts/`: Holds React Context API implementations for global state management (e.g., `ThemeContext.tsx`).
     -   `src/i18n/`: Contains the configuration for the `i18next` internationalization library (`config.ts`).
+    -   `src/locales/`: Stores translation files (e.g., `en.json`, `es.json`, `fr.json`) for internationalization (i18n) using direct imports.
     -   `src/pages/`: Top-level components that represent different pages or views of the application (e.g., `HomePage.tsx`, `AboutPage.tsx`).
     -   `src/router/`: Defines the application's routing structure using `react-router-dom` (`index.tsx`).
     -   `src/styles/`: Global stylesheets and Tailwind CSS setup (`index.css`).
