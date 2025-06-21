@@ -40,14 +40,15 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto px-space-md sm:px-space-lg lg:px-space-xl">
         <div className="flex items-center justify-between h-16"> {/* h-16 is 4rem, maps to space-xl*2 or keep as is if not in scale */}
           <div className="flex items-center flex-shrink-0 mr-10"> {/* Más margen derecho */}
-            <Logo svgClassName="h-12 w-auto" /> {/* Tamaño más grande */}
+            <Logo textClassName="h-12 w-auto" /> {/* Tamaño más grande, prop renamed */}
           </div>
           <div className="hidden md:flex items-center space-x-space-md">
             {/* TODO: Implement a responsive mobile menu (hamburger button) for smaller screens. This div would be part of that logic. */}
             <NavLink to="/" className={navLinkClasses}>{t('navHome', 'Home')}</NavLink>
-            <NavLink to="/about" className={navLinkClasses}>{t('navAbout', 'About')}</NavLink>
-            <NavLink to="/projects" className={navLinkClasses}>{t('navProjects', 'Projects')}</NavLink>
-            <NavLink to="/catalog" className={navLinkClasses}>{t('navCatalog', 'Catalog')}</NavLink> {/* Added Catalog NavLink */}
+            <NavLink to="/about" className={navLinkClasses}>{t('navAbout', 'About Me')}</NavLink>
+            <NavLink to="/services" className={navLinkClasses}>{t('navServices', 'Services')}</NavLink>
+            <NavLink to="/testimonials" className={navLinkClasses}>{t('navTestimonials', 'Testimonials')}</NavLink>
+            <NavLink to="/contact" className={navLinkClasses}>{t('navContact', 'Contact')}</NavLink>
             <ThemeToggle />
             <LanguageSelector /> {/* Use the new component here */}
           </div>

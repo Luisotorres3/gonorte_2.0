@@ -16,6 +16,7 @@ const HeroSection: React.FC = () => {
   const { t } = useTranslation();
 
   return (
+    // TODO: Consider replacing gradient with/adding a Gonorte hero image
     <section className="w-full bg-gradient-to-br from-primary via-secondary to-accent dark:from-primary-dark dark:via-secondary-dark dark:to-accent-dark text-white py-20 md:py-32">
       <div className="container mx-auto text-center px-space-md">
         <motion.h1
@@ -24,7 +25,7 @@ const HeroSection: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          {t('heroTitle', 'Discover the Cosmos Within')}
+          {t('heroTitle', 'Welcome to Gonorte')}
         </motion.h1>
         <motion.p
           className="text-lg md:text-xl mb-space-lg max-w-2xl mx-auto"
@@ -32,18 +33,32 @@ const HeroSection: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          {t('heroSubtitle', 'Explore a universe of possibilities with our innovative platform, designed for seamless integration and boundless creativity.')}
+          {t('heroSubtitle', 'Your journey towards a better version of yourself starts here.')}
         </motion.p>
-        <motion.button
-          className="bg-white text-primary font-bold py-space-sm px-space-lg rounded-radius-lg shadow-lg hover:bg-opacity-90 transition-colors transform hover:scale-105"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          {t('heroCTA', 'Get Started Now')}
-        </motion.button>
+        <div className="flex flex-col sm:flex-row justify-center items-center space-y-space-sm sm:space-y-0 sm:space-x-space-md">
+          <motion.button
+            className="bg-primary text-white font-bold py-space-sm px-space-lg rounded-radius-lg shadow-lg hover:bg-primary-dark transition-colors transform hover:scale-105"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => console.log('Primary CTA clicked')} // Placeholder action
+          >
+            {t('heroCTA', 'Get Started Today')}
+          </motion.button>
+          <motion.button
+            className="bg-white text-primary font-bold py-space-sm px-space-lg rounded-radius-lg shadow-lg hover:bg-opacity-90 transition-colors transform hover:scale-105"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => console.log('Secondary CTA clicked')} // Placeholder action
+          >
+            {t('homeSecondaryCTA', 'Book Your Session')}
+          </motion.button>
+        </div>
       </div>
     </section>
   );

@@ -19,31 +19,31 @@ interface Testimonial {
 
 const testimonials: Testimonial[] = [
   {
-    id: 'testimonial1',
-    quoteKey: 'testimonial1Quote',
-    defaultQuote: "This platform has revolutionized how we approach our projects. Incredible performance and support!",
-    authorKey: 'testimonial1Author',
-    defaultAuthor: 'Alex Nova',
-    roleKey: 'testimonial1Role',
-    defaultRole: 'CEO, Stellar Solutions',
+    id: 'gonorteTestimonial1',
+    quoteKey: 'gonorteTestimonial1Quote',
+    defaultQuote: "¡Increíble transformación! Gracias a Gonorte y al entrenador, alcancé mis metas de pérdida de peso y me siento con más energía que nunca.",
+    authorKey: 'gonorteTestimonial1Author',
+    defaultAuthor: 'Ana Pérez',
+    roleKey: 'gonorteTestimonial1Details',
+    defaultRole: 'Plan de Pérdida de Peso',
   },
   {
-    id: 'testimonial2',
-    quoteKey: 'testimonial2Quote',
-    defaultQuote: "The user interface is intuitive and the features are exactly what we needed. Highly recommended!",
-    authorKey: 'testimonial2Author',
-    defaultAuthor: 'Jamie Sun',
-    roleKey: 'testimonial2Role',
-    defaultRole: 'Lead Developer, Orbit Inc.',
+    id: 'gonorteTestimonial2',
+    quoteKey: 'gonorteTestimonial2Quote',
+    defaultQuote: "Las rutinas online son súper prácticas y efectivas. He ganado mucha fuerza y resistencia entrenando desde casa.",
+    authorKey: 'gonorteTestimonial2Author',
+    defaultAuthor: 'Carlos López',
+    roleKey: 'gonorteTestimonial2Details',
+    defaultRole: 'Rutinas Online de Fuerza',
   },
   {
-    id: 'testimonial3',
-    quoteKey: 'testimonial3Quote',
-    defaultQuote: "A game-changer for productivity and collaboration. We've seen tangible results in record time.",
-    authorKey: 'testimonial3Author',
-    defaultAuthor: 'Casey Comet',
-    roleKey: 'testimonial3Role',
-    defaultRole: 'Project Manager, Galaxy Corp.',
+    id: 'gonorteTestimonial3',
+    quoteKey: 'gonorteTestimonial3Quote',
+    defaultQuote: "El asesoramiento nutricional fue clave. Aprendí a comer de forma inteligente y complementó perfectamente mi entrenamiento.",
+    authorKey: 'gonorteTestimonial3Author',
+    defaultAuthor: 'Laura Gómez',
+    roleKey: 'gonorteTestimonial3Details',
+    defaultRole: 'Asesoramiento Nutricional',
   },
 ];
 
@@ -80,7 +80,7 @@ const TestimonialsSection: React.FC = () => {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.5 }}
         >
-          {t('testimonialsTitle', 'What Our Users Say')}
+          {t('testimonialsTitle', 'Testimonios de Clientes')}
         </motion.h2>
         <motion.div
           className="grid md:grid-cols-3 gap-space-lg"

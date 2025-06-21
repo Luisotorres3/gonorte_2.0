@@ -12,6 +12,7 @@ import AboutPage from '../pages/AboutPage';
 import ProjectsPage from '../pages/ProjectsPage';
 import CatalogPage from '../pages/CatalogPage';
 import LegalPage from '../pages/LegalPage'; // Import the new LegalPage
+import ServicesPage from '../pages/ServicesPage'; // Import the new ServicesPage
 
 // --- How to Add a New Page ---
 //
@@ -63,6 +64,10 @@ const routes: RouteObject[] = [
       {
         path: 'legal', // Add the new legal route
         element: <LegalPage />,
+      },
+      {
+        path: 'services', // Add the new services route
+        element: <ServicesPage />,
       },
     ],
   },

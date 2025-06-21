@@ -52,9 +52,11 @@ const Footer: React.FC = () => {
             <h3 className={sectionTitleClasses}>{t('footer.quickLinks', 'Quick Links')}</h3>
             <ul className="space-y-space-xs">
               <li><NavLink to="/" className={footerLinkClasses}>{t('navHome', 'Home')}</NavLink></li>
-              <li><NavLink to="/catalog" className={footerLinkClasses}>{t('navCatalog', 'Catalog')}</NavLink></li>
+              <li><NavLink to="/about" className={footerLinkClasses}>{t('navAbout', 'About Me')}</NavLink></li>
+              <li><NavLink to="/services" className={footerLinkClasses}>{t('navServices', 'Services')}</NavLink></li>
+              <li><NavLink to="/testimonials" className={footerLinkClasses}>{t('navTestimonials', 'Testimonials')}</NavLink></li>
+              <li><NavLink to="/contact" className={footerLinkClasses}>{t('navContact', 'Contact')}</NavLink></li>
               <li><NavLink to="/legal" className={footerLinkClasses}>{t('footer.legal', 'Legal')}</NavLink></li>
-              {/* TODO: Add more links as pages are created (e.g., Contact, Blog) */}
             </ul>
           </div>
 
@@ -78,6 +80,8 @@ const Footer: React.FC = () => {
               <a href="#" aria-label="Twitter" className={`text-text-muted hover:text-primary dark:hover:text-primary-dark w-6 h-6`}><TwitterIcon /></a>
               <a href="#" aria-label="LinkedIn" className={`text-text-muted hover:text-primary dark:hover:text-primary-dark w-6 h-6`}><LinkedInIcon /></a>
               <a href="#" aria-label="GitHub" className={`text-text-muted hover:text-primary dark:hover:text-primary-dark w-6 h-6`}><GitHubIcon /></a>
+              {/* Placeholder for Instagram */}
+              <a href="#" aria-label="Instagram" className={footerLinkClasses}>Instagram</a>
             </div>
           </div>
         </div>
@@ -85,7 +89,7 @@ const Footer: React.FC = () => {
         {/* Bottom Bar */}
         <div className="border-t border-neutral-border dark:border-neutral-border-dark pt-space-md text-center text-xs">
           <p>
-            &copy; {currentYear} {t('footer.companyName', 'Cosmo Template')}. {t('footer.allRightsReserved', 'All rights reserved.')}
+            &copy; {currentYear} {t('footer.companyName', 'Gonorte')}. {t('footer.allRightsReserved', 'All rights reserved.')}
           </p>
           {/* Optional: Links to Privacy Policy, Terms of Service */}
           {/* <p className="mt-space-xs">
