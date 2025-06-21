@@ -16,8 +16,8 @@ const HeroSection: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    // TODO: Consider replacing gradient with/adding a Gonorte hero image
-    <section className="w-full bg-gradient-to-br from-primary via-secondary to-accent dark:from-primary-dark dark:via-secondary-dark dark:to-accent-dark text-white py-20 md:py-32">
+    // TODO: Replace with dynamic hero image/video component
+    <section className="w-full bg-neutral-800 text-white py-20 md:py-32">
       <div className="container mx-auto text-center px-space-md">
         <motion.h1
           className="text-4xl md:text-6xl font-bold mb-space-md"
@@ -25,7 +25,7 @@ const HeroSection: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          {t('heroTitle', 'Welcome to Gonorte')}
+          {t('heroTitle', 'Transforma Tu Cuerpo, Supera Tus Límites')}
         </motion.h1>
         <motion.p
           className="text-lg md:text-xl mb-space-lg max-w-2xl mx-auto"
@@ -33,7 +33,7 @@ const HeroSection: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          {t('heroSubtitle', 'Your journey towards a better version of yourself starts here.')}
+          {t('heroSubtitle', 'Entrenamiento personalizado y online con Gonorte. Alcanza tus metas de fitness y bienestar.')}
         </motion.p>
         <div className="flex flex-col sm:flex-row justify-center items-center space-y-space-sm sm:space-y-0 sm:space-x-space-md">
           <motion.button
@@ -45,7 +45,7 @@ const HeroSection: React.FC = () => {
             whileTap={{ scale: 0.95 }}
             onClick={() => console.log('Primary CTA clicked')} // Placeholder action
           >
-            {t('heroCTA', 'Get Started Today')}
+            {t('heroCTA', 'Empieza Hoy')}
           </motion.button>
           <motion.button
             className="bg-white text-primary font-bold py-space-sm px-space-lg rounded-radius-lg shadow-lg hover:bg-opacity-90 transition-colors transform hover:scale-105"
@@ -56,7 +56,7 @@ const HeroSection: React.FC = () => {
             whileTap={{ scale: 0.95 }}
             onClick={() => console.log('Secondary CTA clicked')} // Placeholder action
           >
-            {t('homeSecondaryCTA', 'Book Your Session')}
+            {t('heroSecondaryCTA', 'Ver Servicios')}
           </motion.button>
         </div>
       </div>
