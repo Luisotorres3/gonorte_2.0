@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: theme("fontFamily.sans");
+}
+
+@layer utilities {
+  /* Text Utilities */
+  .text-default {
+    @apply text-text-default dark:text-text-default-dark;
+  }
+  .text-secondary {
+    @apply text-secondary dark:text-secondary-dark;
+  }
+  .text-accent {
+    @apply text-accent dark:text-accent-dark;
+  }
+  .text-muted {
+    @apply text-text-muted dark:text-text-muted-dark;
+  }
+  .text-success {
+    @apply text-semantic-success dark:text-semantic-success-dark;
+  }
+  .text-warning {
+    @apply text-semantic-warning dark:text-semantic-warning-dark;
+  }
+  .text-error {
+    @apply text-semantic-error dark:text-semantic-error-dark;
+  }
+
+  /* Background Utilities */
+  .bg-background {
+    @apply bg-neutral-background dark:bg-neutral-background-dark;
+  }
+  .bg-surface {
+    @apply bg-neutral-surface dark:bg-neutral-surface-dark;
+  }
+  .bg-secondary {
+    @apply bg-secondary dark:bg-secondary-dark;
+  }
+  .bg-accent {
+    @apply bg-accent dark:bg-accent-dark;
+  }
+
+  /* Border Utilities */
+  .border-default {
+    @apply border-neutral-border dark:border-neutral-border-dark;
+  }
+}
