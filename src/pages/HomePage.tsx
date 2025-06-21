@@ -7,10 +7,11 @@
 import React from 'react';
 import AnimatedPage from '../components/motion/AnimatedPage';
 import HeroSection from '../components/landing/home/HeroSection';
-import FeaturesSection from '../components/landing/home/FeaturesSection';
 import TestimonialsSection from '../components/landing/home/TestimonialsSection';
-import SecondaryCTASection from '../components/landing/home/SecondaryCTASection';
-import CarouselSection from '../components/landing/home/CarouselSection'; // Import CarouselSection
+// import SecondaryCTASection from '../components/landing/home/SecondaryCTASection'; // Removed as per requirement
+import AboutSection from '../components/landing/home/AboutSection';
+import ServicesSection from '../components/landing/home/ServicesSection';
+import ContactSection from '../components/landing/home/ContactSection';
 
 /**
  * The main landing page of the application, composed of several content sections.
@@ -21,9 +22,10 @@ const HomePage: React.FC = () => {
   return (
     <AnimatedPage className="flex flex-col items-center w-full">
       <HeroSection />
-      <FeaturesSection />
-      <CarouselSection /> {/* Render CarouselSection */}
+      <AboutSection />
+      <ServicesSection />
       <TestimonialsSection />
+      <ContactSection />
     </AnimatedPage>
   );
 };
