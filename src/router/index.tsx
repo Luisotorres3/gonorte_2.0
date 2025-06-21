@@ -13,6 +13,9 @@ import ProjectsPage from '../pages/ProjectsPage';
 import CatalogPage from '../pages/CatalogPage';
 import LegalPage from '../pages/LegalPage'; // Import the new LegalPage
 import ServicesPage from '../pages/ServicesPage'; // Import the new ServicesPage
+import TestimonialsPage from '../pages/TestimonialsPage';
+import ContactPage from '../pages/ContactPage';
+import NotFoundPage from '../pages/NotFoundPage';
 
 // --- How to Add a New Page ---
 //
@@ -62,17 +65,31 @@ const routes: RouteObject[] = [
         element: <CatalogPage />,
       },
       {
-        path: 'legal', // Add the new legal route
+        path: 'services',
+        element: <ServicesPage />,
+      },
+      {
+        path: 'legal',
         element: <LegalPage />,
       },
       {
-        path: 'services', // Add the new services route
-        element: <ServicesPage />,
+        path: 'testimonials',
+        element: <TestimonialsPage />,
+      },
+      {
+        path: 'contact',
+        element: <ContactPage />,
       },
     ],
   },
+  // Add a catch-all route for 404 errors
+  {
+    path: '*',
+    element: <NotFoundPage />,
+  },
 ];
 
-const router = createBrowserRouter(routes, { basename: '/web-template' });
+// Remove the basename or set it to the correct path for your deployment
+const router = createBrowserRouter(routes);
 
 export default router;

@@ -1,6 +1,6 @@
 import React from 'react'; // Added React import for JSX
 import { useTranslation } from 'react-i18next';
-import AnimatedPage from '@/components/motion/AnimatedPage';
+import AnimatedPage from '../components/motion/AnimatedPage';
 
 const ServicesPage: React.FC = () => { // Added React.FC type
   const { t } = useTranslation();
