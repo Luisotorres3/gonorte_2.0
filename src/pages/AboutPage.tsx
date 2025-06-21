@@ -18,19 +18,26 @@ const AboutPage: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <AnimatedPage className="container mx-auto px-space-md py-12 text-center">
-      <h1 className="text-4xl font-bold mb-space-lg text-primary">{t('aboutTitle')}</h1>
-      <div className="max-w-3xl mx-auto text-text-muted space-y-space-md">
+    <AnimatedPage className="container mx-auto px-space-md py-12">
+      <h1 className="text-4xl font-bold mb-space-lg text-primary text-center">
+        {t('aboutTitle', 'Gonorte - About Me')}
+      </h1>
+      <div className="max-w-3xl mx-auto text-text-default dark:text-text-default-dark space-y-space-md text-left">
+        {/* TODO: Add trainer image here - potentially in a floated div or a two-column layout */}
+        <h2 className="text-3xl font-semibold mb-space-md text-primary dark:text-primary-dark">
+          {t('aboutSectionMainHeading', 'Conoce a tu Entrenador')}
+        </h2>
         <p>
-          We are a passionate team dedicated to crafting beautiful and functional web experiences.
-          Our mission is to explore new frontiers in technology and design, pushing the boundaries of what's possible.
+          {t('aboutParagraph1', 'Hola, soy [Nombre del Entrenador], tu entrenador personal y coach de fitness en Gonorte.')}
         </p>
         <p>
-          This application serves as a showcase of our skills in React, TypeScript, Tailwind CSS, Framer Motion, and i18next,
-          all brought together to create a seamless and engaging user journey.
+          {t('aboutParagraph2', 'Desde que tengo memoria, el deporte y la actividad física han sido una parte fundamental de mi vida. Esta pasión me llevó a estudiar ciencias del deporte y a certificarme como entrenador personal, con el objetivo de compartir mis conocimientos y ayudar a otros a descubrir los beneficios de un cuerpo activo y una mente sana.')}
         </p>
         <p>
-          Join us as we navigate the digital universe, building innovative solutions one line of code at a time.
+          {t('aboutParagraph3', 'Mi misión es ayudarte a alcanzar tus objetivos de fitness, ya sea perder peso, ganar músculo, mejorar tu resistencia o simplemente adoptar un estilo de vida más saludable. Creo en un enfoque personalizado, adaptando cada programa de entrenamiento y plan nutricional a tus necesidades, preferencias y capacidades individuales.')}
+        </p>
+        <p>
+          {t('aboutParagraph4', 'Con años de experiencia y una dedicación continua al estudio del bienestar y el rendimiento humano, estoy aquí para guiarte y motivarte en cada paso de tu transformación. Juntos, podemos superar obstáculos, establecer metas realistas y celebrar cada logro en tu camino hacia una mejor versión de ti mismo.')}
         </p>
       </div>
     </AnimatedPage>

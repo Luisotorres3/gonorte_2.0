@@ -8,11 +8,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Primary Colors
+        // Brand Colors
+        'gonorte-fuchsia': '#C700C7',
+        'brand-black': '#000000',
+        'brand-white': '#FFFFFF',
+
+        // Primary Colors (updated to Gonorte brand)
         primary: {
-          light: '#6D28D9', // Vibrant purple
-          dark: '#8B5CF6',
-          DEFAULT: '#6D28D9',
+          light: '#E066E0', // Lighter fuchsia
+          dark: '#A300A3',  // Darker fuchsia
+          DEFAULT: '#C700C7',
         },
         // Secondary Colors
         secondary: {
@@ -56,10 +61,10 @@ export default {
             dark: '#9CA3AF',  // Light gray
             DEFAULT: '#6B7280',
           },
-          primary: {
-            light: '#6D28D9', // Primary color
-            dark: '#8B5CF6',
-            DEFAULT: '#6D28D9',
+          primary: { // Updated to Gonorte brand
+            light: '#E066E0', // Lighter fuchsia
+            dark: '#A300A3',  // Darker fuchsia
+            DEFAULT: '#C700C7',
           },
         },
         // Semantic Colors

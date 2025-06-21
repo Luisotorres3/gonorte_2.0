@@ -24,7 +24,6 @@ const HomePage: React.FC = () => {
       <FeaturesSection />
       <CarouselSection /> {/* Render CarouselSection */}
       <TestimonialsSection />
-      <SecondaryCTASection />
     </AnimatedPage>
   );
 };
