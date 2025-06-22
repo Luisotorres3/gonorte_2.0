@@ -137,44 +137,44 @@ const Navbar: React.FC = () => {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="lg:hidden"
+              className="lg:hidden fixed inset-0 top-16 z-40 bg-white dark:bg-gray-900 shadow-2xl border-t border-gray-200 dark:border-gray-700"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="py-4 space-y-2 border-t border-gray-200 dark:border-gray-700">
+              <div className="flex flex-col py-6 px-4 space-y-4">
                 <NavLink 
                   to="/" 
-                  className={mobileNavLinkClasses}
+                  className={({ isActive }) => `${mobileNavLinkClasses({ isActive })} text-lg py-4`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t('navHome')}
                 </NavLink>
                 <NavLink 
                   to="/about" 
-                  className={mobileNavLinkClasses}
+                  className={({ isActive }) => `${mobileNavLinkClasses({ isActive })} text-lg py-4`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t('navAbout')}
                 </NavLink>
                 <NavLink 
                   to="/services" 
-                  className={mobileNavLinkClasses}
+                  className={({ isActive }) => `${mobileNavLinkClasses({ isActive })} text-lg py-4`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t('navServices')}
                 </NavLink>
                 <NavLink 
                   to="/testimonials" 
-                  className={mobileNavLinkClasses}
+                  className={({ isActive }) => `${mobileNavLinkClasses({ isActive })} text-lg py-4`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t('navTestimonials')}
                 </NavLink>
                 <NavLink 
                   to="/contact" 
-                  className={mobileNavLinkClasses}
+                  className={({ isActive }) => `${mobileNavLinkClasses({ isActive })} text-lg py-4`}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {t('navContact')}

@@ -7,6 +7,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import perfilImg from '../../../assets/perfil.webp';
 
 /**
  * ProfileSection component for the landing page.
@@ -62,14 +63,12 @@ const ProfileSection: React.FC = () => {
               
               {/* Main photo container */}
               <div className="relative bg-white dark:bg-slate-800 rounded-3xl p-4 shadow-2xl">
-                <div className="aspect-square rounded-2xl bg-gradient-to-br from-teal-100 to-cyan-100 dark:from-teal-900 dark:to-cyan-900 flex items-center justify-center overflow-hidden">
-                  {/* Placeholder for actual photo */}
-                  <div className="text-center">
-                    <div className="text-8xl mb-4">🏃‍♀️</div>
-                    <p className="text-teal-600 dark:text-teal-300 font-medium">
-                      {t('profilePhotoPlaceholder', 'Foto de Gonorte')}
-                    </p>
-                  </div>
+                <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-teal-100 to-cyan-100 dark:from-teal-900 dark:to-cyan-900 max-w-sm w-full min-h-[500px] mx-auto flex items-center justify-center">
+                  <img
+                    src={perfilImg}
+                    alt={t('profilePhotoAlt', 'Foto de Gonorte')}
+                    className="w-full h-full object-contain rounded-2xl shadow-lg"
+                  />
                 </div>
               </div>
 
