@@ -4,6 +4,7 @@
 
 body {
   font-family: theme("fontFamily.sans");
+  overflow-x: hidden; /* Prevent horizontal overflow */
 }
 
 @layer utilities {
