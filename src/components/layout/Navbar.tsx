@@ -18,7 +18,7 @@ import Logo from '../ui/Logo'; // Import the new Logo component
  * @returns {JSX.Element} The rendered Navbar component.
  */
 const Navbar: React.FC = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -30,6 +30,23 @@ const Navbar: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      // Disable body scroll when mobile menu is open
+      document.body.style.overflow = 'hidden';
+      // Close menu on scroll
+      const handleScrollOnMenuOpen = () => setIsMobileMenuOpen(false);
+      window.addEventListener('scroll', handleScrollOnMenuOpen);
+
+      return () => {
+        document.body.style.overflow = ''; // Re-enable scroll
+        window.removeEventListener('scroll', handleScrollOnMenuOpen);
+      };
+    } else {
+      document.body.style.overflow = ''; // Ensure scroll is re-enabled
+    }
+  }, [isMobileMenuOpen]);
 
   /**
    * Generates the CSS classes for NavLink components based on their active state.
@@ -53,7 +70,7 @@ const Navbar: React.FC = () => {
 
   return (
     <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 overflow-x-hidden ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         isScrolled
           ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg border-b border-gray-200 dark:border-gray-700'
           : 'bg-transparent'
@@ -102,7 +119,7 @@ const Navbar: React.FC = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <div className="lg:hidden flex items-center">
+            <div className="lg:hidden flex items-center space-x-2">
               <ThemeToggle />
               <LanguageSelector />
               <button
@@ -141,13 +158,32 @@ const Navbar: React.FC = () => {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="lg:hidden fixed inset-0 top-16 z-40 bg-white dark:bg-gray-900 shadow-2xl border-t border-gray-200 dark:border-gray-700"
+              className="lg:hidden fixed inset-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md"
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
+              animate={{ opacity: 1, height: '100vh' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="flex flex-col py-6 px-4 space-y-4">
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="absolute top-3.5 right-4 p-2 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-teal-50 dark:hover:bg-teal-900/20 transition-colors"
+                aria-label="Close menu"
+              >
+                <svg
+                  className="w-6 h-6"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+              <div className="flex flex-col pt-24 px-4 space-y-4">
                 <NavLink 
                   to="/" 
                   className={({ isActive }) => `${mobileNavLinkClasses({ isActive })} text-lg py-4`}
