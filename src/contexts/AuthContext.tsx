@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import {
   onAuthStateChanged,
-  User as FirebaseUser,
+  type User as FirebaseUser,
   GoogleAuthProvider,
   signInWithPopup,
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase/config'; // Assuming db is your Firestore instance
 import type { AppUser, UserProfile, AuthContextType } from '../types/user';
 
@@ -33,7 +33,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             const appUser: AppUser = {
               ...firebaseUser, // from auth
               ...userProfileData, // from firestore (includes role, etc.)
-              // Ensure critical fields like uid and email are consistently from firebaseUser or handled
               uid: firebaseUser.uid,
               email: firebaseUser.email,
               displayName: firebaseUser.displayName || userProfileData.displayName,
@@ -43,14 +42,33 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             setIsAuthenticated(true);
           } else {
             // No profile found in Firestore for this authenticated user.
-            // This is an edge case to handle: maybe logout the user, or prompt to create profile.
-            // For now, treat as not fully authenticated in app terms.
-            console.error("User profile not found in Firestore for UID:", firebaseUser.uid);
-            setCurrentUser(firebaseUser as AppUser); // Set basic Firebase user
-            setUserRole(null); // Or a default/guest role
-            setIsAuthenticated(false); // Or true, depending on how you want to handle this
-            // It might be better to sign out the user if a profile is strictly required
-            await signOut(auth);
+            // Creamos el perfil automáticamente con rol 'client'
+            const newProfile: UserProfile = {
+              uid: firebaseUser.uid,
+              email: firebaseUser.email,
+              displayName: firebaseUser.displayName || '',
+              role: 'client', // Rol por defecto
+              // Agrega aquí otros campos requeridos por tu UserProfile si los hay
+            };
+            try {
+              await setDoc(userDocRef, newProfile);
+              const appUser: AppUser = {
+                ...firebaseUser,
+                ...newProfile,
+                uid: firebaseUser.uid,
+                email: firebaseUser.email,
+                displayName: firebaseUser.displayName || '',
+              };
+              setCurrentUser(appUser);
+              setUserRole(newProfile.role);
+              setIsAuthenticated(true);
+            } catch (creationError) {
+              console.error('Error creating user profile:', creationError);
+              setCurrentUser(firebaseUser as AppUser);
+              setUserRole(null);
+              setIsAuthenticated(false);
+              await signOut(auth);
+            }
           }
         } catch (error) {
           console.error("Error fetching user profile:", error);

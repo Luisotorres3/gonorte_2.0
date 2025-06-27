@@ -6,6 +6,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { db, storage } from '../firebase/config'; // storage import added
 import type { UserProfile as UserProfileType } from '../types/user'; // Renamed to avoid conflict
 import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 import { FaDownload, FaFileUpload, FaExternalLinkAlt } from 'react-icons/fa'; // Icons for file display
 
 const UserProfilePage: React.FC = () => {
@@ -58,7 +59,7 @@ const UserProfilePage: React.FC = () => {
           if (data.role === 'client') {
             setWeight(data.weight?.toString() || '');
             setBodyFatPercentage(data.bodyFatPercentage?.toString() || '');
-            setClientNotes(data.clientNotes || '');
+            setClientNotes(data.notes || '');
             setAssignedPlanId(data.assignedPlanId || '');
           }
         } else {
@@ -93,7 +94,7 @@ const UserProfilePage: React.FC = () => {
         if (profileData.role === 'client') {
             setWeight(profileData.weight?.toString() || '');
             setBodyFatPercentage(profileData.bodyFatPercentage?.toString() || '');
-            setClientNotes(profileData.clientNotes || '');
+            setClientNotes(profileData.notes || '');
             setAssignedPlanId(profileData.assignedPlanId || '');
         }
     }
@@ -148,7 +149,15 @@ const UserProfilePage: React.FC = () => {
       // Update local profileData state to reflect the new file
       setProfileData(prev => prev ? ({
         ...prev,
-        coachUploadedFiles: [...(prev.coachUploadedFiles || []), fileMetadata]
+        coachUploadedFiles: [
+          ...(prev.coachUploadedFiles || []),
+          {
+            ...fileMetadata,
+            uploadedAt: (fileMetadata.uploadedAt instanceof Timestamp)
+              ? fileMetadata.uploadedAt.toDate()
+              : fileMetadata.uploadedAt,
+          }
+        ]
       }) : null);
 
       setCoachFile(null);
@@ -178,7 +187,7 @@ const UserProfilePage: React.FC = () => {
     if (profileData?.role === 'client') {
       updatedData.weight = weight !== '' ? parseFloat(weight as string) : null;
       updatedData.bodyFatPercentage = bodyFatPercentage !== '' ? parseFloat(bodyFatPercentage as string) : null;
-      updatedData.clientNotes = clientNotes || null;
+      updatedData.notes = clientNotes || null;
       // Only allow admin/coach to change assignedPlanId for a client
       if ((userRole === 'admin' || userRole === 'coach') && profileData.role === 'client') {
         updatedData.assignedPlanId = assignedPlanId.trim() || null;
@@ -349,25 +358,25 @@ const UserProfilePage: React.FC = () => {
         ) : (
           // READ-ONLY VIEW
           <div className="space-y-4">
-            <InfoRow label={t('profile.display.displayName', 'Full Name:')} value={profileData.displayName} />
-            <InfoRow label={t('profile.display.email', 'Email:')} value={profileData.email} />
-            <InfoRow label={t('profile.display.phone', 'Phone:')} value={profileData.phoneNumber} />
-            <InfoRow label={t('profile.display.role', 'Role:')} value={profileData.role ? t(`roles.${profileData.role}`, profileData.role) : undefined} />
+            <InfoRow label={t('profile.display.displayName', 'Full Name:')} value={profileData.displayName} t={t} />
+            <InfoRow label={t('profile.display.email', 'Email:')} value={profileData.email} t={t} />
+            <InfoRow label={t('profile.display.phone', 'Phone:')} value={profileData.phoneNumber} t={t} />
+            <InfoRow label={t('profile.display.role', 'Role:')} value={profileData.role ? t(`roles.${profileData.role}`, profileData.role) : undefined} t={t} />
             {profileData.registrationDate && (
-                <InfoRow label={t('profile.display.registrationDate', 'Member Since:')} value={ (profileData.registrationDate as Timestamp)?.toDate().toLocaleDateString() || 'N/A'} />
+                <InfoRow label={t('profile.display.registrationDate', 'Member Since:')} value={profileData.registrationDate instanceof Date ? profileData.registrationDate.toLocaleDateString() : ''} t={t} />
             )}
             {profileData.lastLoginDate && (
-                 <InfoRow label={t('profile.display.lastLogin', 'Last Login:')} value={(profileData.lastLoginDate as Timestamp)?.toDate().toLocaleString() || 'N/A'} />
+                 <InfoRow label={t('profile.display.lastLogin', 'Last Login:')} value={profileData.lastLoginDate instanceof Date ? profileData.lastLoginDate.toLocaleString() : ''} t={t} />
             )}
 
             {profileData.role === 'client' && (
               <>
                 <hr className="my-6 border-gray-200 dark:border-gray-700" />
                 <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-3">{t('profile.clientDataTitle', 'Client Data')}</h2>
-                <InfoRow label={t('profile.display.weight', 'Weight (kg):')} value={profileData.weight?.toString()} />
-                <InfoRow label={t('profile.display.bodyFat', 'Body Fat (%):')} value={profileData.bodyFatPercentage?.toString()} />
-                <InfoRow label={t('profile.display.clientNotes', 'Client Notes:')} value={profileData.clientNotes} isBlock={true} />
-                <InfoRow label={t('profile.display.assignedPlanId', 'Assigned Plan ID:')} value={profileData.assignedPlanId} />
+                <InfoRow label={t('profile.display.weight', 'Weight (kg):')} value={profileData.weight?.toString()} t={t} />
+                <InfoRow label={t('profile.display.bodyFat', 'Body Fat (%):')} value={profileData.bodyFatPercentage?.toString()} t={t} />
+                <InfoRow label={t('profile.display.clientNotes', 'Client Notes:')} value={profileData.notes} isBlock={true} t={t} />
+                <InfoRow label={t('profile.display.assignedPlanId', 'Assigned Plan ID:')} value={profileData.assignedPlanId} t={t} />
                 {/* TODO: Link to actual plan details page if planId exists */}
                 {/* TODO: Training History, Progress Photos will be added here */}
               </>
@@ -388,7 +397,7 @@ const UserProfilePage: React.FC = () => {
                         <p className="text-sm font-medium text-gray-900 dark:text-white">{file.fileName}</p>
                         {file.description && <p className="text-xs text-gray-500 dark:text-gray-400">{file.description}</p>}
                         <p className="text-xs text-gray-500 dark:text-gray-400">
-                          {t('profile.coachUploadedFiles.uploadedAt', 'Uploaded:')} {(file.uploadedAt as unknown as Timestamp)?.toDate().toLocaleDateString()}
+                          {t('profile.coachUploadedFiles.uploadedAt', 'Uploaded:')} {file.uploadedAt instanceof Date ? file.uploadedAt.toLocaleDateString() : ''}
                           {/* TODO: Display who uploaded it if needed, by fetching uploader's name using file.uploadedBy UID */}
                         </p>
                       </div>
@@ -465,9 +474,9 @@ const UserProfilePage: React.FC = () => {
   );
 };
 
-const InfoRow: React.FC<{ label: string; value?: string | null; isBlock?: boolean }> = ({ label, value, isBlock }) => {
+const InfoRow: React.FC<{ label: string; value?: string | null; isBlock?: boolean; t: TFunction }> = ({ label, value, isBlock, t }) => {
   if (value === undefined || value === null || value.trim() === '') {
-    value = t('profile.notSet', 'Not set');
+    value = t('profile.notSet', { defaultValue: 'Not set' });
   }
   return (
     <div className={`py-2 ${isBlock ? '' : 'sm:grid sm:grid-cols-3 sm:gap-4 items-center'}`}>

@@ -101,7 +101,7 @@ const ClientDashboardPage: React.FC = () => {
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
       <div className="bg-white dark:bg-gray-800 shadow-xl rounded-lg p-6 md:p-8">
         <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">
-          {t('dashboard.client.title', `Welcome, ${currentUser.displayName || 'Client'}!`)}
+          {t('dashboard.client.title', { name: (currentUser?.displayName || currentUser?.email || 'Cliente') })}
         </h1>
 
         {/* Cards Section */}

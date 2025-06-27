@@ -143,9 +143,7 @@ const Navbar: React.FC = () => {
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.2 }}
             >
-              <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
-                <Logo textClassName="h-10 lg:h-12 w-auto" />
-              </Link>
+              <Logo textClassName="h-10 lg:h-12 w-auto" />
             </motion.div>
           </div>
 
