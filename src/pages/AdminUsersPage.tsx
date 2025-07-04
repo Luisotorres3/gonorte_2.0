@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
-import { Link } from 'react-router-dom';
+import { collection, getDocs, query, orderBy, addDoc, serverTimestamp, setDoc, doc } from 'firebase/firestore';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase/config';
 import type { UserProfile } from '../types/user';
 import { useTranslation } from 'react-i18next';
 import { FaSearch, FaEdit, FaTrashAlt, FaUserPlus } from 'react-icons/fa';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { auth, app } from '../firebase/config';
+import { initializeApp, getApps } from 'firebase/app';
 
 
 const AdminUsersPage: React.FC = () => {
@@ -15,6 +18,13 @@ const AdminUsersPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showAddUserModal, setShowAddUserModal] = useState(false);
+  const [newUser, setNewUser] = useState({ displayName: '', email: '', password: '', role: 'client', phoneNumber: '' });
+  const [addingUser, setAddingUser] = useState(false);
+  const [addUserError, setAddUserError] = useState<string | null>(null);
+  const navigate = useNavigate();
+  const location = useLocation();
+
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -85,6 +95,44 @@ const AdminUsersPage: React.FC = () => {
     }
   };
 
+  const handleAddUser = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setAddingUser(true);
+    setAddUserError(null);
+    try {
+      let secondaryApp;
+      if (!getApps().some(app => app.name === 'Secondary')) {
+        secondaryApp = initializeApp(app.options, 'Secondary');
+      } else {
+        secondaryApp = getApps().find(app => app.name === 'Secondary');
+      }
+      const secondaryAuth = getAuth(secondaryApp);
+      // 1. Crear usuario en Auth secundaria
+      const userCredential = await createUserWithEmailAndPassword(secondaryAuth, newUser.email, newUser.password);
+      const firebaseUser = userCredential.user;
+
+      // 2. Crear perfil en Firestore
+      await setDoc(doc(db, 'users', firebaseUser.uid), {
+        uid: firebaseUser.uid,
+        email: newUser.email,
+        displayName: newUser.displayName,
+        phoneNumber: newUser.phoneNumber,
+        role: newUser.role,
+        registrationDate: serverTimestamp(),
+      });
+
+      setShowAddUserModal(false);
+      setNewUser({ displayName: '', email: '', password: '', role: 'client', phoneNumber: '' });
+      // fetchUsers(); // Si quieres refrescar la lista
+      // Cerrar sesión secundaria
+      await secondaryAuth.signOut();
+    } catch (err: any) {
+      setAddUserError(err.message || 'Error al crear usuario');
+    } finally {
+      setAddingUser(false);
+    }
+  };
+
 
   if (isLoading) {
     return <div className="container mx-auto p-4 text-center">{t('loading', 'Loading users...')}</div>;
@@ -103,12 +151,97 @@ const AdminUsersPage: React.FC = () => {
           </h1>
           {/* Placeholder for Add User button if manual creation by admin is needed */}
           {userRole === 'admin' && (
-            <button
-                onClick={() => alert(t('adminUsers.addUserNotImplemented', 'Add user functionality not yet implemented.'))}
+            <>
+              <button
+                onClick={() => setShowAddUserModal(true)}
                 className="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-sm font-medium"
-            >
-                <FaUserPlus className="mr-2"/> {t('adminUsers.addUserButton', 'Add New User')}
-            </button>
+              >
+                <FaUserPlus className="mr-2"/> {t('adminUsers.addUserButton', 'Añadir Nuevo Usuario')}
+              </button>
+              {showAddUserModal && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
+                  <form
+                    onSubmit={handleAddUser}
+                    className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-2xl w-full max-w-md space-y-6"
+                  >
+                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Añadir Usuario</h2>
+                    <div>
+                      <label className="block text-gray-700 dark:text-gray-200 font-semibold mb-1">Nombre</label>
+                      <input
+                        type="text"
+                        placeholder="Nombre"
+                        value={newUser.displayName}
+                        onChange={e => setNewUser({ ...newUser, displayName: e.target.value })}
+                        required
+                        className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 dark:text-gray-200 font-semibold mb-1">Email</label>
+                      <input
+                        type="email"
+                        placeholder="Email"
+                        value={newUser.email}
+                        onChange={e => setNewUser({ ...newUser, email: e.target.value })}
+                        required
+                        className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 dark:text-gray-200 font-semibold mb-1">Contraseña</label>
+                      <input
+                        type="password"
+                        placeholder="Contraseña"
+                        value={newUser.password}
+                        onChange={e => setNewUser({ ...newUser, password: e.target.value })}
+                        required
+                        minLength={6}
+                        className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 dark:text-gray-200 font-semibold mb-1">Teléfono</label>
+                      <input
+                        type="tel"
+                        placeholder="Teléfono"
+                        value={newUser.phoneNumber}
+                        onChange={e => setNewUser({ ...newUser, phoneNumber: e.target.value })}
+                        className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-gray-700 dark:text-gray-200 font-semibold mb-1">Rol</label>
+                      <select
+                        value={newUser.role}
+                        onChange={e => setNewUser({ ...newUser, role: e.target.value as any })}
+                        className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
+                      >
+                        <option value="client">Cliente</option>
+                        <option value="coach">Coach</option>
+                        <option value="admin">Admin</option>
+                      </select>
+                    </div>
+                    {addUserError && <div className="text-red-600 font-semibold">{addUserError}</div>}
+                    <div className="flex gap-2 justify-end">
+                      <button
+                        type="button"
+                        onClick={() => setShowAddUserModal(false)}
+                        className="px-4 py-2 rounded bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold"
+                      >
+                        Cancelar
+                      </button>
+                      <button
+                        type="submit"
+                        disabled={addingUser}
+                        className="px-4 py-2 rounded bg-green-600 text-white font-semibold hover:bg-green-700 transition"
+                      >
+                        {addingUser ? 'Creando...' : 'Crear'}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              )}
+            </>
           )}
         </div>
 
@@ -165,9 +298,13 @@ const AdminUsersPage: React.FC = () => {
                     {user.registrationDate ? (user.registrationDate as any).toDate().toLocaleDateString() : '-'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                    <Link to={`/profile/${user.uid}`} className="text-teal-600 hover:text-teal-800 dark:text-teal-400 dark:hover:text-teal-300" title={t('adminUsers.editTooltip', 'Edit User')}>
+                    <button
+                      onClick={() => navigate(`/profile/${user.uid}?edit=1`, { state: { from: '/admin/users' } })}
+                      className="text-teal-600 hover:text-teal-800 dark:text-teal-400 dark:hover:text-teal-300 mr-2"
+                      title={t('adminUsers.editTooltip', 'Edit User')}
+                    >
                       <FaEdit className="inline h-5 w-5" />
-                    </Link>
+                    </button>
                     {userRole === 'admin' && user.uid !== currentUser?.uid && ( // Admin can delete, but not themselves
                       <button onClick={() => handleDeleteUser(user.uid)} className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300" title={t('adminUsers.deleteTooltip', 'Delete User')}>
                         <FaTrashAlt className="inline h-5 w-5" />

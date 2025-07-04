@@ -22,6 +22,8 @@ import NotFoundPage from '../pages/NotFoundPage';
 // Auth Pages
 import LoginPage from '../pages/LoginPage';
 import AdminLoginPage from '../pages/AdminLoginPage';
+import RegistrationPage from '../pages/RegistrationPage';
+import ForgotPasswordPage from '../pages/ForgotPasswordPage'; // Import the new page
 
 // User Specific Pages
 import UserProfilePage from '../pages/UserProfilePage';
@@ -44,6 +46,14 @@ const routes: RouteObject[] = [
   {
     path: '/admin-login',
     element: <AdminLoginPage />, // Admin/Coach login page
+  },
+  {
+    path: '/register',
+    element: <RegistrationPage />, // Registration page
+  },
+  {
+    path: '/forgot-password',
+    element: <ForgotPasswordPage />, // Forgot password page
   },
   {
     path: '/',
