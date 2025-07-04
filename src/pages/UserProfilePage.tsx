@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { doc, getDoc, updateDoc, Timestamp, arrayUnion } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useAuth } from '../contexts/AuthContext';
@@ -14,6 +14,7 @@ const UserProfilePage: React.FC = () => {
   const { userId } = useParams<{ userId: string }>();
   const { currentUser, userRole, loading: authLoading } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [profileData, setProfileData] = useState<UserProfileType | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -75,6 +76,11 @@ const UserProfilePage: React.FC = () => {
 
     fetchUserProfile();
   }, [userId, t]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get('edit') === '1') setIsEditing(true);
+  }, [location.search]);
 
   const canEditProfile = () => {
     if (authLoading || !currentUser || !profileData) return false;
@@ -246,6 +252,12 @@ const UserProfilePage: React.FC = () => {
         </div>
 
         {error && <div className="mb-4 p-3 text-sm text-red-700 bg-red-100 dark:bg-red-900/30 dark:text-red-300 rounded-lg">{error}</div>}
+
+        {location.state?.from && (
+          <button onClick={() => navigate(location.state.from)} className="mb-4 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded">
+            Volver atrás
+          </button>
+        )}
 
         {isEditing ? (
           <form onSubmit={handleSubmit} className="space-y-6">

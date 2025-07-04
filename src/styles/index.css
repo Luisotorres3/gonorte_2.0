@@ -9,43 +9,79 @@ body {
 @layer utilities {
   /* Text Utilities */
   .text-default {
-    @apply text-text-default dark:text-text-default-dark;
+    @apply text-text-default;
+  }
+  .dark .text-default {
+    @apply text-text-default-dark;
   }
   .text-secondary {
-    @apply text-secondary dark:text-secondary-dark;
+    @apply text-secondary;
+  }
+  .dark .text-secondary {
+    @apply text-secondary-dark;
   }
   .text-accent {
-    @apply text-accent dark:text-accent-dark;
+    color: #06b6d4;
+  }
+  .dark .text-accent {
+    color: #0891b2;
   }
   .text-muted {
-    @apply text-text-muted dark:text-text-muted-dark;
+    @apply text-text-muted;
+  }
+  .dark .text-muted {
+    @apply text-text-muted-dark;
   }
   .text-success {
-    @apply text-semantic-success dark:text-semantic-success-dark;
+    @apply text-semantic-success;
+  }
+  .dark .text-success {
+    @apply text-semantic-success-dark;
   }
   .text-warning {
-    @apply text-semantic-warning dark:text-semantic-warning-dark;
+    @apply text-semantic-warning;
+  }
+  .dark .text-warning {
+    @apply text-semantic-warning-dark;
   }
   .text-error {
-    @apply text-semantic-error dark:text-semantic-error-dark;
+    @apply text-semantic-error;
+  }
+  .dark .text-error {
+    @apply text-semantic-error-dark;
   }
 
   /* Background Utilities */
   .bg-background {
-    @apply bg-neutral-background dark:bg-neutral-background-dark;
+    @apply bg-neutral-background;
+  }
+  .dark .bg-background {
+    @apply bg-neutral-background-dark;
   }
   .bg-surface {
-    @apply bg-neutral-surface dark:bg-neutral-surface-dark;
+    @apply bg-neutral-surface;
+  }
+  .dark .bg-surface {
+    @apply bg-neutral-surface-dark;
   }
   .bg-secondary {
-    @apply bg-secondary dark:bg-secondary-dark;
+    @apply bg-secondary;
+  }
+  .dark .bg-secondary {
+    @apply bg-secondary-dark;
   }
   .bg-accent {
-    @apply bg-accent dark:bg-accent-dark;
+    background-color: #06b6d4;
+  }
+  .dark .bg-accent {
+    background-color: #0891b2;
   }
 
   /* Border Utilities */
   .border-default {
-    @apply border-neutral-border dark:border-neutral-border-dark;
+    @apply border-neutral-border;
+  }
+  .dark .border-default {
+    @apply border-neutral-border-dark;
   }
 }
