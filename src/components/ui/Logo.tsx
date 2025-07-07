@@ -10,15 +10,38 @@ import { useTranslation } from 'react-i18next';
 /**
  * The Gonorte Logo text.
  * @param {{ className?: string }} props - Component props.
- * @param {string} [props.className] - Optional CSS classes for the span element.
+ * @param {string} [props.className] - Optional CSS classes for the SVG element.
  */
 const GonorteLogoText: React.FC<{ className?: string }> = ({ className }) => (
-  <span
-    style={{ fontSize: '2rem', fontWeight: 'bold' }}
+  <svg
+    viewBox="0 0 200 50"
+    xmlns="http://www.w3.org/2000/svg"
     className={`text-primary ${className}`}
+    style={{ height: '2rem' }} // Adjusted for better visual consistency with previous font size
   >
-    Gonorte
-  </span>
+    {/* Modern, sporty lines and shapes */}
+    <line x1="10" y1="45" x2="190" y2="45" stroke="currentColor" strokeWidth="2" />
+    <path d="M 15 10 Q 20 5, 25 10 T 35 10" stroke="currentColor" strokeWidth="1.5" fill="none" />
+    <path d="M 165 10 Q 170 5, 175 10 T 185 10" stroke="currentColor" strokeWidth="1.5" fill="none" />
+
+    {/* Subtle gym element - dumbbell shape integrated into text styling or as a small icon */}
+    {/* Example: Small dumbbell icon near the text. Position and size need careful tuning. */}
+    <circle cx="30" cy="25" r="3" fill="currentColor" />
+    <rect x="32" y="23.5" width="8" height="3" fill="currentColor" />
+    <circle cx="42" cy="25" r="3" fill="currentColor" />
+
+    <text
+      x="50%"
+      y="30"
+      fontFamily="sans-serif"
+      fontSize="24" // Adjust size as needed within the SVG coordinate system
+      fontWeight="bold"
+      textAnchor="middle"
+      fill="currentColor"
+    >
+      Gonorte
+    </text>
+  </svg>
 );
 
 /**
