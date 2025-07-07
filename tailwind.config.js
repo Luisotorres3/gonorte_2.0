@@ -5,67 +5,69 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Brand Colors - Updated to Teal/Blue-Green theme
-        "gonorte-teal": "#0D9488",
-        "brand-black": "#000000",
+        // Brand Colors - Updated to Aqua Green theme
+        "brand-aqua-light": "#A0EADE", // Light Aqua Green
+        "brand-aqua-DEFAULT": "#6AD3B1", // Medium Aqua Green
+        "brand-aqua-dark": "#4F9E81", // Dark Aqua Green
         "brand-white": "#FFFFFF",
+        "brand-gray-dark": "#333333", // Dark Gray for text
 
-        // Primary Colors (updated to Teal/Blue-Green theme)
+        // Primary Colors (updated to Aqua Green theme)
         primary: {
-          light: "#2DD4BF", // Light teal
-          dark: "#0F766E", // Dark teal
-          DEFAULT: "#0D9488",
+          light: "#A0EADE", // Light Aqua Green
+          dark: "#4F9E81", // Dark Aqua Green
+          DEFAULT: "#6AD3B1", // Medium Aqua Green
         },
         // Secondary Colors
         secondary: {
-          light: "#14B8A6", // Teal
-          dark: "#0F766E",
-          DEFAULT: "#14B8A6",
+          light: "#88DCCC", // Lighter variant of Aqua Green
+          dark: "#5FBBA0", // Darker variant of Aqua Green
+          DEFAULT: "#6AD3B1", // Medium Aqua Green (can be same as primary or a close shade)
         },
         // Accent Colors
         accent: {
-          light: "#06B6D4", // Cyan
-          dark: "#0891B2",
-          DEFAULT: "#06B6D4",
+          light: "#A0EADE", // Light Aqua Green (using primary light for accent)
+          dark: "#4F9E81", // Dark Aqua Green (using primary dark for accent)
+          DEFAULT: "#6AD3B1", // Medium Aqua Green (using primary default for accent)
         },
         // Neutral Colors
         neutral: {
           background: {
-            light: "#F8FAFC", // Very light blue-gray
-            dark: "#0F172A", // Very dark blue-gray
-            DEFAULT: "#F8FAFC",
+            light: "#FFFFFF", // White background
+            dark: "#F0F0F0", // Light gray for dark mode background (adjust if a darker theme is preferred)
+            DEFAULT: "#FFFFFF",
           },
           surface: {
             light: "#FFFFFF", // White
-            dark: "#1E293B", // Dark blue-gray
+            dark: "#EAEAEA", // Slightly darker gray for dark mode surfaces
             DEFAULT: "#FFFFFF",
           },
           border: {
-            light: "#E2E8F0", // Light blue-gray
-            dark: "#334155", // Dark blue-gray
-            DEFAULT: "#E2E8F0",
+            light: "#D1D5DB", // Light gray for borders
+            dark: "#A1A1AA", // Medium gray for borders in dark mode
+            DEFAULT: "#D1D5DB",
           },
         },
         // Text Colors
         text: {
           default: {
-            light: "#0F172A", // Dark blue-gray
-            dark: "#F8FAFC", // Very light blue-gray
-            DEFAULT: "#0F172A",
+            light: "#333333", // Dark Gray for text on light backgrounds
+            dark: "#FFFFFF", // White text on dark backgrounds
+            DEFAULT: "#333333",
           },
           muted: {
-            light: "#64748B", // Medium blue-gray
-            dark: "#94A3B8", // Light blue-gray
-            DEFAULT: "#64748B",
+            light: "#6B7280", // Medium Gray
+            dark: "#D1D5DB", // Light Gray for muted text on dark backgrounds
+            DEFAULT: "#6B7280",
           },
           primary: {
-            // Updated to Teal theme
-            light: "#2DD4BF", // Light teal
-            dark: "#0F766E", // Dark teal
-            DEFAULT: "#0D9488",
+            // Updated to Aqua Green theme
+            light: "#4F9E81", // Dark Aqua Green for text (ensure contrast)
+            dark: "#A0EADE", // Light Aqua Green for text (ensure contrast)
+            DEFAULT: "#4F9E81",
           },
         },
-        // Semantic Colors
+        // Semantic Colors - Keep these distinct for their purpose
         semantic: {
           success: {
             light: "#10B981", // Green
