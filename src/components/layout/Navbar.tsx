@@ -68,14 +68,14 @@ const Navbar: React.FC = () => {
   const navLinkClasses = ({ isActive }: { isActive: boolean }) =>
     `px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 relative overflow-hidden ${
       isActive
-        ? 'text-text-default-dark dark:text-text-default-light bg-primary-DEFAULT dark:bg-primary-dark shadow-lg'
+        ? 'text-neutral-900 dark:text-text-default-light bg-primary-dark dark:bg-primary-dark shadow-lg'
         : 'text-text-default-light dark:text-text-default-dark hover:text-primary-dark dark:hover:text-primary-light hover:bg-primary-light dark:hover:bg-primary-hover'
     }`;
 
   const mobileNavLinkClasses = ({ isActive }: { isActive: boolean }) =>
     `block px-3 py-3 text-base font-medium transition-colors rounded-lg ${
       isActive
-        ? 'text-text-default-dark dark:text-text-default-light bg-primary-DEFAULT dark:bg-primary-dark'
+        ? 'text-neutral-900 dark:text-text-default-light bg-primary-dark dark:bg-primary-dark'
         : 'text-text-default-light dark:text-text-default-dark hover:text-primary-dark dark:hover:text-primary-light hover:bg-primary-light dark:hover:bg-primary-hover'
     }`;
 
