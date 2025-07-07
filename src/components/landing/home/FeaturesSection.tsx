@@ -71,7 +71,7 @@ const FeaturesSection: React.FC = () => {
   };
 
   return (
-    <section className="w-full bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 py-20 md:py-32">
+    <section className="w-full bg-background dark:bg-neutral-background-dark py-20 md:py-32">
       <div className="container mx-auto px-space-md text-center">
         <motion.div
           className="mb-16"
@@ -98,7 +98,7 @@ const FeaturesSection: React.FC = () => {
           {features.map((feature, index) => (
             <motion.div
               key={feature.id}
-              className="group relative bg-white dark:bg-slate-700 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-slate-600"
+              className="group relative bg-surface dark:bg-neutral-surface-dark p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-300 dark:border-slate-600"
               variants={itemVariants}
             >
               {/* Background gradient on hover */}

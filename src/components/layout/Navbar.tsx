@@ -66,7 +66,7 @@ const Navbar: React.FC = () => {
   };
 
   const navLinkClasses = ({ isActive }: { isActive: boolean }) =>
-    `px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 relative overflow-hidden ${
+    `px-3 py-2 rounded-lg text-sm font-medium transition-all duration-700 relative overflow-hidden ${
       isActive
         ? 'text-white bg-gradient-to-r from-teal-500 to-cyan-500 shadow-lg'
         : 'text-gray-700 dark:text-gray-200 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20'
@@ -79,8 +79,8 @@ const Navbar: React.FC = () => {
         : 'text-gray-700 dark:text-gray-200 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20'
     }`;
 
-  const authButtonClasses = "px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 text-gray-700 dark:text-gray-200 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20";
-  const mobileAuthButtonClasses = "block w-full text-left px-3 py-3 text-base font-medium transition-colors rounded-lg text-gray-700 dark:text-gray-200 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20";
+  const authButtonClasses = "px-3 py-2 rounded-lg text-sm font-medium transition-all duration-700 text-gray-700 dark:text-gray-200 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20";
+  const mobileAuthButtonClasses = "block w-full text-left px-3 py-3 text-base font-medium transition-colors rounded-lg text-gray-700 dark:text-gray-200 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20 duration-700";
 
 
   const renderAuthControls = (isMobile: boolean) => {
@@ -126,10 +126,10 @@ const Navbar: React.FC = () => {
 
   return (
     <motion.nav
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-700 ${
         isScrolled
-          ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg border-b border-gray-200 dark:border-gray-700'
-          : 'bg-transparent'
+          ? 'bg-white/95 dark:bg-gray-950/95 backdrop-blur-md shadow-lg border-b border-gray-200 dark:border-gray-700'
+          : 'bg-white/60 dark:bg-gray-950/60'
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -185,7 +185,7 @@ const Navbar: React.FC = () => {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="lg:hidden fixed inset-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md pt-16" // Added pt-16 to avoid overlap with fixed navbar
+              className="lg:hidden fixed inset-0 z-50 bg-white/95 dark:bg-gray-950/95 backdrop-blur-md pt-16" // Added pt-16 to avoid overlap with fixed navbar
               initial={{ opacity: 0, y: -20 }} // Changed initial animation
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }} // Changed exit animation

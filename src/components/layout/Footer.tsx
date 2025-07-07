@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
   const sectionTitleClasses = "text-text-default dark:text-text-default-dark font-semibold mb-space-sm text-base";
 
   return (
-    <footer className="bg-surface text-text-muted pt-space-lg pb-space-md mt-12 border-t border-neutral-border dark:border-neutral-border-dark shadow-lg">
+    <footer className="bg-surface dark:bg-gray-950 text-text-muted pt-space-lg pb-space-md border-t border-neutral-border dark:border-neutral-border-dark shadow-lg transition-colors duration-700">
       <div className="container mx-auto px-space-md">
         {/* Columns Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-space-lg mb-space-lg">

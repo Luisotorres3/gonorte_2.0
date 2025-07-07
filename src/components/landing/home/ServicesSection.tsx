@@ -142,7 +142,7 @@ const ServicesSection: React.FC = () => {
   };
 
   return (
-    <section className="w-full py-20 lg:py-32 bg-white dark:bg-gray-900">
+    <section className="w-full py-20 lg:py-32 bg-surface dark:bg-neutral-surface-dark">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -186,10 +186,10 @@ const ServicesSection: React.FC = () => {
               )}
 
               {/* Service Card */}
-              <div className={`bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 ${
+              <div className={`bg-surface dark:bg-neutral-surface-dark rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border ${
                 service.popular 
                   ? 'border-teal-500 dark:border-teal-400' 
-                  : 'border-gray-100 dark:border-gray-700'
+                  : 'border-gray-300 dark:border-teal-700'
               } relative overflow-hidden h-full`}>
                 
                 {/* Background Pattern */}

@@ -88,7 +88,7 @@ const FAQSection: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-slate-800 to-teal-800 dark:from-slate-200 dark:to-teal-300 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 break-words whitespace-normal text-slate-800 dark:text-slate-200">
             {t('faqTitle', 'Preguntas Frecuentes')}
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -101,7 +101,7 @@ const FAQSection: React.FC = () => {
             {faqData.map((faq, index) => (
               <motion.div
                 key={faq.id}
-                className="bg-white dark:bg-slate-700 rounded-2xl shadow-lg border border-gray-100 dark:border-slate-600 overflow-hidden"
+                className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-300 dark:border-teal-700 overflow-hidden"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}

@@ -28,7 +28,7 @@ const MainLayout: React.FC = () => {
   return (
     <>
       <ScrollToTop /> {/* Add ScrollToTop here, it doesn't render UI so position among visual elements is flexible */}
-      <div className="flex flex-col min-h-screen bg-background text-default transition-colors duration-300">
+      <div className="flex flex-col min-h-screen bg-background text-default transition-colors duration-700">
         <Navbar />
         <main className="flex-grow pt-16 lg:pt-20"> {/* Add padding-top for fixed navbar */}
           <AnimatePresence mode="wait">

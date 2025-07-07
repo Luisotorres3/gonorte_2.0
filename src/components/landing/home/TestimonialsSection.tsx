@@ -175,7 +175,7 @@ const TestimonialsSection: React.FC = () => {
               transition={{ duration: 0.3 }}
             >
               {/* Card */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 relative overflow-hidden">
+              <div className="bg-surface dark:bg-neutral-surface-dark rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-300 dark:border-teal-700 relative overflow-hidden">
                 {/* Background Pattern */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-teal-100 to-cyan-100 dark:from-teal-900/20 dark:to-cyan-900/20 rounded-full -translate-y-16 translate-x-16 opacity-50 group-hover:opacity-70 transition-opacity duration-300" />
                 

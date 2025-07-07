@@ -34,12 +34,12 @@ export default {
         neutral: {
           background: {
             light: "#FFFFFF", // White background
-            dark: "#F0F0F0", // Light gray for dark mode background (adjust if a darker theme is preferred)
+            dark: "#18181b", // Much darker for true dark mode
             DEFAULT: "#FFFFFF",
           },
           surface: {
-            light: "#FFFFFF", // White
-            dark: "#EAEAEA", // Slightly darker gray for dark mode surfaces
+            light: "#F7FAFC", // Gris muy claro para cards y superficies
+            dark: "#23272f", // Much darker for true dark mode
             DEFAULT: "#FFFFFF",
           },
           border: {
