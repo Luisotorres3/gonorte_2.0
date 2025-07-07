@@ -186,6 +186,28 @@
     "servicesNutritionalCoachingDesc2": "Desarrollamos planes de comidas personalizados, te educamos sobre la importancia de los macronutrientes y micronutrientes, y te ofrecemos el apoyo continuo para que la nutrición se convierta en una parte integral y placentera de tu estilo de vida saludable.",
     "aboutTitle": "Acerca de Gonorte",
     "aboutTextPlaceholder": "Aquí irá una breve introducción sobre Gonorte, su filosofía de entrenamiento y su pasión por ayudar a otros a alcanzar sus metas de fitness. Este contenido se personalizará para reflejar la identidad y experiencia del entrenador.",
-    "contactTextPlaceholder": "¿Listo para empezar tu transformación? Envíame un mensaje o encuéntrame en redes sociales."
+    "contactTextPlaceholder": "¿Listo para empezar tu transformación? Envíame un mensaje o encuéntrame en redes sociales.",
+    "whatICanDoForYou": {
+      "title": "¿Qué puedo hacer por ti?",
+      "services": {
+        "personalizedTraining": {
+          "title": "Entrenamiento personalizado",
+          "description": "Planes de ejercicio diseñados específicamente para tus metas, nivel de condición física y preferencias."
+        },
+        "habitImprovement": {
+          "title": "Mejora de hábitos y rutinas",
+          "description": "Asesoramiento para construir hábitos saludables y rutinas sostenibles que mejoren tu calidad de vida."
+        },
+        "biomechanicsAnalysis": {
+          "title": "Análisis de biomecánica y técnica",
+          "description": "Evaluación detallada de tus movimientos para optimizar la técnica, prevenir lesiones y mejorar el rendimiento."
+        },
+        "progressiveTracking": {
+          "title": "Seguimiento progresivo y motivación",
+          "description": "Acompañamiento constante, ajustes de plan basados en tu progreso y la motivación que necesitas para no rendirte."
+        },
+        "contactButton": "Contactar"
+      }
+    }
   }
 } 

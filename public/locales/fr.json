@@ -31,5 +31,27 @@
   "gonorteTestimonial3Details": "Conseil Nutritionnel",
   "contactTitle": "Contactez-moi",
   "contactTextPlaceholder": "Prêt à commencer votre transformation ? Envoyez-moi un message ou retrouvez-moi sur les réseaux sociaux.",
-  "contactCTA": "Envoyer un Message"
+  "contactCTA": "Envoyer un Message",
+  "whatICanDoForYou": {
+    "title": "Que puis-je faire pour vous ?",
+    "services": {
+      "personalizedTraining": {
+        "title": "Entraînement personnalisé",
+        "description": "Plans d'exercices conçus spécifiquement pour vos objectifs, votre niveau de forme physique et vos préférences."
+      },
+      "habitImprovement": {
+        "title": "Amélioration des habitudes et routines",
+        "description": "Conseils pour construire des habitudes saines et des routines durables qui améliorent votre qualité de vie."
+      },
+      "biomechanicsAnalysis": {
+        "title": "Analyse de la biomécanique et technique",
+        "description": "Évaluation détaillée de vos mouvements pour optimiser la technique, prévenir les blessures et améliorer les performances."
+      },
+      "progressiveTracking": {
+        "title": "Suivi progressif et motivation",
+        "description": "Accompagnement constant, ajustements du plan en fonction de vos progrès et la motivation dont vous avez besoin pour ne pas abandonner."
+      },
+      "contactButton": "Contacter"
+    }
+  }
 }

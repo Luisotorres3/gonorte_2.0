@@ -12,6 +12,7 @@ import FeaturesSection from '../components/landing/home/FeaturesSection';
 import StatsSection from '../components/landing/home/StatsSection';
 import ProfileSection from '../components/landing/home/ProfileSection';
 import ServicesSection from '../components/landing/home/ServicesSection';
+import WhatICanDoForYouSection from '../components/landing/home/WhatICanDoForYouSection'; // Added import
 import TestimonialsSection from '../components/landing/home/TestimonialsSection';
 import FAQSection from '../components/landing/home/FAQSection';
 import ContactSection from '../components/landing/home/ContactSection';
@@ -30,6 +31,7 @@ const HomePage: React.FC = () => {
       <StatsSection />
       <ProfileSection />
       <ServicesSection />
+      <WhatICanDoForYouSection /> {/* Added new section */}
       <TestimonialsSection />
       <FAQSection />
       <ContactSection />
