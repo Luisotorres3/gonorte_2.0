@@ -4,48 +4,66 @@
 
 body {
   font-family: theme("fontFamily.sans");
+  @apply bg-neutral-background-light text-text-default-light;
+}
+
+.dark body {
+  @apply bg-neutral-background-dark text-text-default-dark;
 }
 
 @layer utilities {
   /* Text Utilities */
   .text-default {
-    @apply text-text-default-light; /* Default to light mode text color */
+    @apply text-text-default-light;
   }
   .dark .text-default {
-    @apply text-text-default-dark; /* Dark mode text color */
+    @apply text-text-default-dark;
   }
-  .text-primary { /* Renamed from text-secondary to text-primary to match theme */
-    @apply text-primary-DEFAULT;
+
+  .text-primary {
+    @apply text-text-primary-light;
   }
-  .dark .text-primary { /* Renamed from text-secondary to text-primary to match theme */
-    @apply text-primary-dark; /* Ensure this uses a contrast-safe color from the new palette */
+  .dark .text-primary {
+    @apply text-text-primary-dark;
   }
+
+  .text-secondary { /* Added for secondary text color */
+    @apply text-secondary-DEFAULT; /* Assuming you want to use the DEFAULT secondary color */
+  }
+  .dark .text-secondary {
+    @apply text-secondary-dark; /* Or a specific dark variant if defined */
+  }
+
   .text-accent {
-    @apply text-accent-DEFAULT; /* Updated to use theme's accent color */
+    @apply text-text-accent-light;
   }
   .dark .text-accent {
-    @apply text-accent-dark; /* Updated for dark mode */
+    @apply text-text-accent-dark;
   }
+
   .text-muted {
-    @apply text-text-muted-light; /* Default to light mode muted text color */
+    @apply text-text-muted-light;
   }
   .dark .text-muted {
-    @apply text-text-muted-dark; /* Dark mode muted text color */
+    @apply text-text-muted-dark;
   }
+
   .text-success {
-    @apply text-semantic-success-DEFAULT;
+    @apply text-semantic-success-light;
   }
   .dark .text-success {
     @apply text-semantic-success-dark;
   }
+
   .text-warning {
-    @apply text-semantic-warning-DEFAULT;
+    @apply text-semantic-warning-light;
   }
   .dark .text-warning {
     @apply text-semantic-warning-dark;
   }
+
   .text-error {
-    @apply text-semantic-error-DEFAULT;
+    @apply text-semantic-error-light;
   }
   .dark .text-error {
     @apply text-semantic-error-dark;
@@ -53,35 +71,88 @@ body {
 
   /* Background Utilities */
   .bg-background {
-    @apply bg-neutral-background-light; /* Default to light mode background */
+    @apply bg-neutral-background-light;
   }
   .dark .bg-background {
-    @apply bg-neutral-background-dark; /* Dark mode background */
+    @apply bg-neutral-background-dark;
   }
+
   .bg-surface {
-    @apply bg-neutral-surface-light; /* Default to light mode surface */
+    @apply bg-neutral-surface-light;
   }
   .dark .bg-surface {
-    @apply bg-neutral-surface-dark; /* Dark mode surface */
+    @apply bg-neutral-surface-dark;
   }
-  .bg-primary { /* Renamed from bg-secondary to bg-primary */
-    @apply bg-primary-DEFAULT;
+
+  .bg-primary {
+    @apply bg-primary-DEFAULT hover:bg-primary-hover active:bg-primary-active;
   }
-  .dark .bg-primary { /* Renamed from bg-secondary to bg-primary */
-    @apply bg-primary-dark;
+  .dark .bg-primary {
+    @apply bg-primary-dark hover:bg-primary-hover active:bg-primary-active; /* Consider if hover/active need dark variants */
   }
+
+  .bg-secondary { /* Added for secondary background color */
+    @apply bg-secondary-DEFAULT hover:bg-secondary-hover active:bg-secondary-active;
+  }
+  .dark .bg-secondary {
+    @apply bg-secondary-dark hover:bg-secondary-hover active:bg-secondary-active; /* Consider if hover/active need dark variants */
+  }
+
   .bg-accent {
-    @apply bg-accent-DEFAULT; /* Updated to use theme's accent color */
+    @apply bg-accent-DEFAULT hover:bg-accent-hover active:bg-accent-active;
   }
   .dark .bg-accent {
-    @apply bg-accent-dark; /* Updated for dark mode */
+    @apply bg-accent-dark hover:bg-accent-hover active:bg-accent-active; /* Consider if hover/active need dark variants */
   }
 
   /* Border Utilities */
   .border-default {
-    @apply border-neutral-border-light; /* Default to light mode border */
+    @apply border-neutral-border-light;
   }
   .dark .border-default {
-    @apply border-neutral-border-dark; /* Dark mode border */
+    @apply border-neutral-border-dark;
+  }
+
+  .border-primary { /* Added for primary border color */
+    @apply border-primary-DEFAULT;
+  }
+  .dark .border-primary {
+    @apply border-primary-dark;
+  }
+
+  .border-secondary { /* Added for secondary border color */
+    @apply border-secondary-DEFAULT;
+  }
+  .dark .border-secondary {
+    @apply border-secondary-dark;
+  }
+
+  .border-accent { /* Added for accent border color */
+    @apply border-accent-DEFAULT;
+  }
+  .dark .border-accent {
+    @apply border-accent-dark;
+  }
+
+  /* Icon Utilities */
+  .icon-default {
+    @apply text-text-default-light; /* Or a specific icon color if defined */
+  }
+  .dark .icon-default {
+    @apply text-text-default-dark; /* Or a specific icon color for dark mode */
+  }
+
+  .icon-primary {
+    @apply text-primary-DEFAULT;
+  }
+  .dark .icon-primary {
+    @apply text-primary-dark; /* Or light depending on contrast needs */
+  }
+
+  .icon-accent {
+    @apply text-accent-DEFAULT;
+  }
+  .dark .icon-accent {
+    @apply text-accent-dark; /* Or light depending on contrast needs */
   }
 }

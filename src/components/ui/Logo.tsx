@@ -15,7 +15,8 @@ import { useTranslation } from 'react-i18next';
 const GonorteLogoText: React.FC<{ className?: string }> = ({ className }) => (
   <span
     style={{ fontSize: '2rem', fontWeight: 'bold' }}
-    className={`text-primary-DEFAULT dark:text-primary-dark ${className}`}
+    // Apply text-primary which is already theme-aware (text-text-primary-light/dark)
+    className={`text-primary ${className}`}
   >
     Gonorte
   </span>

@@ -39,11 +39,12 @@ const Footer: React.FC = () => {
   const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
-  const footerLinkClasses = "text-text-muted hover:text-primary dark:hover:text-primary-dark transition-colors text-sm";
-  const sectionTitleClasses = "text-text-default dark:text-text-default-dark font-semibold mb-space-sm text-base";
+  const footerLinkClasses = "text-text-muted-light dark:text-text-muted-dark hover:text-primary-DEFAULT dark:hover:text-primary-light transition-colors text-sm";
+  const sectionTitleClasses = "text-text-default-light dark:text-text-default-dark font-semibold mb-space-sm text-base";
+  const iconClasses = "icon-default hover:icon-primary dark:hover:icon-primary w-6 h-6"; // Updated icon classes
 
   return (
-    <footer className="bg-surface dark:bg-gray-950 text-text-muted pt-space-lg pb-space-md border-t border-neutral-border dark:border-neutral-border-dark shadow-lg transition-colors duration-700">
+    <footer className="bg-neutral-surface-light dark:bg-neutral-surface-dark text-text-muted-light dark:text-text-muted-dark pt-space-lg pb-space-md border-t border-neutral-border-light dark:border-neutral-border-dark shadow-lg transition-colors duration-300">
       <div className="container mx-auto px-space-md">
         {/* Columns Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-space-lg mb-space-lg">
@@ -63,7 +64,8 @@ const Footer: React.FC = () => {
           {/* Column 2: Contact Info */}
           <div>
             <h3 className={sectionTitleClasses}>{t('footer.contactUs', 'Contact Us')}</h3>
-            <address className="not-italic text-sm space-y-space-xs">
+            {/* Ensure text color for address details is also themed if needed */}
+            <address className="not-italic text-sm space-y-space-xs text-text-muted-light dark:text-text-muted-dark">
               <p><a href="mailto:info@example.com" className={footerLinkClasses}>info@example.com</a></p>
               <p><a href="tel:+1234567890" className={footerLinkClasses}>+1 (234) 567-890</a></p>
               <p>123 Cosmic Way, Galaxy City, ST 45678</p>
@@ -77,17 +79,17 @@ const Footer: React.FC = () => {
               <LanguageSelector />
             </div>
             <div className="flex space-x-space-md">
-              <a href="#" aria-label="Twitter" className={`text-text-muted hover:text-primary dark:hover:text-primary-dark w-6 h-6`}><TwitterIcon /></a>
-              <a href="#" aria-label="LinkedIn" className={`text-text-muted hover:text-primary dark:hover:text-primary-dark w-6 h-6`}><LinkedInIcon /></a>
-              <a href="#" aria-label="GitHub" className={`text-text-muted hover:text-primary dark:hover:text-primary-dark w-6 h-6`}><GitHubIcon /></a>
+              <a href="#" aria-label="Twitter" className={iconClasses}><TwitterIcon /></a>
+              <a href="#" aria-label="LinkedIn" className={iconClasses}><LinkedInIcon /></a>
+              <a href="#" aria-label="GitHub" className={iconClasses}><GitHubIcon /></a>
               {/* Placeholder for Instagram */}
-              <a href="#" aria-label="Instagram" className={footerLinkClasses}>Instagram</a>
+              <a href="#" aria-label="Instagram" className={`${footerLinkClasses} ${iconClasses}`}>Instagram</a> {/* Apply icon classes if it's an icon, or just footerLinkClasses */}
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-neutral-border dark:border-neutral-border-dark pt-space-md text-center text-xs">
+        <div className="border-t border-neutral-border-light dark:border-neutral-border-dark pt-space-md text-center text-xs text-text-muted-light dark:text-text-muted-dark">
           <p>
             &copy; {currentYear} {t('footer.companyName', 'Gonorte')}. {t('footer.allRightsReserved', 'All rights reserved.')}
           </p>

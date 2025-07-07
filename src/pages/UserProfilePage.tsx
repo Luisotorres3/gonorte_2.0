@@ -230,31 +230,31 @@ const UserProfilePage: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="bg-white dark:bg-gray-800 shadow-xl rounded-lg p-6 md:p-8">
+      <div className="bg-neutral-surface-light dark:bg-neutral-surface-dark shadow-xl rounded-lg p-6 md:p-8 transition-colors duration-300">
         <div className="flex flex-col md:flex-row items-center md:items-start justify-between mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+            <h1 className="text-3xl font-bold text-text-default-light dark:text-text-default-dark">
               {isEditing ? t('profile.editTitle', 'Edit Profile') : t('profile.viewTitle', 'User Profile')}
             </h1>
-            {!isEditing && <p className="text-gray-600 dark:text-gray-400">{profileData.displayName || t('profile.noName', 'N/A')}</p>}
+            {!isEditing && <p className="text-text-muted-light dark:text-text-muted-dark">{profileData.displayName || t('profile.noName', 'N/A')}</p>}
           </div>
           {canEditProfile() && (
             <button
               onClick={handleEditToggle}
               className={`mt-4 md:mt-0 px-6 py-2 rounded-lg font-medium transition-colors
                 ${isEditing
-                  ? 'bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200'
-                  : 'bg-teal-500 hover:bg-teal-600 text-white'}`}
+                  ? 'bg-neutral-border-light hover:bg-neutral-border-light/80 dark:bg-neutral-border-dark dark:hover:bg-neutral-border-dark/80 text-text-default-light dark:text-text-default-dark'
+                  : 'bg-primary-DEFAULT hover:bg-primary-hover text-text-default-dark dark:text-text-default-light'}`}
             >
               {isEditing ? t('profile.cancelButton', 'Cancel') : t('profile.editButton', 'Edit Profile')}
             </button>
           )}
         </div>
 
-        {error && <div className="mb-4 p-3 text-sm text-red-700 bg-red-100 dark:bg-red-900/30 dark:text-red-300 rounded-lg">{error}</div>}
+        {error && <div className="mb-4 p-3 text-sm text-semantic-error-light dark:text-semantic-error-dark bg-semantic-error-light/20 dark:bg-semantic-error-dark/20 rounded-lg">{error}</div>}
 
         {location.state?.from && (
-          <button onClick={() => navigate(location.state.from)} className="mb-4 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded">
+          <button onClick={() => navigate(location.state.from)} className="mb-4 px-4 py-2 bg-neutral-border-light dark:bg-neutral-border-dark text-text-default-light dark:text-text-default-dark rounded hover:opacity-80 transition-opacity">
             Volver atrás
           </button>
         )}
@@ -262,76 +262,75 @@ const UserProfilePage: React.FC = () => {
         {isEditing ? (
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="displayName" className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('profile.form.displayName', 'Full Name')}</label>
+              <label htmlFor="displayName" className="block text-sm font-medium text-text-default-light dark:text-text-default-dark">{t('profile.form.displayName', 'Full Name')}</label>
               <input
                 type="text"
                 id="displayName"
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-teal-500 focus:border-teal-500"
+                className="mt-1 block w-full px-3 py-2 bg-neutral-background-light dark:bg-neutral-background-dark border border-neutral-border-light dark:border-neutral-border-dark rounded-md shadow-sm text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark focus:outline-none focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-primary-DEFAULT dark:focus:border-primary-dark transition-colors duration-300"
               />
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('profile.form.email', 'Email')}</label>
+              <label htmlFor="email" className="block text-sm font-medium text-text-default-light dark:text-text-default-dark">{t('profile.form.email', 'Email')}</label>
               <input
                 type="email"
                 id="email"
                 value={profileData.email || ''}
                 disabled
-                className="mt-1 block w-full px-3 py-2 bg-gray-100 dark:bg-gray-700/50 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-700 dark:text-gray-400 cursor-not-allowed"
+                className="mt-1 block w-full px-3 py-2 bg-neutral-background-light/50 dark:bg-neutral-background-dark/50 border border-neutral-border-light dark:border-neutral-border-dark rounded-md shadow-sm text-text-muted-light dark:text-text-muted-dark cursor-not-allowed transition-colors duration-300"
               />
             </div>
             <div>
-              <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('profile.form.phone', 'Phone Number')}</label>
+              <label htmlFor="phoneNumber" className="block text-sm font-medium text-text-default-light dark:text-text-default-dark">{t('profile.form.phone', 'Phone Number')}</label>
               <input
                 type="tel"
                 id="phoneNumber"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
-                className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-teal-500 focus:border-teal-500"
+                className="mt-1 block w-full px-3 py-2 bg-neutral-background-light dark:bg-neutral-background-dark border border-neutral-border-light dark:border-neutral-border-dark rounded-md shadow-sm text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark focus:outline-none focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-primary-DEFAULT dark:focus:border-primary-dark transition-colors duration-300"
               />
             </div>
 
             {profileData.role === 'client' && (
               <>
-                <hr className="my-6 border-gray-200 dark:border-gray-700" />
-                <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200">{t('profile.clientDataTitle', 'Client Data')}</h2>
+                <hr className="my-6 border-neutral-border-light dark:border-neutral-border-dark" />
+                <h2 className="text-xl font-semibold text-text-default-light dark:text-text-default-dark">{t('profile.clientDataTitle', 'Client Data')}</h2>
                 <div>
-                  <label htmlFor="weight" className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('profile.form.weight', 'Weight (kg)')}</label>
+                  <label htmlFor="weight" className="block text-sm font-medium text-text-default-light dark:text-text-default-dark">{t('profile.form.weight', 'Weight (kg)')}</label>
                   <input
                     type="number"
                     step="0.1"
                     id="weight"
                     value={weight}
                     onChange={(e) => setWeight(e.target.value)}
-                    className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-teal-500 focus:border-teal-500"
+                    className="mt-1 block w-full px-3 py-2 bg-neutral-background-light dark:bg-neutral-background-dark border border-neutral-border-light dark:border-neutral-border-dark rounded-md shadow-sm text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark focus:outline-none focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-primary-DEFAULT dark:focus:border-primary-dark transition-colors duration-300"
                   />
                 </div>
                 <div>
-                  <label htmlFor="bodyFatPercentage" className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('profile.form.bodyFat', 'Body Fat (%)')}</label>
+                  <label htmlFor="bodyFatPercentage" className="block text-sm font-medium text-text-default-light dark:text-text-default-dark">{t('profile.form.bodyFat', 'Body Fat (%)')}</label>
                   <input
                     type="number"
                     step="0.1"
                     id="bodyFatPercentage"
                     value={bodyFatPercentage}
                     onChange={(e) => setBodyFatPercentage(e.target.value)}
-                    className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-teal-500 focus:border-teal-500"
+                    className="mt-1 block w-full px-3 py-2 bg-neutral-background-light dark:bg-neutral-background-dark border border-neutral-border-light dark:border-neutral-border-dark rounded-md shadow-sm text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark focus:outline-none focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-primary-DEFAULT dark:focus:border-primary-dark transition-colors duration-300"
                   />
                 </div>
                 <div>
-                  <label htmlFor="clientNotes" className="block text-sm font-medium text-gray-700 dark:text-gray-300">{t('profile.form.clientNotes', 'Client Notes (Coach/Admin visible)')}</label>
+                  <label htmlFor="clientNotes" className="block text-sm font-medium text-text-default-light dark:text-text-default-dark">{t('profile.form.clientNotes', 'Client Notes (Coach/Admin visible)')}</label>
                   <textarea
                     id="clientNotes"
                     rows={3}
                     value={clientNotes}
                     onChange={(e) => setClientNotes(e.target.value)}
-                    className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-teal-500 focus:border-teal-500"
+                    className="mt-1 block w-full px-3 py-2 bg-neutral-background-light dark:bg-neutral-background-dark border border-neutral-border-light dark:border-neutral-border-dark rounded-md shadow-sm text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark focus:outline-none focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-primary-DEFAULT dark:focus:border-primary-dark transition-colors duration-300"
                   />
                 </div>
-                {/* Assigned Training Plan - Visible and Editable by Admin/Coach for Client profiles */}
                 {(userRole === 'admin' || userRole === 'coach') && profileData.role === 'client' && (
                   <div>
-                    <label htmlFor="assignedPlanId" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    <label htmlFor="assignedPlanId" className="block text-sm font-medium text-text-default-light dark:text-text-default-dark">
                       {t('profile.form.assignedPlanId', 'Assigned Training Plan ID')}
                     </label>
                     <input
@@ -339,10 +338,10 @@ const UserProfilePage: React.FC = () => {
                       id="assignedPlanId"
                       value={assignedPlanId}
                       onChange={(e) => setAssignedPlanId(e.target.value)}
-                      className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-teal-500 focus:border-teal-500"
+                      className="mt-1 block w-full px-3 py-2 bg-neutral-background-light dark:bg-neutral-background-dark border border-neutral-border-light dark:border-neutral-border-dark rounded-md shadow-sm text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark focus:outline-none focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-primary-DEFAULT dark:focus:border-primary-dark transition-colors duration-300"
                       placeholder={t('profile.form.planIdPlaceholder', 'Enter Plan ID (e.g., P001)')}
                     />
-                    <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                    <p className="mt-1 text-xs text-text-muted-light dark:text-text-muted-dark">
                       {t('profile.form.planIdHelp', 'Assign a plan ID. Plan details are managed separately.')}
                     </p>
                   </div>
@@ -354,14 +353,14 @@ const UserProfilePage: React.FC = () => {
               <button
                 type="button"
                 onClick={handleEditToggle}
-                className="px-6 py-2 rounded-lg font-medium transition-colors bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200"
+                className="px-6 py-2 rounded-lg font-medium transition-colors bg-neutral-border-light hover:bg-neutral-border-light/80 dark:bg-neutral-border-dark dark:hover:bg-neutral-border-dark/80 text-text-default-light dark:text-text-default-dark"
               >
                 {t('profile.form.cancelButton', 'Cancel')}
               </button>
               <button
                 type="submit"
                 disabled={isLoading || isUploadingCoachFile}
-                className="px-6 py-2 rounded-lg font-medium transition-colors text-white bg-teal-500 hover:bg-teal-600 disabled:opacity-50"
+                className="px-6 py-2 rounded-lg font-medium transition-colors text-text-default-dark dark:text-text-default-light bg-primary-DEFAULT hover:bg-primary-hover active:bg-primary-active disabled:opacity-50"
               >
                 {isLoading ? t('profile.form.savingButton', 'Saving...') : t('profile.form.saveButton', 'Save Changes')}
               </button>
@@ -383,44 +382,38 @@ const UserProfilePage: React.FC = () => {
 
             {profileData.role === 'client' && (
               <>
-                <hr className="my-6 border-gray-200 dark:border-gray-700" />
-                <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-3">{t('profile.clientDataTitle', 'Client Data')}</h2>
+                <hr className="my-6 border-neutral-border-light dark:border-neutral-border-dark" />
+                <h2 className="text-xl font-semibold text-text-default-light dark:text-text-default-dark mb-3">{t('profile.clientDataTitle', 'Client Data')}</h2>
                 <InfoRow label={t('profile.display.weight', 'Weight (kg):')} value={profileData.weight?.toString()} t={t} />
                 <InfoRow label={t('profile.display.bodyFat', 'Body Fat (%):')} value={profileData.bodyFatPercentage?.toString()} t={t} />
                 <InfoRow label={t('profile.display.clientNotes', 'Client Notes:')} value={profileData.notes} isBlock={true} t={t} />
                 <InfoRow label={t('profile.display.assignedPlanId', 'Assigned Plan ID:')} value={profileData.assignedPlanId} t={t} />
-                {/* TODO: Link to actual plan details page if planId exists */}
-                {/* TODO: Training History, Progress Photos will be added here */}
               </>
             )}
-             {/* TODO: Coach specific data if viewing a coach profile */}
-             {/* TODO: Admin specific data if viewing an admin profile */}
 
-            {/* Display Coach Uploaded Files - Visible to client, coach, admin */}
             {profileData.role === 'client' && profileData.coachUploadedFiles && profileData.coachUploadedFiles.length > 0 && (
-              <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-                <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-3">
+              <div className="mt-8 pt-6 border-t border-neutral-border-light dark:border-neutral-border-dark">
+                <h2 className="text-xl font-semibold text-text-default-light dark:text-text-default-dark mb-3">
                   {t('profile.coachUploadedFiles.title', 'Files from Coach/Admin')}
                 </h2>
                 <ul className="space-y-3">
                   {profileData.coachUploadedFiles.map((file, index) => (
-                    <li key={index} className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-md flex justify-between items-center">
+                    <li key={index} className="p-3 bg-neutral-background-light dark:bg-neutral-background-dark/50 rounded-md flex justify-between items-center border border-neutral-border-light dark:border-neutral-border-dark">
                       <div>
-                        <p className="text-sm font-medium text-gray-900 dark:text-white">{file.fileName}</p>
-                        {file.description && <p className="text-xs text-gray-500 dark:text-gray-400">{file.description}</p>}
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                        <p className="text-sm font-medium text-text-default-light dark:text-text-default-dark">{file.fileName}</p>
+                        {file.description && <p className="text-xs text-text-muted-light dark:text-text-muted-dark">{file.description}</p>}
+                        <p className="text-xs text-text-muted-light dark:text-text-muted-dark">
                           {t('profile.coachUploadedFiles.uploadedAt', 'Uploaded:')} {file.uploadedAt instanceof Date ? file.uploadedAt.toLocaleDateString() : ''}
-                          {/* TODO: Display who uploaded it if needed, by fetching uploader's name using file.uploadedBy UID */}
                         </p>
                       </div>
                       <a
                         href={file.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="ml-4 px-3 py-1.5 text-xs font-medium text-teal-600 dark:text-teal-400 hover:text-teal-500 dark:hover:text-teal-300 border border-teal-500/50 dark:border-teal-400/50 rounded-md hover:bg-teal-50 dark:hover:bg-teal-900/20 transition-colors flex items-center"
+                        className="ml-4 px-3 py-1.5 text-xs font-medium text-primary-dark dark:text-primary-light hover:text-primary-DEFAULT dark:hover:text-primary-DEFAULT border border-primary-DEFAULT/50 dark:border-primary-light/50 rounded-md hover:bg-primary-light/20 dark:hover:bg-primary-dark/20 transition-colors flex items-center"
                         title={t('profile.coachUploadedFiles.downloadTooltip', 'Download/View File')}
                       >
-                        <FaDownload className="mr-1.5 h-3 w-3" /> {t('profile.coachUploadedFiles.downloadButton', 'View/Download')}
+                        <FaDownload className="mr-1.5 h-3 w-3 icon-primary" /> {t('profile.coachUploadedFiles.downloadButton', 'View/Download')}
                       </a>
                     </li>
                   ))}
@@ -430,32 +423,31 @@ const UserProfilePage: React.FC = () => {
           </div>
         )}
 
-        {/* Coach/Admin File Upload Section - only in edit mode for client profiles */}
         {isEditing && (userRole === 'admin' || userRole === 'coach') && profileData?.role === 'client' && (
-          <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-            <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
+          <div className="mt-8 pt-6 border-t border-neutral-border-light dark:border-neutral-border-dark">
+            <h2 className="text-xl font-semibold text-text-default-light dark:text-text-default-dark mb-4">
               {t('profile.coachUpload.title', 'Upload File for Client')}
             </h2>
-            <form onSubmit={handleCoachFileUpload} className="space-y-4 p-4 border border-dashed border-gray-300 dark:border-gray-600 rounded-lg">
+            <form onSubmit={handleCoachFileUpload} className="space-y-4 p-4 border border-dashed border-neutral-border-light dark:border-neutral-border-dark rounded-lg">
               <div>
-                <label htmlFor="coachFile" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="coachFile" className="block text-sm font-medium text-text-default-light dark:text-text-default-dark">
                   {t('profile.coachUpload.selectFileLabel', 'Select File (Max 10MB)')}
                 </label>
                 <input
                   type="file"
                   id="coachFile"
                   onChange={handleCoachFileChange}
-                  className="mt-1 block w-full text-sm text-gray-500 dark:text-gray-400
+                  className="mt-1 block w-full text-sm text-text-muted-light dark:text-text-muted-dark
                     file:mr-4 file:py-2 file:px-4
                     file:rounded-full file:border-0
                     file:text-sm file:font-semibold
-                    file:bg-purple-50 file:text-purple-700 dark:file:bg-purple-700 dark:file:text-purple-50
-                    hover:file:bg-purple-100 dark:hover:file:bg-purple-600"
+                    file:bg-accent-light file:text-accent-dark dark:file:bg-accent-dark dark:file:text-accent-light
+                    hover:file:bg-accent-DEFAULT dark:hover:file:bg-accent-hover transition-colors"
                 />
-                {coachFile && <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t('profile.coachUpload.selectedFile', 'Selected:')} {coachFile.name}</p>}
+                {coachFile && <p className="mt-1 text-xs text-text-muted-light dark:text-text-muted-dark">{t('profile.coachUpload.selectedFile', 'Selected:')} {coachFile.name}</p>}
               </div>
               <div>
-                <label htmlFor="coachFileDescription" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="coachFileDescription" className="block text-sm font-medium text-text-default-light dark:text-text-default-dark">
                   {t('profile.coachUpload.descriptionLabel', 'File Description (Optional)')}
                 </label>
                 <input
@@ -463,18 +455,18 @@ const UserProfilePage: React.FC = () => {
                   id="coachFileDescription"
                   value={coachFileDescription}
                   onChange={(e) => setCoachFileDescription(e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm"
+                  className="mt-1 block w-full px-3 py-2 bg-neutral-background-light dark:bg-neutral-background-dark border border-neutral-border-light dark:border-neutral-border-dark rounded-md shadow-sm text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark focus:outline-none focus:ring-accent-DEFAULT dark:focus:ring-accent-dark focus:border-accent-DEFAULT dark:focus:border-accent-dark sm:text-sm transition-colors"
                   placeholder={t('profile.coachUpload.descriptionPlaceholder', 'E.g., Weekly Diet Plan, Form Check Video Notes')}
                 />
               </div>
-              {coachUploadError && <p className="text-sm text-red-500">{coachUploadError}</p>}
+              {coachUploadError && <p className="text-sm text-semantic-error-light dark:text-semantic-error-dark">{coachUploadError}</p>}
               <div>
                 <button
                   type="submit"
                   disabled={isUploadingCoachFile || !coachFile || isLoading}
-                  className="w-full sm:w-auto flex items-center justify-center px-6 py-2 bg-purple-500 text-white font-medium rounded-md hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50"
+                  className="w-full sm:w-auto flex items-center justify-center px-6 py-2 bg-accent-DEFAULT text-text-default-dark dark:text-text-default-light font-medium rounded-md hover:bg-accent-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent-dark dark:focus:ring-accent-light disabled:opacity-50 transition-colors"
                 >
-                  <FaFileUpload className="mr-2 h-4 w-4"/>
+                  <FaFileUpload className="mr-2 h-4 w-4 icon-default"/>
                   {isUploadingCoachFile ? t('profile.coachUpload.uploadingButton', 'Uploading...') : t('profile.coachUpload.uploadButton', 'Upload File')}
                 </button>
               </div>
@@ -492,8 +484,8 @@ const InfoRow: React.FC<{ label: string; value?: string | null; isBlock?: boolea
   }
   return (
     <div className={`py-2 ${isBlock ? '' : 'sm:grid sm:grid-cols-3 sm:gap-4 items-center'}`}>
-      <dt className="text-sm font-medium text-gray-500 dark:text-gray-400">{label}</dt>
-      <dd className={`mt-1 text-sm text-gray-900 dark:text-white ${isBlock ? 'whitespace-pre-wrap' : 'sm:mt-0 sm:col-span-2'}`}>{value}</dd>
+      <dt className="text-sm font-medium text-text-muted-light dark:text-text-muted-dark">{label}</dt>
+      <dd className={`mt-1 text-sm text-text-default-light dark:text-text-default-dark ${isBlock ? 'whitespace-pre-wrap' : 'sm:mt-0 sm:col-span-2'}`}>{value}</dd>
     </div>
   );
 };

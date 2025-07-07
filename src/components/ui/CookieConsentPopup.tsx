@@ -42,7 +42,7 @@ const CookieConsentPopup: React.FC = () => {
         <motion.div
           role="region"
           aria-label={t('cookieConsentBannerLabel', 'Cookie Consent Banner')}
-          className="fixed bottom-0 z-[100] w-full bg-neutral-surface dark:bg-neutral-800 text-text-default dark:text-neutral-100 p-space-md shadow-[-2px_0px_15px_rgba(0,0,0,0.2)]"
+          className="fixed bottom-0 z-[100] w-full bg-neutral-surface-light dark:bg-neutral-surface-dark text-text-default-light dark:text-text-default-dark p-space-md shadow-[-2px_0px_15px_rgba(0,0,0,0.2)] transition-colors duration-300"
           initial={{ y: "100%" }}
           animate={{ y: "0%" }}
           exit={{ y: "100%" }}
@@ -54,7 +54,7 @@ const CookieConsentPopup: React.FC = () => {
             </p>
             <button
               onClick={handleAccept}
-              className="bg-primary hover:opacity-90 text-white font-semibold py-space-xs px-space-md rounded-radius-md transition-opacity whitespace-nowrap"
+              className="bg-primary-DEFAULT hover:bg-primary-hover active:bg-primary-active text-text-default-dark dark:text-text-default-light font-semibold py-space-xs px-space-md rounded-radius-md transition-all whitespace-nowrap"
               aria-label={t('cookieConsentAcceptLabel', 'Accept cookie usage')}
             >
               {t('cookieConsentAccept', 'Accept')}

@@ -5,84 +5,94 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Brand Colors - Updated to Aqua Green theme
+        // Brand Colors - Aqua Green Theme
+        "brand-aqua-lightest": "#E0F7F2", // Very Light Aqua Green (for backgrounds)
         "brand-aqua-light": "#A0EADE", // Light Aqua Green
-        "brand-aqua-DEFAULT": "#6AD3B1", // Medium Aqua Green
+        "brand-aqua-DEFAULT": "#6AD3B1", // Medium Aqua Green (Primary)
         "brand-aqua-dark": "#4F9E81", // Dark Aqua Green
-        "brand-white": "#FFFFFF",
-        "brand-gray-dark": "#333333", // Dark Gray for text
+        "brand-aqua-darkest": "#3E7C68", // Very Dark Aqua Green (for text or dark accents)
 
-        // Primary Colors (updated to Aqua Green theme)
+        // Primary Colors (Aqua Green based)
         primary: {
           light: "#A0EADE", // Light Aqua Green
-          dark: "#4F9E81", // Dark Aqua Green
           DEFAULT: "#6AD3B1", // Medium Aqua Green
+          dark: "#4F9E81", // Dark Aqua Green
+          hover: "#5FBBA0", // Slightly darker for hover
+          active: "#4F9E81", // Same as dark or a bit darker for active
         },
-        // Secondary Colors
+        // Secondary Colors (Complementary or analogous to Aqua Green)
         secondary: {
-          light: "#88DCCC", // Lighter variant of Aqua Green
-          dark: "#5FBBA0", // Darker variant of Aqua Green
-          DEFAULT: "#6AD3B1", // Medium Aqua Green (can be same as primary or a close shade)
+          light: "#BCF0E4", // Lighter variant for secondary elements
+          DEFAULT: "#88DCCC", // A distinct shade of Aqua or a complementary color
+          dark: "#5FBBA0", // Darker variant for secondary elements
+          hover: "#7ACAAE", // Hover state for secondary
+          active: "#6AD3B1", // Active state for secondary
         },
-        // Accent Colors
+        // Tertiary/Accent Colors (Can be a contrasting color or another shade of green)
         accent: {
-          light: "#A0EADE", // Light Aqua Green (using primary light for accent)
-          dark: "#4F9E81", // Dark Aqua Green (using primary dark for accent)
-          DEFAULT: "#6AD3B1", // Medium Aqua Green (using primary default for accent)
+          light: "#F0FDF4", // Very light green or a contrasting light color
+          DEFAULT: "#A7F3D0", // A bright, eye-catching accent
+          dark: "#6EE7B7", // Darker accent
+          hover: "#86EFAC", // Hover state for accent
+          active: "#6EE7B7", // Active state for accent
         },
         // Neutral Colors
         neutral: {
           background: {
-            light: "#FFFFFF", // White background
-            dark: "#18181b", // Much darker for true dark mode
+            light: "#FFFFFF", // White background for light mode
+            dark: "#1A202C", // Dark Slate Gray for dark mode background
             DEFAULT: "#FFFFFF",
           },
           surface: {
-            light: "#F7FAFC", // Gris muy claro para cards y superficies
-            dark: "#23272f", // Much darker for true dark mode
-            DEFAULT: "#FFFFFF",
+            light: "#F7FAFC", // Light Gray for cards/surfaces in light mode
+            dark: "#2D3748", // Darker Gray for cards/surfaces in dark mode
+            DEFAULT: "#F7FAFC",
           },
           border: {
-            light: "#D1D5DB", // Light gray for borders
-            dark: "#A1A1AA", // Medium gray for borders in dark mode
-            DEFAULT: "#D1D5DB",
+            light: "#E2E8F0", // Light Gray for borders in light mode
+            dark: "#4A5568", // Gray for borders in dark mode
+            DEFAULT: "#E2E8F0",
           },
         },
         // Text Colors
         text: {
           default: {
-            light: "#333333", // Dark Gray for text on light backgrounds
-            dark: "#FFFFFF", // White text on dark backgrounds
-            DEFAULT: "#333333",
+            light: "#1A202C", // Dark Gray for text on light backgrounds
+            dark: "#E2E8F0", // Light Gray for text on dark backgrounds
+            DEFAULT: "#1A202C",
           },
           muted: {
-            light: "#6B7280", // Medium Gray
-            dark: "#D1D5DB", // Light Gray for muted text on dark backgrounds
-            DEFAULT: "#6B7280",
+            light: "#718096", // Medium Gray for muted text in light mode
+            dark: "#A0AEC0", // Lighter Gray for muted text in dark mode
+            DEFAULT: "#718096",
           },
           primary: {
-            // Updated to Aqua Green theme
-            light: "#4F9E81", // Dark Aqua Green for text (ensure contrast)
-            dark: "#A0EADE", // Light Aqua Green for text (ensure contrast)
+            light: "#4F9E81", // Dark Aqua Green for text on light backgrounds
+            dark: "#A0EADE", // Light Aqua Green for text on dark backgrounds
             DEFAULT: "#4F9E81",
           },
+          accent: {
+            light: "#3E7C68", // Darkest Aqua for accent text on light backgrounds
+            dark: "#A0EADE", // Light Aqua for accent text on dark backgrounds
+            DEFAULT: "#3E7C68",
+          },
         },
-        // Semantic Colors - Keep these distinct for their purpose
+        // Semantic Colors
         semantic: {
           success: {
-            light: "#10B981", // Green
-            dark: "#34D399",
-            DEFAULT: "#10B981",
+            light: "#38A169", // Green
+            dark: "#68D391", // Lighter Green for dark mode
+            DEFAULT: "#38A169",
           },
           error: {
-            light: "#EF4444", // Red
-            dark: "#F87171",
-            DEFAULT: "#EF4444",
+            light: "#E53E3E", // Red
+            dark: "#FC8181", // Lighter Red for dark mode
+            DEFAULT: "#E53E3E",
           },
           warning: {
-            light: "#F59E0B", // Yellow/Amber
-            dark: "#FBBF24",
-            DEFAULT: "#F59E0B",
+            light: "#DD6B20", // Orange
+            dark: "#F6AD55", // Lighter Orange for dark mode
+            DEFAULT: "#DD6B20",
           },
         },
       },

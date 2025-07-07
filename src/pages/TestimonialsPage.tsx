@@ -144,14 +144,14 @@ const TestimonialsPage: React.FC = () => {
 
         {/* CTA Section */}
         <motion.div variants={itemVariants} className="text-center mt-16">
-          <div className="bg-gradient-to-r from-primary to-primary-dark rounded-lg p-8 text-white">
+          <div className="bg-gradient-to-r from-primary-DEFAULT to-accent-DEFAULT dark:from-primary-dark dark:to-accent-dark rounded-lg p-8 text-text-default-dark dark:text-text-default-light transition-colors duration-300">
             <h2 className="text-2xl font-bold mb-4">
               {t('testimonialsCTA', '¿Listo para ser nuestro próximo caso de éxito?')}
             </h2>
-            <p className="mb-6 text-lg">
+            <p className="mb-6 text-lg opacity-90"> {/* Consider adjusting opacity if needed over new gradient */}
               {t('testimonialsCTASubtitle', 'Únete a nuestros clientes satisfechos y transforma tu visión en realidad')}
             </p>
-            <button className="bg-white text-primary px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+            <button className="bg-neutral-surface-light dark:bg-neutral-surface-dark text-primary-dark dark:text-primary-light px-8 py-3 rounded-lg font-semibold hover:bg-neutral-border-light dark:hover:bg-neutral-border-dark transition-colors">
               {t('testimonialsCTAButton', 'Comienza tu proyecto')}
             </button>
           </div>
