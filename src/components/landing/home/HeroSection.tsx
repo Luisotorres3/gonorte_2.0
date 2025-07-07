@@ -58,7 +58,8 @@ const HeroSection: React.FC = () => {
           </motion.div>
 
           {/* Scroll Indicator - Removed for a cleaner look, can be added back if desired */}
-          {/* <motion.div
+          {/*
+          <motion.div
             className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -76,9 +77,9 @@ const HeroSection: React.FC = () => {
               />
             </motion.div>
           </motion.div>
+          */}
         </div>
-      </div>
-    </section>
+      </section>
   );
 };
 
