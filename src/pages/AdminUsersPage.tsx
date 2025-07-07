@@ -144,51 +144,50 @@ const AdminUsersPage: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="bg-white dark:bg-gray-800 shadow-xl rounded-lg p-6 md:p-8">
+      <div className="bg-neutral-surface-light dark:bg-neutral-surface-dark shadow-xl rounded-lg p-6 md:p-8 transition-colors duration-300">
         <div className="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-          <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
+          <h1 className="text-3xl font-bold text-text-default-light dark:text-text-default-dark">
             {t('adminUsers.title', 'User Management')}
           </h1>
-          {/* Placeholder for Add User button if manual creation by admin is needed */}
           {userRole === 'admin' && (
             <>
               <button
                 onClick={() => setShowAddUserModal(true)}
-                className="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors text-sm font-medium"
+                className="flex items-center px-4 py-2 bg-semantic-success-light dark:bg-semantic-success-dark text-text-default-dark dark:text-text-default-light rounded-lg hover:bg-semantic-success-light/80 dark:hover:bg-semantic-success-dark/80 transition-colors text-sm font-medium"
               >
-                <FaUserPlus className="mr-2"/> {t('adminUsers.addUserButton', 'Añadir Nuevo Usuario')}
+                <FaUserPlus className="mr-2 icon-default"/> {t('adminUsers.addUserButton', 'Añadir Nuevo Usuario')}
               </button>
               {showAddUserModal && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
+                <div className="fixed inset-0 flex items-center justify-center bg-black/60 dark:bg-black/80 z-50 backdrop-blur-sm">
                   <form
                     onSubmit={handleAddUser}
-                    className="bg-white dark:bg-gray-900 p-8 rounded-xl shadow-2xl w-full max-w-md space-y-6"
+                    className="bg-neutral-surface-light dark:bg-neutral-surface-dark p-8 rounded-xl shadow-2xl w-full max-w-md space-y-6 border border-neutral-border-light dark:border-neutral-border-dark transition-colors duration-300"
                   >
-                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Añadir Usuario</h2>
+                    <h2 className="text-2xl font-bold text-text-default-light dark:text-text-default-dark mb-4">Añadir Usuario</h2>
                     <div>
-                      <label className="block text-gray-700 dark:text-gray-200 font-semibold mb-1">Nombre</label>
+                      <label className="block text-text-default-light dark:text-text-default-dark font-semibold mb-1">Nombre</label>
                       <input
                         type="text"
                         placeholder="Nombre"
                         value={newUser.displayName}
                         onChange={e => setNewUser({ ...newUser, displayName: e.target.value })}
                         required
-                        className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
+                        className="w-full p-2 border border-neutral-border-light dark:border-neutral-border-dark rounded bg-neutral-background-light dark:bg-neutral-background-dark text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-primary-DEFAULT dark:focus:border-primary-dark transition-colors duration-300"
                       />
                     </div>
                     <div>
-                      <label className="block text-gray-700 dark:text-gray-200 font-semibold mb-1">Email</label>
+                      <label className="block text-text-default-light dark:text-text-default-dark font-semibold mb-1">Email</label>
                       <input
                         type="email"
                         placeholder="Email"
                         value={newUser.email}
                         onChange={e => setNewUser({ ...newUser, email: e.target.value })}
                         required
-                        className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
+                        className="w-full p-2 border border-neutral-border-light dark:border-neutral-border-dark rounded bg-neutral-background-light dark:bg-neutral-background-dark text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-primary-DEFAULT dark:focus:border-primary-dark transition-colors duration-300"
                       />
                     </div>
                     <div>
-                      <label className="block text-gray-700 dark:text-gray-200 font-semibold mb-1">Contraseña</label>
+                      <label className="block text-text-default-light dark:text-text-default-dark font-semibold mb-1">Contraseña</label>
                       <input
                         type="password"
                         placeholder="Contraseña"
@@ -196,44 +195,44 @@ const AdminUsersPage: React.FC = () => {
                         onChange={e => setNewUser({ ...newUser, password: e.target.value })}
                         required
                         minLength={6}
-                        className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
+                        className="w-full p-2 border border-neutral-border-light dark:border-neutral-border-dark rounded bg-neutral-background-light dark:bg-neutral-background-dark text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-primary-DEFAULT dark:focus:border-primary-dark transition-colors duration-300"
                       />
                     </div>
                     <div>
-                      <label className="block text-gray-700 dark:text-gray-200 font-semibold mb-1">Teléfono</label>
+                      <label className="block text-text-default-light dark:text-text-default-dark font-semibold mb-1">Teléfono</label>
                       <input
                         type="tel"
                         placeholder="Teléfono"
                         value={newUser.phoneNumber}
                         onChange={e => setNewUser({ ...newUser, phoneNumber: e.target.value })}
-                        className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
+                        className="w-full p-2 border border-neutral-border-light dark:border-neutral-border-dark rounded bg-neutral-background-light dark:bg-neutral-background-dark text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-primary-DEFAULT dark:focus:border-primary-dark transition-colors duration-300"
                       />
                     </div>
                     <div>
-                      <label className="block text-gray-700 dark:text-gray-200 font-semibold mb-1">Rol</label>
+                      <label className="block text-text-default-light dark:text-text-default-dark font-semibold mb-1">Rol</label>
                       <select
                         value={newUser.role}
                         onChange={e => setNewUser({ ...newUser, role: e.target.value as any })}
-                        className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded bg-gray-50 dark:bg-gray-800 text-gray-900 dark:text-white"
+                        className="w-full p-2 border border-neutral-border-light dark:border-neutral-border-dark rounded bg-neutral-background-light dark:bg-neutral-background-dark text-text-default-light dark:text-text-default-dark focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-primary-DEFAULT dark:focus:border-primary-dark transition-colors duration-300"
                       >
                         <option value="client">Cliente</option>
                         <option value="coach">Coach</option>
                         <option value="admin">Admin</option>
                       </select>
                     </div>
-                    {addUserError && <div className="text-red-600 font-semibold">{addUserError}</div>}
-                    <div className="flex gap-2 justify-end">
+                    {addUserError && <div className="text-semantic-error-light dark:text-semantic-error-dark font-semibold">{addUserError}</div>}
+                    <div className="flex gap-2 justify-end pt-2">
                       <button
                         type="button"
                         onClick={() => setShowAddUserModal(false)}
-                        className="px-4 py-2 rounded bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold"
+                        className="px-4 py-2 rounded bg-neutral-border-light dark:bg-neutral-border-dark text-text-default-light dark:text-text-default-dark font-semibold hover:opacity-80 transition-opacity"
                       >
                         Cancelar
                       </button>
                       <button
                         type="submit"
                         disabled={addingUser}
-                        className="px-4 py-2 rounded bg-green-600 text-white font-semibold hover:bg-green-700 transition"
+                        className="px-4 py-2 rounded bg-semantic-success-light dark:bg-semantic-success-dark text-text-default-dark dark:text-text-default-light font-semibold hover:bg-semantic-success-light/80 dark:hover:bg-semantic-success-dark/80 transition disabled:opacity-60"
                       >
                         {addingUser ? 'Creando...' : 'Crear'}
                       </button>
@@ -249,72 +248,72 @@ const AdminUsersPage: React.FC = () => {
         <div className="mb-6">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <FaSearch className="h-5 w-5 text-gray-400 dark:text-gray-500" />
+              <FaSearch className="h-5 w-5 text-text-muted-light dark:text-text-muted-dark icon-default" />
             </div>
             <input
               type="text"
               placeholder={t('adminUsers.searchPlaceholder', 'Search by name, email, or role...')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md leading-5 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+              className="block w-full pl-10 pr-3 py-2 border border-neutral-border-light dark:border-neutral-border-dark rounded-md leading-5 bg-neutral-background-light dark:bg-neutral-background-dark text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark focus:outline-none focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-primary-DEFAULT dark:focus:border-primary-dark sm:text-sm transition-colors duration-300"
             />
           </div>
         </div>
 
         {/* Users Table */}
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-            <thead className="bg-gray-50 dark:bg-gray-700/50">
+          <table className="min-w-full divide-y divide-neutral-border-light dark:divide-neutral-border-dark transition-colors duration-300">
+            <thead className="bg-neutral-surface-light/50 dark:bg-neutral-surface-dark/50">
               <tr>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">{t('adminUsers.table.name', 'Name')}</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">{t('adminUsers.table.email', 'Email')}</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">{t('adminUsers.table.role', 'Role')}</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">{t('adminUsers.table.phone', 'Phone')}</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">{t('adminUsers.table.registered', 'Registered')}</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">{t('adminUsers.table.actions', 'Actions')}</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">{t('adminUsers.table.name', 'Name')}</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">{t('adminUsers.table.email', 'Email')}</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">{t('adminUsers.table.role', 'Role')}</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">{t('adminUsers.table.phone', 'Phone')}</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">{t('adminUsers.table.registered', 'Registered')}</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">{t('adminUsers.table.actions', 'Actions')}</th>
               </tr>
             </thead>
-            <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody className="bg-neutral-surface-light dark:bg-neutral-surface-dark divide-y divide-neutral-border-light dark:divide-neutral-border-dark transition-colors duration-300">
               {filteredUsers.length > 0 ? filteredUsers.map((user) => (
-                <tr key={user.uid} className="hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors">
+                <tr key={user.uid} className="hover:bg-neutral-background-light dark:hover:bg-neutral-background-dark/50 transition-colors">
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm font-medium text-gray-900 dark:text-white">{user.displayName || t('adminUsers.noName', 'N/A')}</div>
+                    <div className="text-sm font-medium text-text-default-light dark:text-text-default-dark">{user.displayName || t('adminUsers.noName', 'N/A')}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-500 dark:text-gray-300">{user.email}</div>
+                    <div className="text-sm text-text-muted-light dark:text-text-muted-dark">{user.email}</div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                        user.role === 'admin' ? 'bg-red-100 text-red-800 dark:bg-red-900/50 dark:text-red-300' :
-                        user.role === 'coach' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/50 dark:text-purple-300' :
-                        user.role === 'client' ? 'bg-green-100 text-green-800 dark:bg-green-900/50 dark:text-green-300' :
-                        'bg-gray-100 text-gray-800 dark:bg-gray-600 dark:text-gray-200'
+                        user.role === 'admin' ? 'bg-semantic-error-light/30 text-semantic-error-dark dark:bg-semantic-error-dark/30 dark:text-semantic-error-light' :
+                        user.role === 'coach' ? 'bg-accent-light/30 text-accent-dark dark:bg-accent-dark/30 dark:text-accent-light' : // Using accent for coach for variety
+                        user.role === 'client' ? 'bg-semantic-success-light/30 text-semantic-success-dark dark:bg-semantic-success-dark/30 dark:text-semantic-success-light' :
+                        'bg-neutral-border-light text-text-muted-light dark:bg-neutral-border-dark dark:text-text-muted-dark'
                     }`}>
                       {user.role ? t(`roles.${user.role}`, user.role) : t('roles.unknown', 'Unknown')}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{user.phoneNumber || '-'}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-text-muted-light dark:text-text-muted-dark">{user.phoneNumber || '-'}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-text-muted-light dark:text-text-muted-dark">
                     {user.registrationDate ? (user.registrationDate as any).toDate().toLocaleDateString() : '-'}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
                     <button
                       onClick={() => navigate(`/profile/${user.uid}?edit=1`, { state: { from: '/admin/users' } })}
-                      className="text-teal-600 hover:text-teal-800 dark:text-teal-400 dark:hover:text-teal-300 mr-2"
+                      className="text-primary-DEFAULT hover:text-primary-dark dark:text-primary-light dark:hover:text-primary-DEFAULT mr-2 transition-colors"
                       title={t('adminUsers.editTooltip', 'Edit User')}
                     >
-                      <FaEdit className="inline h-5 w-5" />
+                      <FaEdit className="inline h-5 w-5 icon-primary" />
                     </button>
-                    {userRole === 'admin' && user.uid !== currentUser?.uid && ( // Admin can delete, but not themselves
-                      <button onClick={() => handleDeleteUser(user.uid)} className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300" title={t('adminUsers.deleteTooltip', 'Delete User')}>
-                        <FaTrashAlt className="inline h-5 w-5" />
+                    {userRole === 'admin' && user.uid !== currentUser?.uid && (
+                      <button onClick={() => handleDeleteUser(user.uid)} className="text-semantic-error-light hover:text-semantic-error-dark dark:text-semantic-error-dark dark:hover:text-semantic-error-light transition-colors" title={t('adminUsers.deleteTooltip', 'Delete User')}>
+                        <FaTrashAlt className="inline h-5 w-5 icon-default" />
                       </button>
                     )}
                   </td>
                 </tr>
               )) : (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-sm text-gray-500 dark:text-gray-400">
+                  <td colSpan={6} className="px-6 py-12 text-center text-sm text-text-muted-light dark:text-text-muted-dark">
                     {searchTerm ? t('adminUsers.noResults', 'No users found matching your search.') : t('adminUsers.noUsers', 'No users found.')}
                   </td>
                 </tr>
@@ -322,7 +321,6 @@ const AdminUsersPage: React.FC = () => {
             </tbody>
           </table>
         </div>
-         {/* TODO: Add pagination controls here */}
       </div>
     </div>
   );

@@ -39,11 +39,12 @@ const Tooltip: React.FC<TooltipProps> = ({
 
   // Base classes for the tooltip popup
   const tooltipBaseClasses =
-    'absolute z-50 px-space-sm py-space-xs text-sm text-white bg-neutral-700 rounded-radius-md shadow-lg whitespace-nowrap';
+    'absolute z-50 px-space-sm py-space-xs text-sm text-text-default-dark dark:text-text-default-light bg-neutral-surface-dark dark:bg-neutral-surface-light rounded-radius-md shadow-lg whitespace-nowrap transition-colors duration-300';
 
   // Classes for positioning the tooltip and its arrow
   let positionClasses = '';
-  let arrowClasses = 'absolute w-2 h-2 bg-neutral-700 transform rotate-45';
+  // Arrow color should match the tooltip background
+  let arrowClasses = 'absolute w-2 h-2 bg-neutral-surface-dark dark:bg-neutral-surface-light transform rotate-45 transition-colors duration-300';
 
   switch (position) {
     case 'bottom':

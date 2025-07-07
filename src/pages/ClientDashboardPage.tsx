@@ -99,22 +99,22 @@ const ClientDashboardPage: React.FC = () => {
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="bg-white dark:bg-gray-800 shadow-xl rounded-lg p-6 md:p-8">
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-white mb-6">
+      <div className="bg-neutral-surface-light dark:bg-neutral-surface-dark shadow-xl rounded-lg p-6 md:p-8 transition-colors duration-300">
+        <h1 className="text-3xl font-bold text-text-default-light dark:text-text-default-dark mb-6">
           {t('dashboard.client.title', { name: (currentUser?.displayName || currentUser?.email || 'Cliente') })}
         </h1>
 
         {/* Cards Section */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {/* Profile Summary Card */}
-          <div className="bg-teal-50 dark:bg-teal-900/30 p-6 rounded-lg shadow">
-            <h2 className="text-xl font-semibold text-teal-700 dark:text-teal-300 mb-3">{t('dashboard.client.profileSummaryTitle', 'Profile Summary')}</h2>
-            <p className="text-gray-700 dark:text-gray-300"><strong>{t('profile.display.email', 'Email:')}</strong> {currentUser.email}</p>
-            <p className="text-gray-700 dark:text-gray-300"><strong>{t('profile.display.phone', 'Phone:')}</strong> {currentUser.phoneNumber || t('profile.notSet', 'Not set')}</p>
+          <div className="bg-primary-light/30 dark:bg-primary-dark/30 p-6 rounded-lg shadow transition-colors duration-300">
+            <h2 className="text-xl font-semibold text-primary-dark dark:text-primary-light mb-3">{t('dashboard.client.profileSummaryTitle', 'Profile Summary')}</h2>
+            <p className="text-text-default-light dark:text-text-default-dark"><strong>{t('profile.display.email', 'Email:')}</strong> {currentUser.email}</p>
+            <p className="text-text-default-light dark:text-text-default-dark"><strong>{t('profile.display.phone', 'Phone:')}</strong> {currentUser.phoneNumber || t('profile.notSet', 'Not set')}</p>
             <div className="mt-4">
               <Link
                 to={`/profile/${currentUser.uid}`}
-                className="text-sm font-medium text-teal-600 hover:text-teal-500 dark:text-teal-400 dark:hover:text-teal-300"
+                className="text-sm font-medium text-primary-dark hover:text-primary-DEFAULT dark:text-primary-light dark:hover:text-primary-DEFAULT transition-colors"
               >
                 {t('dashboard.client.viewEditProfile', 'View/Edit Full Profile')} &rarr;
               </Link>
@@ -122,9 +122,9 @@ const ClientDashboardPage: React.FC = () => {
           </div>
 
           {/* Assigned Routine Card */}
-          <div className="bg-cyan-50 dark:bg-cyan-900/30 p-6 rounded-lg shadow">
-            <h2 className="text-xl font-semibold text-cyan-700 dark:text-cyan-300 mb-3">{t('dashboard.client.assignedRoutineTitle', 'Your Current Routine')}</h2>
-            <p className="text-gray-600 dark:text-gray-400">
+          <div className="bg-secondary-light/30 dark:bg-secondary-dark/30 p-6 rounded-lg shadow transition-colors duration-300">
+            <h2 className="text-xl font-semibold text-secondary-dark dark:text-secondary-light mb-3">{t('dashboard.client.assignedRoutineTitle', 'Your Current Routine')}</h2>
+            <p className="text-text-muted-light dark:text-text-muted-dark">
               {currentUser.assignedPlanId
                 ? t('dashboard.client.currentPlanInfo', `Details for plan ID: ${currentUser.assignedPlanId} will be shown here.`)
                 : t('dashboard.client.noPlanAssigned', 'No training plan assigned yet. Contact your coach!')}
@@ -133,7 +133,7 @@ const ClientDashboardPage: React.FC = () => {
                  <div className="mt-4">
                     <Link
                         to={`/training-plans/${currentUser.assignedPlanId}`}
-                        className="text-sm font-medium text-cyan-600 hover:text-cyan-500 dark:text-cyan-400 dark:hover:text-cyan-300"
+                        className="text-sm font-medium text-secondary-dark hover:text-secondary-DEFAULT dark:text-secondary-light dark:hover:text-secondary-DEFAULT transition-colors"
                     >
                         {t('dashboard.client.viewPlanDetails', 'View Plan Details')} &rarr;
                     </Link>
@@ -142,13 +142,13 @@ const ClientDashboardPage: React.FC = () => {
           </div>
 
           {/* Training History Card */}
-          <div className="bg-blue-50 dark:bg-blue-900/30 p-6 rounded-lg shadow">
-            <h2 className="text-xl font-semibold text-blue-700 dark:text-blue-300 mb-3">{t('dashboard.client.trainingHistoryTitle', 'Training History')}</h2>
-            <p className="text-gray-600 dark:text-gray-400">{t('dashboard.client.historyPlaceholder', 'Your recent workouts and completed routines will appear here.')}</p>
+          <div className="bg-accent-light/30 dark:bg-accent-dark/30 p-6 rounded-lg shadow transition-colors duration-300">
+            <h2 className="text-xl font-semibold text-accent-dark dark:text-accent-light mb-3">{t('dashboard.client.trainingHistoryTitle', 'Training History')}</h2>
+            <p className="text-text-muted-light dark:text-text-muted-dark">{t('dashboard.client.historyPlaceholder', 'Your recent workouts and completed routines will appear here.')}</p>
             <div className="mt-4">
                  <Link
                     to="/training-history"
-                    className="text-sm font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
+                    className="text-sm font-medium text-accent-dark hover:text-accent-DEFAULT dark:text-accent-light dark:hover:text-accent-DEFAULT transition-colors"
                 >
                     {t('dashboard.client.viewFullHistory', 'View Full History')} &rarr;
                 </Link>
@@ -157,11 +157,11 @@ const ClientDashboardPage: React.FC = () => {
         </div>
 
         {/* Progress Update Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8 pt-6 border-t border-neutral-border-light dark:border-neutral-border-dark transition-colors duration-300">
           {/* Text Progress Update */}
           <div>
-            <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">{t('dashboard.client.progressUpdateTitle', 'Log Your Progress (Text)')}</h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
+            <h2 className="text-2xl font-semibold text-text-default-light dark:text-text-default-dark mb-4">{t('dashboard.client.progressUpdateTitle', 'Log Your Progress (Text)')}</h2>
+            <p className="text-text-muted-light dark:text-text-muted-dark mb-4">
               {t('dashboard.client.progressUpdateDesc', 'Share how you\'re feeling, any achievements, or challenges.')}
             </p>
             <form onSubmit={handleTextProgressSubmit} className="space-y-4">
@@ -172,16 +172,16 @@ const ClientDashboardPage: React.FC = () => {
                   rows={4}
                   value={progressUpdateText}
                   onChange={(e) => setProgressUpdateText(e.target.value)}
-                  className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:ring-teal-500 focus:border-teal-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  className="w-full p-3 border border-neutral-border-light dark:border-neutral-border-dark rounded-md shadow-sm focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-primary-DEFAULT dark:focus:border-primary-dark bg-neutral-background-light dark:bg-neutral-background-dark text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark transition-colors duration-300"
                   placeholder={t('dashboard.client.progressPlaceholder', 'E.g., Felt strong today, hit a new PR on squats!')}
                 />
               </div>
-              {generalError && <p className="text-sm text-red-500">{generalError}</p>}
+              {generalError && <p className="text-sm text-semantic-error-light dark:text-semantic-error-dark">{generalError}</p>}
               <div>
                 <button
                   type="submit"
                   disabled={isUploading || !progressUpdateText.trim()}
-                  className="px-6 py-2 bg-teal-500 text-white font-medium rounded-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 disabled:opacity-50"
+                  className="px-6 py-2 bg-primary-DEFAULT text-text-default-dark dark:text-text-default-light font-medium rounded-md hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-dark dark:focus:ring-primary-light disabled:opacity-50 transition-colors duration-300"
                 >
                   {isUploading ? t('dashboard.client.submittingProgress', 'Submitting...') : t('dashboard.client.submitProgressButton', 'Submit Text Update')}
                 </button>
@@ -191,13 +191,13 @@ const ClientDashboardPage: React.FC = () => {
 
           {/* Photo Progress Update */}
           <div>
-            <h2 className="text-2xl font-semibold text-gray-800 dark:text-white mb-4">{t('dashboard.client.photoUpload.title', 'Upload Progress Photo')}</h2>
-             <p className="text-gray-600 dark:text-gray-400 mb-4">
+            <h2 className="text-2xl font-semibold text-text-default-light dark:text-text-default-dark mb-4">{t('dashboard.client.photoUpload.title', 'Upload Progress Photo')}</h2>
+             <p className="text-text-muted-light dark:text-text-muted-dark mb-4">
               {t('dashboard.client.photoUpload.desc', 'Visually track your transformation. Photos are visible to you and your coach.')}
             </p>
             <form onSubmit={handlePhotoUpload} className="space-y-4">
               <div>
-                <label htmlFor="progressPhoto" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="progressPhoto" className="block text-sm font-medium text-text-default-light dark:text-text-default-dark">
                   {t('dashboard.client.photoUpload.selectLabel', 'Select Photo (Max 5MB)')}
                 </label>
                 <input
@@ -205,17 +205,17 @@ const ClientDashboardPage: React.FC = () => {
                   id="progressPhoto"
                   accept="image/png, image/jpeg, image/webp"
                   onChange={handlePhotoChange}
-                  className="mt-1 block w-full text-sm text-gray-500 dark:text-gray-400
+                  className="mt-1 block w-full text-sm text-text-muted-light dark:text-text-muted-dark
                     file:mr-4 file:py-2 file:px-4
                     file:rounded-full file:border-0
                     file:text-sm file:font-semibold
-                    file:bg-teal-50 file:text-teal-700 dark:file:bg-teal-700 dark:file:text-teal-50
-                    hover:file:bg-teal-100 dark:hover:file:bg-teal-600"
+                    file:bg-primary-light file:text-primary-dark dark:file:bg-primary-dark dark:file:text-primary-light
+                    hover:file:bg-primary-DEFAULT dark:hover:file:bg-primary-hover transition-colors duration-300"
                 />
-                {progressPhoto && <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">{t('dashboard.client.photoUpload.selectedFile', 'Selected:')} {progressPhoto.name}</p>}
+                {progressPhoto && <p className="mt-1 text-xs text-text-muted-light dark:text-text-muted-dark">{t('dashboard.client.photoUpload.selectedFile', 'Selected:')} {progressPhoto.name}</p>}
               </div>
               <div>
-                <label htmlFor="photoCaption" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                <label htmlFor="photoCaption" className="block text-sm font-medium text-text-default-light dark:text-text-default-dark">
                   {t('dashboard.client.photoUpload.captionLabel', 'Caption (Optional)')}
                 </label>
                 <input
@@ -223,16 +223,16 @@ const ClientDashboardPage: React.FC = () => {
                   id="photoCaption"
                   value={photoCaption}
                   onChange={(e) => setPhotoCaption(e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-gray-900 dark:text-white focus:outline-none focus:ring-teal-500 focus:border-teal-500 sm:text-sm"
+                  className="mt-1 block w-full px-3 py-2 bg-neutral-background-light dark:bg-neutral-background-dark border border-neutral-border-light dark:border-neutral-border-dark rounded-md shadow-sm text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark focus:outline-none focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-primary-DEFAULT dark:focus:border-primary-dark sm:text-sm transition-colors duration-300"
                   placeholder={t('dashboard.client.photoUpload.captionPlaceholder', 'E.g., Week 4 - Front View')}
                 />
               </div>
-              {uploadError && <p className="text-sm text-red-500">{uploadError}</p>}
+              {uploadError && <p className="text-sm text-semantic-error-light dark:text-semantic-error-dark">{uploadError}</p>}
               <div>
                 <button
                   type="submit"
                   disabled={isUploading || !progressPhoto}
-                  className="px-6 py-2 bg-cyan-500 text-white font-medium rounded-md hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 disabled:opacity-50"
+                  className="px-6 py-2 bg-secondary-DEFAULT text-text-default-dark dark:text-text-default-light font-medium rounded-md hover:bg-secondary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary-dark dark:focus:ring-secondary-light disabled:opacity-50 transition-colors duration-300"
                 >
                   {isUploading ? t('dashboard.client.photoUpload.uploadingButton', 'Uploading...') : t('dashboard.client.photoUpload.uploadButton', 'Upload Photo')}
                 </button>

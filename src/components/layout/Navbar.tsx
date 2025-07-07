@@ -66,26 +66,25 @@ const Navbar: React.FC = () => {
   };
 
   const navLinkClasses = ({ isActive }: { isActive: boolean }) =>
-    `px-3 py-2 rounded-lg text-sm font-medium transition-all duration-700 relative overflow-hidden ${
+    `px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 relative overflow-hidden ${
       isActive
-        ? 'text-white bg-gradient-to-r from-teal-500 to-cyan-500 shadow-lg'
-        : 'text-gray-700 dark:text-gray-200 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20'
+        ? 'text-neutral-900 dark:text-text-default-light bg-primary-dark dark:bg-primary-dark shadow-lg'
+        : 'text-text-default-light dark:text-text-default-dark hover:text-primary-dark dark:hover:text-primary-light hover:bg-primary-light dark:hover:bg-primary-hover'
     }`;
 
   const mobileNavLinkClasses = ({ isActive }: { isActive: boolean }) =>
     `block px-3 py-3 text-base font-medium transition-colors rounded-lg ${
       isActive
-        ? 'text-white bg-gradient-to-r from-teal-500 to-cyan-500'
-        : 'text-gray-700 dark:text-gray-200 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20'
+        ? 'text-neutral-900 dark:text-text-default-light bg-primary-dark dark:bg-primary-dark'
+        : 'text-text-default-light dark:text-text-default-dark hover:text-primary-dark dark:hover:text-primary-light hover:bg-primary-light dark:hover:bg-primary-hover'
     }`;
 
-  const authButtonClasses = "px-3 py-2 rounded-lg text-sm font-medium transition-all duration-700 text-gray-700 dark:text-gray-200 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20";
-  const mobileAuthButtonClasses = "block w-full text-left px-3 py-3 text-base font-medium transition-colors rounded-lg text-gray-700 dark:text-gray-200 hover:text-teal-600 dark:hover:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20 duration-700";
-
+  const authButtonClasses = "px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 text-text-default-light dark:text-text-default-dark hover:text-primary-dark dark:hover:text-primary-light hover:bg-primary-light dark:hover:bg-primary-hover";
+  const mobileAuthButtonClasses = "block w-full text-left px-3 py-3 text-base font-medium transition-colors rounded-lg text-text-default-light dark:text-text-default-dark hover:text-primary-dark dark:hover:text-primary-light hover:bg-primary-light dark:hover:bg-primary-hover duration-300";
 
   const renderAuthControls = (isMobile: boolean) => {
     if (loading) {
-      return <div className={isMobile ? mobileAuthButtonClasses : authButtonClasses}>{t('navbar.loadingUser', 'Loading...')}</div>;
+      return <div className={`${isMobile ? mobileAuthButtonClasses : authButtonClasses} text-text-muted-light dark:text-text-muted-dark`}>{t('navbar.loadingUser', 'Loading...')}</div>;
     }
 
     if (isAuthenticated && currentUser) {
@@ -123,13 +122,12 @@ const Navbar: React.FC = () => {
     }
   };
 
-
   return (
     <motion.nav
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-700 ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/95 dark:bg-gray-950/95 backdrop-blur-md shadow-lg border-b border-gray-200 dark:border-gray-700'
-          : 'bg-white/60 dark:bg-gray-950/60'
+          ? 'bg-neutral-surface-light/95 dark:bg-neutral-surface-dark/95 backdrop-blur-md shadow-lg border-b border-neutral-border-light dark:border-neutral-border-dark'
+          : 'bg-neutral-background-light/80 dark:bg-neutral-background-dark/80'
       }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -167,10 +165,10 @@ const Navbar: React.FC = () => {
               <LanguageSelector />
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-teal-50 dark:hover:bg-teal-900/20 transition-colors"
+                className="p-2 rounded-lg text-text-default-light dark:text-text-default-dark hover:bg-primary-light dark:hover:bg-primary-hover transition-colors"
                 aria-label={t('navbar.toggleMenu', 'Toggle mobile menu')}
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 icon-default" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   {isMobileMenuOpen ? (
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   ) : (
@@ -185,29 +183,29 @@ const Navbar: React.FC = () => {
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              className="lg:hidden fixed inset-0 z-50 bg-white/95 dark:bg-gray-950/95 backdrop-blur-md pt-16" // Added pt-16 to avoid overlap with fixed navbar
-              initial={{ opacity: 0, y: -20 }} // Changed initial animation
+              className="lg:hidden fixed inset-0 z-50 bg-neutral-surface-light/95 dark:bg-neutral-surface-dark/95 backdrop-blur-md pt-16"
+              initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }} // Changed exit animation
-              transition={{ duration: 0.2 }} // Faster transition
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.2 }}
             >
                <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="absolute top-3.5 right-4 p-2 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-teal-50 dark:hover:bg-teal-900/20 transition-colors z-50" // Ensure button is above content
+                className="absolute top-3.5 right-4 p-2 rounded-lg text-text-default-light dark:text-text-default-dark hover:bg-primary-light dark:hover:bg-primary-hover transition-colors z-50"
                 aria-label={t('navbar.closeMenu', 'Close menu')}
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
+                <svg className="w-6 h-6 icon-default" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
                 </svg>
               </button>
-              <div className="flex flex-col h-full overflow-y-auto px-4 pt-8 pb-24 space-y-3"> {/* Adjusted padding and added overflow */}
+              <div className="flex flex-col h-full overflow-y-auto px-4 pt-8 pb-24 space-y-3">
                 <NavLink to="/" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)} end>{t('navHome')}</NavLink>
                 <NavLink to="/about" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navAbout')}</NavLink>
                 <NavLink to="/services" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navServices')}</NavLink>
                 <NavLink to="/testimonials" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navTestimonials')}</NavLink>
                 <NavLink to="/contact" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navContact')}</NavLink>
 
-                <hr className="my-3 border-gray-200 dark:border-gray-700" />
+                <hr className="my-3 border-neutral-border-light dark:border-neutral-border-dark" />
 
                 {!loading && renderAuthControls(true)}
               </div>

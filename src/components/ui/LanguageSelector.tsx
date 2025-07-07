@@ -143,23 +143,24 @@ const LanguageSelector: React.FC = () => {
       <button
         ref={triggerButtonRef}
         type="button"
-        className="flex items-center justify-center px-3 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-800 transition-colors"
+        className="flex items-center justify-center px-3 py-2 bg-neutral-surface-light dark:bg-neutral-surface-dark text-text-default-light dark:text-text-default-dark hover:bg-neutral-border-light dark:hover:bg-neutral-border-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:ring-offset-2 focus:ring-offset-neutral-background-light dark:focus:ring-offset-neutral-background-dark transition-colors"
         onClick={toggleDropdown}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
         aria-label={t('selectLanguage', 'Select language') + `: ${currentLanguage.name}`}
       >
         {getFlagDisplay(currentLanguage.code)}
-        {typeof ChevronDownIcon !== 'undefined' ? <ChevronDownIcon /> : <DefaultChevronDownIcon />}
+        {/* Ensure ChevronDownIcon also uses themed colors if it's a custom component */}
+        {typeof ChevronDownIcon !== 'undefined' ? <ChevronDownIcon className="w-5 h-5 ml-1 opacity-70 icon-default" /> : <DefaultChevronDownIcon />}
       </button>
 
       <AnimatePresence>
         {isOpen && (
           <motion.ul
             role="listbox"
-            tabIndex={-1} // Make the list focusable for keyboard events when open
+            tabIndex={-1}
             onKeyDown={handleKeyDown}
-            className="absolute z-50 mt-1 w-auto min-w-[150px] right-0 md:left-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg overflow-hidden focus:outline-none"
+            className="absolute z-50 mt-1 w-auto min-w-[150px] right-0 md:left-0 bg-neutral-surface-light dark:bg-neutral-surface-dark border border-neutral-border-light dark:border-neutral-border-dark rounded-lg shadow-lg overflow-hidden focus:outline-none transition-colors duration-300"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -169,14 +170,14 @@ const LanguageSelector: React.FC = () => {
               <li
                 key={lang.code}
                 role="option"
-                tabIndex={0} // Make individual options focusable
+                tabIndex={0}
                 aria-selected={i18n.language === lang.code}
                 className={`flex items-center px-3 py-2 text-sm cursor-pointer
                   ${ i18n.language === lang.code
-                    ? 'bg-teal-500 text-white'
-                    : 'text-gray-700 dark:text-gray-200 hover:bg-teal-50 hover:text-teal-700 dark:hover:bg-teal-900/20 dark:hover:text-teal-300'
+                    ? 'bg-primary-DEFAULT text-text-default-dark dark:bg-primary-dark dark:text-text-default-light' // Active state with theme colors
+                    : 'text-text-default-light dark:text-text-default-dark hover:bg-primary-light dark:hover:bg-primary-hover hover:text-primary-dark dark:hover:text-primary-light' // Default and hover states
                   }
-                  focus:bg-teal-50 focus:text-teal-700 dark:focus:bg-teal-900/20 dark:focus:text-teal-300 focus:outline-none`}
+                  focus:bg-primary-light dark:focus:bg-primary-hover focus:text-primary-dark dark:focus:text-primary-light focus:outline-none transition-colors duration-150`}
                 onClick={() => selectLanguage(lang.code)}
                 onKeyDown={(e) => handleOptionKeyDown(e, lang.code)}
               >

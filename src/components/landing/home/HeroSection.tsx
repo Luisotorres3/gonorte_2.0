@@ -19,45 +19,43 @@ const HeroSection: React.FC = () => {
 
   return (
     <section
-      className="relative w-full min-h-screen text-white overflow-hidden bg-cover bg-center flex flex-col justify-center items-center p-4 sm:p-8" // Added flex centering and padding for responsiveness
+      className="relative w-full min-h-screen text-text-default-dark overflow-hidden bg-cover bg-center flex flex-col justify-center items-center p-4 sm:p-8"
       style={{ backgroundImage: `url(${CarmenPlaceholder})` }}
     >
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black opacity-60"></div> {/* Increased opacity for better text contrast */}
+      <div className="absolute inset-0 bg-neutral-background-dark opacity-70"></div> {/* Adjusted opacity and color for theme */}
 
-      {/* Floating Elements - Removed for cleaner design focused on Carmen */}
-
-      <div className="relative z-10 container mx-auto flex flex-col items-center justify-center text-center max-w-3xl"> {/* Centered content and limited max-width */}
+      <div className="relative z-10 container mx-auto flex flex-col items-center justify-center text-center max-w-3xl">
         {/* Main Title */}
         <motion.h1
-          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 leading-tight" // Further adjusted text sizes and margins for responsiveness
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 leading-tight text-text-default-dark" // Ensure text color contrasts with dark overlay
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            {/* Removed gradient text for better readability on image background */}
             {t('heroTitleCarmen', 'Lucha por tu cambio. Con biomecánica, con propósito, con confianza.')}
           </motion.h1>
 
           {/* CTA Buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row justify-center items-center" // Removed spacing classes, will be handled by button margin
+            className="flex flex-col sm:flex-row justify-center items-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.8 }}
           >
             <motion.button
-              className="group relative px-8 py-4 sm:px-10 sm:py-5 bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-semibold rounded-lg shadow-xl hover:shadow-teal-400/30 transition-all duration-300 transform hover:scale-105 text-md sm:text-lg" // Adjusted padding and text size for responsiveness, reduced hover scale slightly
+              className="group relative px-8 py-4 sm:px-10 sm:py-5 bg-primary-DEFAULT hover:bg-primary-hover active:bg-primary-active text-text-default-dark font-semibold rounded-lg shadow-xl hover:shadow-primary-dark/30 transition-all duration-300 transform hover:scale-105 text-md sm:text-lg"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => console.log('Primary CTA clicked')}
             >
               <span className="relative z-10">{t('heroCTACarmen', 'Empieza tu cambio')}</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-teal-600 to-cyan-600 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              {/* Kept the gradient on hover for a subtle effect, using theme colors */}
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-hover to-primary-active rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </motion.button>
           </motion.div>
 
-          {/* Scroll Indicator - Removed for a cleaner look, can be added back if desired */}
+          {/* Scroll Indicator - Can be re-added with theme colors if desired */}
           {/*
           <motion.div
             className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
