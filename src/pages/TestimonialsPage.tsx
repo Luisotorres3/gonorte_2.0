@@ -91,7 +91,7 @@ const TestimonialsPage: React.FC = () => {
       initial="hidden"
       animate="visible"
       variants={containerVariants}
-      className="py-8"
+      className="py-8 min-h-full"
     >
       <div className="max-w-6xl mx-auto">
         {/* Header Section */}

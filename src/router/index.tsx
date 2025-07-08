@@ -21,7 +21,6 @@ import NotFoundPage from '../pages/NotFoundPage';
 
 // Auth Pages
 import LoginPage from '../pages/LoginPage';
-import AdminLoginPage from '../pages/AdminLoginPage';
 import RegistrationPage from '../pages/RegistrationPage';
 import ForgotPasswordPage from '../pages/ForgotPasswordPage'; // Import the new page
 
@@ -29,9 +28,16 @@ import ForgotPasswordPage from '../pages/ForgotPasswordPage'; // Import the new 
 import UserProfilePage from '../pages/UserProfilePage';
 import ClientDashboardPage from '../pages/ClientDashboardPage';
 import CoachDashboardPage from '../pages/CoachDashboardPage';
+import ClientTrainingPlanPage from '../pages/ClientTrainingPlanPage';
+import ClientTrainingHistoryPage from '../pages/ClientTrainingHistoryPage';
+import CoachAnalyticsPage from '../pages/CoachAnalyticsPage';
+import CoachSchedulePage from '../pages/CoachSchedulePage';
+import NotificationsPage from '../pages/NotificationsPage';
+import UserSettingsPage from '../pages/UserSettingsPage';
 
 // Admin Pages
 import AdminUsersPage from '../pages/AdminUsersPage';
+import AdminPlansPage from '../pages/AdminPlansPage';
 import AdminSettingsPage from '../pages/AdminSettingsPage';
 
 // PrivateRoute HOC
@@ -39,22 +45,6 @@ import PrivateRoute from './PrivateRoute';
 
 const routes: RouteObject[] = [
   // Public routes accessible to everyone
-  {
-    path: '/login',
-    element: <LoginPage />, // Client login page
-  },
-  {
-    path: '/admin-login',
-    element: <AdminLoginPage />, // Admin/Coach login page
-  },
-  {
-    path: '/register',
-    element: <RegistrationPage />, // Registration page
-  },
-  {
-    path: '/forgot-password',
-    element: <ForgotPasswordPage />, // Forgot password page
-  },
   {
     path: '/',
     element: <MainLayout />,
@@ -67,6 +57,9 @@ const routes: RouteObject[] = [
       { path: 'legal', element: <LegalPage /> },
       { path: 'testimonials', element: <TestimonialsPage /> },
       { path: 'contact', element: <ContactPage /> },
+      { path: 'login', element: <LoginPage /> },
+      { path: 'register', element: <RegistrationPage /> },
+      { path: 'forgot-password', element: <ForgotPasswordPage /> },
 
       // Client-specific routes (protected)
       {
@@ -79,14 +72,20 @@ const routes: RouteObject[] = [
         element: <PrivateRoute allowedRoles={['client']} loginPath="/login" />,
         children: [
           { path: 'dashboard/client', element: <ClientDashboardPage /> },
+          { path: 'training-plan', element: <ClientTrainingPlanPage /> },
+          { path: 'training-history', element: <ClientTrainingHistoryPage /> },
+          { path: 'notifications', element: <NotificationsPage /> },
+          { path: 'settings', element: <UserSettingsPage /> },
         ],
       },
 
       // Coach-specific routes (protected)
       {
-        element: <PrivateRoute allowedRoles={['coach', 'admin']} loginPath="/admin-login" />,
+        element: <PrivateRoute allowedRoles={['coach', 'admin']} loginPath="/login" />,
         children: [
           { path: 'dashboard/coach', element: <CoachDashboardPage /> },
+          { path: 'analytics', element: <CoachAnalyticsPage /> },
+          { path: 'schedule', element: <CoachSchedulePage /> },
           // Coaches might also access a version of AdminUsersPage, filtered to their clients, or specific parts of it.
           // For now, keeping AdminUsersPage for admin/coach with full view.
         ],
@@ -96,13 +95,14 @@ const routes: RouteObject[] = [
       // These routes are also within MainLayout. If a different layout is needed for admin panel,
       // it would require a separate top-level route group.
       {
-        element: <PrivateRoute allowedRoles={['admin', 'coach']} loginPath="/admin-login" />,
+        element: <PrivateRoute allowedRoles={['admin', 'coach']} loginPath="/login" />,
         children: [
           { path: 'admin/users', element: <AdminUsersPage /> },
+          { path: 'admin/plans', element: <AdminPlansPage /> },
         ],
       },
       {
-        element: <PrivateRoute allowedRoles={['admin']} loginPath="/admin-login" />,
+        element: <PrivateRoute allowedRoles={['admin']} loginPath="/login" />,
         children: [
           { path: 'admin/settings', element: <AdminSettingsPage /> },
         ],

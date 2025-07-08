@@ -24,7 +24,7 @@ import ContactSection from '../components/landing/home/ContactSection';
  */
 const HomePage: React.FC = () => {
   return (
-    <AnimatedPage className="flex flex-col items-center w-full">
+    <AnimatedPage className="flex flex-col items-center w-full min-h-full">
       <HeroSection />
       <FeaturesSection />
       <StatsSection />

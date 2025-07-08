@@ -130,32 +130,12 @@ const ContactPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-neutral-background-light via-neutral-background-light to-primary-light/20 dark:from-neutral-background-dark dark:via-neutral-background-dark dark:to-primary-dark/20 transition-colors duration-300">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
-        {/* Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <h1 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-primary-DEFAULT to-accent-DEFAULT bg-clip-text text-transparent">
-            {t('contactTitle', 'Ponte en Contacto')}
-          </h1>
-          <p className="text-xl text-text-muted-light dark:text-text-muted-dark max-w-3xl mx-auto">
-            {t('contactSubtitle', '¿Listo para comenzar tu transformación? Contáctame y juntos crearemos el plan perfecto para alcanzar tus objetivos')}
-          </p>
-        </motion.div>
-
-        <motion.div
-          className="grid grid-cols-1 lg:grid-cols-2 gap-12"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
+    <div className="min-h-full bg-gradient-to-br from-neutral-background-light via-neutral-background-light to-primary-light/20 dark:from-neutral-background-dark dark:via-neutral-background-dark dark:to-primary-dark/20 transition-colors duration-300">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <motion.div variants={itemVariants}>
-            <div className="bg-neutral-surface-light dark:bg-neutral-surface-dark rounded-2xl p-8 shadow-xl border border-neutral-border-light dark:border-neutral-border-dark transition-colors duration-300">
+          <div>
+            <div className="bg-neutral-surface-light dark:bg-neutral-surface-dark rounded-2xl p-8 shadow-xl border-2 border-gray-300 dark:border-neutral-border-dark transition-colors duration-300">
               <h2 className="text-2xl font-bold mb-6 text-text-default-light dark:text-text-default-dark">
                 {t('contactFormTitle', 'Envíame un Mensaje')}
               </h2>
@@ -185,7 +165,7 @@ const ContactPage: React.FC = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-neutral-border-light dark:border-neutral-border-dark rounded-xl focus:ring-2 focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-transparent bg-neutral-background-light dark:bg-neutral-background-dark text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark transition-colors duration-300"
+                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-neutral-border-dark rounded-xl focus:ring-2 focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-transparent bg-neutral-surface-light dark:bg-neutral-surface-dark text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark transition-colors duration-300"
                       placeholder={t('contactFormNamePlaceholder', 'Tu nombre completo')}
                     />
                   </div>
@@ -201,7 +181,7 @@ const ContactPage: React.FC = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-neutral-border-light dark:border-neutral-border-dark rounded-xl focus:ring-2 focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-transparent bg-neutral-background-light dark:bg-neutral-background-dark text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark transition-colors duration-300"
+                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-neutral-border-dark rounded-xl focus:ring-2 focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-transparent bg-neutral-surface-light dark:bg-neutral-surface-dark text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark transition-colors duration-300"
                       placeholder={t('contactFormEmailPlaceholder', 'tu@email.com')}
                     />
                   </div>
@@ -218,7 +198,7 @@ const ContactPage: React.FC = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-neutral-border-light dark:border-neutral-border-dark rounded-xl focus:ring-2 focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-transparent bg-neutral-background-light dark:bg-neutral-background-dark text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark transition-colors duration-300"
+                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-neutral-border-dark rounded-xl focus:ring-2 focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-transparent bg-neutral-surface-light dark:bg-neutral-surface-dark text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark transition-colors duration-300"
                       placeholder={t('contactFormPhonePlaceholder', '+34 600 123 456')}
                     />
                   </div>
@@ -232,7 +212,14 @@ const ContactPage: React.FC = () => {
                       name="service"
                       value={formData.service}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-neutral-border-light dark:border-neutral-border-dark rounded-xl focus:ring-2 focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-transparent bg-neutral-background-light dark:bg-neutral-background-dark text-text-default-light dark:text-text-default-dark transition-colors duration-300"
+                      className="w-full px-4 py-3 border-2 border-gray-300 dark:border-neutral-border-dark rounded-xl focus:ring-2 focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-transparent bg-neutral-surface-light dark:bg-neutral-surface-dark text-text-default-light dark:text-text-default-dark transition-colors duration-300 appearance-none cursor-pointer [&>option]:bg-neutral-surface-light [&>option]:dark:bg-neutral-surface-dark [&>option]:text-text-default-light [&>option]:dark:text-text-default-dark [&>option]:py-2 [&>option]:px-3 [&>option]:hover:bg-gray-100 [&>option]:dark:hover:bg-gray-700 [&>option]:border-b [&>option]:border-gray-200 [&>option]:dark:border-gray-600"
+                      style={{
+                        backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
+                        backgroundPosition: 'right 0.5rem center',
+                        backgroundRepeat: 'no-repeat',
+                        backgroundSize: '1.5em 1.5em',
+                        paddingRight: '2.5rem'
+                      }}
                     >
                       <option value="">{t('contactFormServicePlaceholder', 'Selecciona un servicio')}</option>
                       <option value="personal-training">{t('service1Title', 'Entrenamiento Personalizado')}</option>
@@ -254,7 +241,14 @@ const ContactPage: React.FC = () => {
                     name="experience"
                     value={formData.experience}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-neutral-border-light dark:border-neutral-border-dark rounded-xl focus:ring-2 focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-transparent bg-neutral-background-light dark:bg-neutral-background-dark text-text-default-light dark:text-text-default-dark transition-colors duration-300"
+                    className="w-full px-4 py-3 border-2 border-gray-300 dark:border-neutral-border-dark rounded-xl focus:ring-2 focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-transparent bg-neutral-surface-light dark:bg-neutral-surface-dark text-text-default-light dark:text-text-default-dark transition-colors duration-300 appearance-none cursor-pointer [&>option]:bg-neutral-surface-light [&>option]:dark:bg-neutral-surface-dark [&>option]:text-text-default-light [&>option]:dark:text-text-default-dark [&>option]:py-2 [&>option]:px-3 [&>option]:hover:bg-gray-100 [&>option]:dark:hover:bg-gray-700 [&>option]:border-b [&>option]:border-gray-200 [&>option]:dark:border-gray-600"
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e")`,
+                      backgroundPosition: 'right 0.5rem center',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundSize: '1.5em 1.5em',
+                      paddingRight: '2.5rem'
+                    }}
                   >
                     <option value="">Selecciona tu nivel</option>
                     <option value="beginner">Principiante</option>
@@ -273,7 +267,7 @@ const ContactPage: React.FC = () => {
                     value={formData.goals}
                     onChange={handleInputChange}
                     rows={3}
-                    className="w-full px-4 py-3 border border-neutral-border-light dark:border-neutral-border-dark rounded-xl focus:ring-2 focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-transparent bg-neutral-background-light dark:bg-neutral-background-dark text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark resize-none transition-colors duration-300"
+                    className="w-full px-4 py-3 border-2 border-gray-300 dark:border-neutral-border-dark rounded-xl focus:ring-2 focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-transparent bg-neutral-surface-light dark:bg-neutral-surface-dark text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark resize-none transition-colors duration-300"
                     placeholder="Ej: Perder peso, ganar músculo, mejorar resistencia..."
                   />
                 </div>
@@ -289,7 +283,7 @@ const ContactPage: React.FC = () => {
                     onChange={handleInputChange}
                     required
                     rows={5}
-                    className="w-full px-4 py-3 border border-neutral-border-light dark:border-neutral-border-dark rounded-xl focus:ring-2 focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-transparent bg-neutral-background-light dark:bg-neutral-background-dark text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark resize-none transition-colors duration-300"
+                    className="w-full px-4 py-3 border-2 border-gray-300 dark:border-neutral-border-dark rounded-xl focus:ring-2 focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-transparent bg-neutral-surface-light dark:bg-neutral-surface-dark text-text-default-light dark:text-text-default-dark placeholder-text-muted-light dark:placeholder-text-muted-dark resize-none transition-colors duration-300"
                     placeholder={t('contactFormMessagePlaceholder', 'Cuéntame sobre tus objetivos y cómo puedo ayudarte...')}
                   />
                 </div>
@@ -297,7 +291,7 @@ const ContactPage: React.FC = () => {
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-primary-DEFAULT to-accent-DEFAULT text-text-default-dark dark:text-text-default-light font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-primary text-black dark:text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -305,34 +299,34 @@ const ContactPage: React.FC = () => {
                 </motion.button>
               </form>
             </div>
-          </motion.div>
+          </div>
 
           {/* Contact Information */}
-          <motion.div variants={itemVariants} className="space-y-8">
+          <div className="h-full flex flex-col justify-between space-y-6">
             {/* Contact Info Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               {contactInfo.map((info) => (
                 <motion.div
                   key={info.titleKey}
-                  className="bg-neutral-surface-light dark:bg-neutral-surface-dark rounded-xl p-6 shadow-lg border border-neutral-border-light dark:border-neutral-border-dark hover:shadow-xl transition-all duration-300"
+                  className="bg-gray-200 dark:bg-neutral-surface-dark rounded-xl p-4 shadow-lg border-2 border-gray-300 dark:border-neutral-border-dark hover:shadow-xl transition-all duration-300"
                   whileHover={{ y: -4, scale: 1.02 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="flex items-center space-x-4">
-                    <div className="text-3xl icon-primary">{info.icon}</div> {/* Themed icon color */}
+                  <div className="flex flex-col items-center text-center space-y-2">
+                    <div className="text-2xl icon-primary">{info.icon}</div>
                     <div>
-                      <h4 className="font-semibold text-text-default-light dark:text-text-default-dark">
+                      <h4 className="font-semibold text-sm text-neutral-900 dark:text-neutral-100">
                         {t(info.titleKey, info.defaultTitle)}
                       </h4>
                       {info.link ? (
                         <a 
                           href={info.link}
-                          className="text-primary-DEFAULT dark:text-primary-light hover:text-primary-dark dark:hover:text-primary-DEFAULT transition-colors"
+                          className="text-xs text-primary-700 dark:text-primary-300 hover:text-primary-900 dark:hover:text-primary-100 transition-colors"
                         >
                           {t(info.valueKey, info.defaultValue)}
                         </a>
                       ) : (
-                        <p className="text-text-muted-light dark:text-text-muted-dark">
+                        <p className="text-xs text-neutral-600 dark:text-neutral-300">
                           {t(info.valueKey, info.defaultValue)}
                         </p>
                       )}
@@ -343,60 +337,47 @@ const ContactPage: React.FC = () => {
             </div>
 
             {/* Social Links */}
-            <div className="bg-neutral-surface-light dark:bg-neutral-surface-dark rounded-xl p-8 shadow-lg border border-neutral-border-light dark:border-neutral-border-dark">
-              <h3 className="text-xl font-bold mb-6 text-text-default-light dark:text-text-default-dark">
-                {t('contactSocialTitle', 'Sígueme en Redes Sociales')}
-              </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {socialLinks.map((social) => (
-                  <motion.a
-                    key={social.name}
-                    href={social.url}
-                    // Updated hover to use theme colors for background
-                    className={`flex flex-col items-center p-4 rounded-xl bg-neutral-background-light dark:bg-neutral-background-dark hover:bg-primary-light dark:hover:bg-primary-hover transition-all duration-300 group`}
-                    whileHover={{ y: -2, scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <div className="text-2xl mb-2 group-hover:scale-110 transition-transform duration-300 icon-default group-hover:icon-primary"> {/* Themed icon color on hover */}
-                      {social.icon}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+              {socialLinks.map((social) => (
+                <motion.a
+                  key={social.name}
+                  href={social.url}
+                  className="bg-gray-200 dark:bg-neutral-surface-dark rounded-xl p-4 shadow-lg border-2 border-gray-300 dark:border-neutral-border-dark hover:shadow-xl transition-all duration-300 group"
+                  whileHover={{ y: -4, scale: 1.02 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <div className="flex flex-col items-center text-center space-y-2">
+                    <div className="text-2xl icon-primary">{social.icon}</div>
+                    <div>
+                      <h4 className="font-semibold text-sm text-neutral-900 dark:text-neutral-100">
+                        {social.name}
+                      </h4>
                     </div>
-                    <span className="text-sm font-medium text-text-muted-light dark:text-text-muted-dark group-hover:text-primary-dark dark:group-hover:text-primary-light"> {/* Themed text color on hover */}
-                      {social.name}
-                    </span>
-                  </motion.a>
-                ))}
-              </div>
-            </div>
-
-            {/* Quick Response */}
-            <div className="bg-gradient-to-r from-primary-DEFAULT to-accent-DEFAULT rounded-xl p-8 text-text-default-dark dark:text-text-default-light">
-              <h3 className="text-xl font-bold mb-4">
-                {t('contactQuickResponseTitle', 'Respuesta Rápida')}
-              </h3>
-              <p className="opacity-90 mb-6"> {/* Adjusted opacity for better readability over gradient */}
-                {t('contactQuickResponseText', 'Normalmente respondo en menos de 24 horas. ¡No dudes en contactarme!')}
-              </p>
-              <div className="flex items-center space-x-2">
-                <div className="w-3 h-3 bg-semantic-success-light dark:bg-semantic-success-dark rounded-full animate-pulse"></div>
-                <span className="text-sm opacity-90">
-                  {t('contactAvailable', 'Disponible ahora')}
-                </span>
-              </div>
+                  </div>
+                </motion.a>
+              ))}
             </div>
 
             {/* Map Placeholder */}
-            <div className="bg-neutral-surface-light dark:bg-neutral-surface-dark rounded-xl p-8 shadow-lg border border-neutral-border-light dark:border-neutral-border-dark">
+            <div className="bg-gray-200 dark:bg-neutral-surface-dark rounded-xl p-8 shadow-lg border-2 border-gray-300 dark:border-neutral-border-dark flex-1 flex flex-col">
               <h3 className="text-xl font-bold mb-6 text-text-default-light dark:text-text-default-dark">
                 Ubicación
               </h3>
-              <div className="bg-neutral-background-light dark:bg-neutral-background-dark rounded-xl h-48 flex items-center justify-center">
-                <p className="text-text-muted-light dark:text-text-muted-dark">
-                  {t('contactMapPlaceholder', 'Mapa interactivo aquí')}
-                </p>
+              <div className="bg-neutral-background-light dark:bg-neutral-background-dark rounded-xl flex-1 flex items-center justify-center">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3180.1234567890123!2d-3.9237!3d37.4627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6dd7b8b8b8b8b8%3A0x8b8b8b8b8b8b8b8!2sAlcal%C3%A1%20la%20Real%2C%20Ja%C3%A9n!5e0!3m2!1ses!2ses!4v1234567890123&maptype=roadmap&zoom=15&disableDefaultUI=true&zoomControl=false&mapTypeControl=false&scaleControl=false&streetViewControl=false&rotateControl=false&fullscreenControl=false"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="rounded-xl"
+                ></iframe>
               </div>
             </div>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
     </div>
   );

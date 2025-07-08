@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { doc, updateDoc, arrayUnion, Timestamp } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../firebase/config'; // storage is new
+import { FaPlay, FaHistory, FaBell, FaCog } from 'react-icons/fa';
 
 const ClientDashboardPage: React.FC = () => {
   const { t } = useTranslation();
@@ -18,7 +19,7 @@ const ClientDashboardPage: React.FC = () => {
 
   const handleTextProgressSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-  //   if (!currentUser || !progressUpdateText.trim()) return;
+    if (!currentUser || !progressUpdateText.trim()) return;
 
     setIsUploading(true); // Use isUploading for both text and photo for now
     setGeneralError(null);
@@ -132,10 +133,11 @@ const ClientDashboardPage: React.FC = () => {
             {currentUser.assignedPlanId && (
                  <div className="mt-4">
                     <Link
-                        to={`/training-plans/${currentUser.assignedPlanId}`}
-                        className="text-sm font-medium text-secondary-dark hover:text-secondary-DEFAULT dark:text-secondary-light dark:hover:text-secondary-DEFAULT transition-colors"
+                        to="/training-plan"
+                        className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white text-sm font-medium rounded-lg transition-all duration-300"
                     >
-                        {t('dashboard.client.viewPlanDetails', 'View Plan Details')} &rarr;
+                        <FaPlay className="mr-2" />
+                        {t('dashboard.client.viewPlanDetails', 'Ver Plan de Entrenamiento')}
                     </Link>
                 </div>
             )}
@@ -148,9 +150,40 @@ const ClientDashboardPage: React.FC = () => {
             <div className="mt-4">
                  <Link
                     to="/training-history"
-                    className="text-sm font-medium text-accent-dark hover:text-accent-DEFAULT dark:text-accent-light dark:hover:text-accent-DEFAULT transition-colors"
+                    className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-sm font-medium rounded-lg transition-all duration-300"
                 >
-                    {t('dashboard.client.viewFullHistory', 'View Full History')} &rarr;
+                    <FaHistory className="mr-2" />
+                    {t('dashboard.client.viewFullHistory', 'Ver Historial Completo')}
+                </Link>
+            </div>
+          </div>
+
+          {/* Notifications Card */}
+          <div className="bg-orange-100 dark:bg-orange-900/30 p-6 rounded-lg shadow transition-colors duration-300">
+            <h2 className="text-xl font-semibold text-orange-800 dark:text-orange-200 mb-3">{t('dashboard.client.notificationsTitle', 'Notificaciones')}</h2>
+            <p className="text-text-muted-light dark:text-text-muted-dark">{t('dashboard.client.notificationsDescription', 'Mantente al día con tus alertas y mensajes importantes.')}</p>
+            <div className="mt-4">
+                 <Link
+                    to="/notifications"
+                    className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white text-sm font-medium rounded-lg transition-all duration-300"
+                >
+                    <FaBell className="mr-2" />
+                    {t('dashboard.client.viewNotifications', 'Ver Notificaciones')}
+                </Link>
+            </div>
+          </div>
+
+          {/* Settings Card */}
+          <div className="bg-purple-100 dark:bg-purple-900/30 p-6 rounded-lg shadow transition-colors duration-300">
+            <h2 className="text-xl font-semibold text-purple-800 dark:text-purple-200 mb-3">{t('dashboard.client.settingsTitle', 'Configuración')}</h2>
+            <p className="text-text-muted-light dark:text-text-muted-dark">{t('dashboard.client.settingsDescription', 'Gestiona tus preferencias y configuración de cuenta.')}</p>
+            <div className="mt-4">
+                 <Link
+                    to="/settings"
+                    className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-sm font-medium rounded-lg transition-all duration-300"
+                >
+                    <FaCog className="mr-2" />
+                    {t('dashboard.client.viewSettings', 'Ver Configuración')}
                 </Link>
             </div>
           </div>

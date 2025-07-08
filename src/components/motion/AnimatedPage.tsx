@@ -26,7 +26,7 @@ interface AnimatedPageProps {
 const AnimatedPage: React.FC<AnimatedPageProps> = ({ children, className }) => {
   return (
     <motion.div
-      className={className} // Apply passed className
+      className={`min-h-full w-full ${className || ''}`} // Ensure full height and width
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }} // Consistent exit animation

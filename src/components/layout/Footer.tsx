@@ -29,6 +29,12 @@ const GitHubIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
+const InstagramIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg fill="currentColor" viewBox="0 0 24 24" {...props} aria-hidden="true">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+  </svg>
+);
+
 
 /**
  * Displays the multi-column footer section of the application.
@@ -40,29 +46,37 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   const footerLinkClasses = "text-text-muted-light dark:text-text-muted-dark hover:text-primary-DEFAULT dark:hover:text-primary-light transition-colors text-sm";
-  const sectionTitleClasses = "text-text-default-light dark:text-text-default-dark font-semibold mb-space-sm text-base";
+  const sectionTitleClasses = "text-text-default-light dark:text-text-default-dark font-semibold mb-space-md text-lg border-b border-neutral-border-light dark:border-neutral-border-dark pb-space-xs";
   const iconClasses = "icon-default hover:icon-primary dark:hover:icon-primary w-6 h-6"; // Updated icon classes
 
   return (
-    <footer className="bg-neutral-surface-light dark:bg-neutral-surface-dark text-text-muted-light dark:text-text-muted-dark pt-space-lg pb-space-md border-t border-neutral-border-light dark:border-neutral-border-dark shadow-lg transition-colors duration-300">
+    <footer className="bg-neutral-surface-light dark:bg-neutral-surface-dark text-text-muted-light dark:text-text-muted-dark pt-space-xl pb-space-md border-t border-neutral-border-light dark:border-neutral-border-dark shadow-lg transition-colors duration-300">
       <div className="container mx-auto px-space-md">
         {/* Columns Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-space-lg mb-space-lg">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-space-xl mb-space-lg">
           {/* Column 1: Quick Navigation */}
-          <div>
+          <div className="bg-neutral-surface-light/50 dark:bg-neutral-surface-dark/50 p-space-md rounded-lg border border-neutral-border-light/30 dark:border-neutral-border-dark/30">
             <h3 className={sectionTitleClasses}>{t('footer.quickLinks', 'Quick Links')}</h3>
-            <ul className="space-y-space-xs">
-              <li><NavLink to="/" className={footerLinkClasses}>{t('navHome', 'Home')}</NavLink></li>
-              <li><NavLink to="/about" className={footerLinkClasses}>{t('navAbout', 'About Me')}</NavLink></li>
-              <li><NavLink to="/services" className={footerLinkClasses}>{t('navServices', 'Services')}</NavLink></li>
-              <li><NavLink to="/testimonials" className={footerLinkClasses}>{t('navTestimonials', 'Testimonials')}</NavLink></li>
-              <li><NavLink to="/contact" className={footerLinkClasses}>{t('navContact', 'Contact')}</NavLink></li>
-              <li><NavLink to="/legal" className={footerLinkClasses}>{t('footer.legal', 'Legal')}</NavLink></li>
-            </ul>
+            <div className="grid grid-cols-2 gap-x-space-md gap-y-space-xs">
+              <div>
+                <ul className="space-y-space-xs">
+                  <li><NavLink to="/" className={footerLinkClasses}>{t('navHome', 'Home')}</NavLink></li>
+                  <li><NavLink to="/about" className={footerLinkClasses}>{t('navAbout', 'About Me')}</NavLink></li>
+                  <li><NavLink to="/services" className={footerLinkClasses}>{t('navServices', 'Services')}</NavLink></li>
+                </ul>
+              </div>
+              <div>
+                <ul className="space-y-space-xs">
+                  <li><NavLink to="/testimonials" className={footerLinkClasses}>{t('navTestimonials', 'Testimonials')}</NavLink></li>
+                  <li><NavLink to="/contact" className={footerLinkClasses}>{t('navContact', 'Contact')}</NavLink></li>
+                  <li><NavLink to="/legal" className={footerLinkClasses}>{t('footer.legal', 'Legal')}</NavLink></li>
+                </ul>
+              </div>
+            </div>
           </div>
 
           {/* Column 2: Contact Info */}
-          <div>
+          <div className="bg-neutral-surface-light/50 dark:bg-neutral-surface-dark/50 p-space-md rounded-lg border border-neutral-border-light/30 dark:border-neutral-border-dark/30">
             <h3 className={sectionTitleClasses}>{t('footer.contactUs', 'Contact Us')}</h3>
             {/* Ensure text color for address details is also themed if needed */}
             <address className="not-italic text-sm space-y-space-xs text-text-muted-light dark:text-text-muted-dark">
@@ -73,7 +87,7 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Column 3: Settings & Social */}
-          <div>
+          <div className="bg-neutral-surface-light/50 dark:bg-neutral-surface-dark/50 p-space-md rounded-lg border border-neutral-border-light/30 dark:border-neutral-border-dark/30">
             <h3 className={sectionTitleClasses}>{t('footer.settingsSocial', 'Settings & Social')}</h3>
             <div className="mb-space-md">
               <LanguageSelector />
@@ -83,7 +97,7 @@ const Footer: React.FC = () => {
               <a href="#" aria-label="LinkedIn" className={iconClasses}><LinkedInIcon /></a>
               <a href="#" aria-label="GitHub" className={iconClasses}><GitHubIcon /></a>
               {/* Placeholder for Instagram */}
-              <a href="#" aria-label="Instagram" className={`${footerLinkClasses} ${iconClasses}`}>Instagram</a> {/* Apply icon classes if it's an icon, or just footerLinkClasses */}
+              <a href="#" aria-label="Instagram" className={`${footerLinkClasses} ${iconClasses}`}><InstagramIcon /></a> {/* Apply icon classes if it's an icon, or just footerLinkClasses */}
             </div>
           </div>
         </div>

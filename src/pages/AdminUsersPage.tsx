@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { collection, getDocs, query, orderBy, addDoc, serverTimestamp, setDoc, doc } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy, addDoc, serverTimestamp, setDoc, doc, where, updateDoc } from 'firebase/firestore';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase/config';
 import type { UserProfile } from '../types/user';
 import { useTranslation } from 'react-i18next';
-import { FaSearch, FaEdit, FaTrashAlt, FaUserPlus } from 'react-icons/fa';
+import { FaSearch, FaEdit, FaTrashAlt, FaUserPlus, FaDumbbell, FaUserCheck } from 'react-icons/fa';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { auth, app } from '../firebase/config';
 import { initializeApp, getApps } from 'firebase/app';
@@ -22,6 +22,10 @@ const AdminUsersPage: React.FC = () => {
   const [newUser, setNewUser] = useState({ displayName: '', email: '', password: '', role: 'client', phoneNumber: '' });
   const [addingUser, setAddingUser] = useState(false);
   const [addUserError, setAddUserError] = useState<string | null>(null);
+  const [plans, setPlans] = useState<any[]>([]);
+  const [showAssignPlanModal, setShowAssignPlanModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState<UserProfile | null>(null);
+  const [selectedPlanId, setSelectedPlanId] = useState<string>('');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -56,7 +60,23 @@ const AdminUsersPage: React.FC = () => {
       }
     };
 
+    const fetchPlans = async () => {
+      try {
+        const plansRef = collection(db, 'trainingPlans');
+        const q = query(plansRef, orderBy('name'));
+        const querySnapshot = await getDocs(q);
+        const plansData = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setPlans(plansData);
+      } catch (err) {
+        console.error('Error fetching plans:', err);
+      }
+    };
+
     fetchUsers();
+    fetchPlans();
   }, [t, userRole, currentUser]);
 
   const filteredUsers = useMemo(() => {
@@ -131,6 +151,53 @@ const AdminUsersPage: React.FC = () => {
     } finally {
       setAddingUser(false);
     }
+  };
+
+  const handleAssignPlan = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedUser || !selectedPlanId) return;
+
+    setAddingUser(true);
+    setError(null);
+    
+    try {
+      const userRef = doc(db, 'users', selectedUser.uid);
+      await updateDoc(userRef, {
+        assignedPlanId: selectedPlanId,
+        updatedAt: serverTimestamp()
+      });
+      
+      // Update local state
+      setUsers(prevUsers => prevUsers.map(user => 
+        user.uid === selectedUser.uid 
+          ? { ...user, assignedPlanId: selectedPlanId }
+          : user
+      ));
+      
+      // Reset form
+      setSelectedUser(null);
+      setSelectedPlanId('');
+      setShowAssignPlanModal(false);
+      
+      // Show success message
+      alert(t('adminUsers.planAssignedSuccess', 'Plan asignado correctamente'));
+    } catch (err) {
+      console.error('Error assigning plan:', err);
+      setError(t('adminUsers.errorAssigningPlan', 'Error al asignar el plan'));
+    } finally {
+      setAddingUser(false);
+    }
+  };
+
+  const openAssignPlanModal = (user: UserProfile) => {
+    setSelectedUser(user);
+    setSelectedPlanId(user.assignedPlanId || '');
+    setShowAssignPlanModal(true);
+  };
+
+  const getPlanName = (planId: string) => {
+    const plan = plans.find(p => p.id === planId);
+    return plan ? plan.name : planId;
   };
 
 
@@ -269,6 +336,7 @@ const AdminUsersPage: React.FC = () => {
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">{t('adminUsers.table.email', 'Email')}</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">{t('adminUsers.table.role', 'Role')}</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">{t('adminUsers.table.phone', 'Phone')}</th>
+                <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">{t('adminUsers.table.assignedPlan', 'Assigned Plan')}</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">{t('adminUsers.table.registered', 'Registered')}</th>
                 <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-text-muted-light dark:text-text-muted-dark uppercase tracking-wider">{t('adminUsers.table.actions', 'Actions')}</th>
               </tr>
@@ -293,6 +361,27 @@ const AdminUsersPage: React.FC = () => {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-text-muted-light dark:text-text-muted-dark">{user.phoneNumber || '-'}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="flex items-center space-x-2">
+                      {user.assignedPlanId ? (
+                        <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-900/30 dark:text-teal-300">
+                          <FaDumbbell className="w-3 h-3 mr-1" />
+                          {getPlanName(user.assignedPlanId)}
+                        </span>
+                      ) : (
+                        <span className="text-sm text-text-muted-light dark:text-text-muted-dark">-</span>
+                      )}
+                      {(userRole === 'admin' || userRole === 'coach') && user.role === 'client' && (
+                        <button
+                          onClick={() => openAssignPlanModal(user)}
+                          className="p-1 text-teal-600 dark:text-teal-400 hover:bg-teal-50 dark:hover:bg-teal-900/20 rounded transition-colors"
+                          title={t('adminUsers.assignPlan', 'Asignar Plan')}
+                        >
+                          <FaUserCheck className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
+                  </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-text-muted-light dark:text-text-muted-dark">
                     {user.registrationDate ? (user.registrationDate as any).toDate().toLocaleDateString() : '-'}
                   </td>
@@ -321,6 +410,61 @@ const AdminUsersPage: React.FC = () => {
             </tbody>
           </table>
         </div>
+
+        {/* Assign Plan Modal */}
+        {showAssignPlanModal && selectedUser && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black/60 dark:bg-black/80 z-50 backdrop-blur-sm">
+            <div className="bg-neutral-surface-light dark:bg-neutral-surface-dark rounded-xl shadow-2xl w-full max-w-md m-4 border border-neutral-border-light dark:border-neutral-border-dark transition-colors duration-300">
+              <div className="p-6 border-b border-neutral-border-light dark:border-neutral-border-dark">
+                <h2 className="text-xl font-bold text-text-default-light dark:text-text-default-dark">
+                  {t('adminUsers.assignPlanTo', 'Asignar Plan a')} {selectedUser.displayName || selectedUser.email}
+                </h2>
+              </div>
+
+              <form onSubmit={handleAssignPlan} className="p-6 space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-text-default-light dark:text-text-default-dark mb-2">
+                    {t('adminUsers.selectPlan', 'Seleccionar Plan')}
+                  </label>
+                  <select
+                    value={selectedPlanId}
+                    onChange={(e) => setSelectedPlanId(e.target.value)}
+                    className="w-full p-3 bg-neutral-background-light dark:bg-neutral-background-dark border border-neutral-border-light dark:border-neutral-border-dark rounded-lg text-text-default-light dark:text-text-default-dark focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-primary-DEFAULT dark:focus:border-primary-dark transition-colors duration-300"
+                  >
+                    <option value="">{t('adminUsers.noPlan', 'Sin plan asignado')}</option>
+                    {plans.map((plan) => (
+                      <option key={plan.id} value={plan.id}>
+                        {plan.name} ({t(`adminPlans.difficulty.${plan.difficulty}`, plan.difficulty)})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="flex justify-end space-x-3 pt-4 border-t border-neutral-border-light dark:border-neutral-border-dark">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowAssignPlanModal(false);
+                      setSelectedUser(null);
+                      setSelectedPlanId('');
+                    }}
+                    className="px-4 py-2 bg-neutral-border-light dark:bg-neutral-border-dark text-text-default-light dark:text-text-default-dark font-medium rounded-lg transition-colors duration-300"
+                  >
+                    {t('common.cancel', 'Cancelar')}
+                  </button>
+                  <button
+                    type="submit"
+                    disabled={addingUser}
+                    className="px-4 py-2 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white font-medium rounded-lg transition-all duration-300 flex items-center disabled:opacity-50"
+                  >
+                    <FaUserCheck className="mr-2" />
+                    {addingUser ? t('common.assigning', 'Asignando...') : t('adminUsers.assignPlan', 'Asignar Plan')}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

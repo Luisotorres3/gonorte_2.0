@@ -96,7 +96,7 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-neutral-background dark:bg-neutral-background-dark p-4 selection:bg-primary selection:text-white">
+    <div className="flex items-center justify-center min-h-full bg-neutral-background dark:bg-neutral-background-dark py-16 selection:bg-primary selection:text-white">
       <div className="w-full max-w-md p-6 sm:p-8 space-y-6 bg-neutral-surface dark:bg-neutral-surface-dark rounded-radius-lg shadow-2xl">
         <div className="text-center">
           <h1 className="text-2xl sm:text-3xl font-bold text-text-default dark:text-text-default-dark">
@@ -196,15 +196,6 @@ const LoginPage: React.FC = () => {
           </button>
         </div>
         <div className="text-sm text-center space-y-2">
-          <p className="text-text-muted dark:text-text-muted-dark">
-            {t('login.noAccount', "Don't have an account?")} {' '}
-            <Link to="/register" className="font-medium text-primary hover:text-primary-dark dark:text-primary-light dark:hover:text-primary transition-colors duration-300 ease-in-out">
-              {t('login.signUpLink', 'Sign Up')}
-            </Link>
-          </p>
-          <Link to="/admin-login" className="block font-medium text-accent hover:text-accent-dark dark:text-accent-light dark:hover:text-accent transition-colors duration-300 ease-in-out">
-            {t('login.adminLoginLink', 'Are you an Admin or Coach?')}
-          </Link>
         </div>
       </div>
     </div>
