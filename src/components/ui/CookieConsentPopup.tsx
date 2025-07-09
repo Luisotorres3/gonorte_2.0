@@ -54,7 +54,7 @@ const CookieConsentPopup: React.FC = () => {
             </p>
             <button
               onClick={handleAccept}
-              className="bg-primary-DEFAULT hover:bg-primary-hover active:bg-primary-active text-text-default-dark dark:text-text-default-light font-semibold py-space-xs px-space-md rounded-radius-md transition-all whitespace-nowrap"
+              className="bg-gray-200 dark:bg-gray-700 text-primary-DEFAULT dark:text-white font-semibold py-space-xs px-space-md rounded-radius-md transition-all whitespace-nowrap border border-primary-DEFAULT dark:border-transparent"
               aria-label={t('cookieConsentAcceptLabel', 'Accept cookie usage')}
             >
               {t('cookieConsentAccept', 'Accept')}

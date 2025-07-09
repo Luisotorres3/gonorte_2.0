@@ -97,13 +97,24 @@ const Navbar: React.FC = () => {
           >
             {currentUser.displayName || t('navbar.profile', 'Profile')}
           </NavLink>
-          <NavLink
-            to={getDashboardPath()}
-            className={isMobile ? mobileNavLinkClasses : navLinkClasses}
-            onClick={() => isMobile && setIsMobileMenuOpen(false)}
-          >
-            {t('navbar.dashboard', 'Dashboard')}
-          </NavLink>
+          {/* Mostrar solo el panel de coach si es admin */}
+          {userRole === 'admin' ? (
+            <NavLink
+              to="/dashboard/coach"
+              className={isMobile ? mobileNavLinkClasses : navLinkClasses}
+              onClick={() => isMobile && setIsMobileMenuOpen(false)}
+            >
+              {t('navbar.panel', 'Panel')}
+            </NavLink>
+          ) : (
+            <NavLink
+              to={getDashboardPath()}
+              className={isMobile ? mobileNavLinkClasses : navLinkClasses}
+              onClick={() => isMobile && setIsMobileMenuOpen(false)}
+            >
+              {t('navbar.dashboard', 'Dashboard')}
+            </NavLink>
+          )}
           <button onClick={handleLogout} className={isMobile ? mobileAuthButtonClasses : authButtonClasses}>
             {t('navbar.logout', 'Logout')}
           </button>
@@ -113,7 +124,7 @@ const Navbar: React.FC = () => {
       return (
         <NavLink
           to="/login"
-          className={isMobile ? mobileNavLinkClasses : navLinkClasses}
+          className={isMobile ? mobileAuthButtonClasses : authButtonClasses}
           onClick={() => isMobile && setIsMobileMenuOpen(false)}
         >
           {t('navbar.login', 'Login')}

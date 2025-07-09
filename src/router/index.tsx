@@ -18,6 +18,7 @@ import ServicesPage from '../pages/ServicesPage';
 import TestimonialsPage from '../pages/TestimonialsPage';
 import ContactPage from '../pages/ContactPage';
 import NotFoundPage from '../pages/NotFoundPage';
+import PrivacyPolicyPage from '../pages/PrivacyPolicyPage';
 
 // Auth Pages
 import LoginPage from '../pages/LoginPage';
@@ -60,6 +61,7 @@ const routes: RouteObject[] = [
       { path: 'login', element: <LoginPage /> },
       { path: 'register', element: <RegistrationPage /> },
       { path: 'forgot-password', element: <ForgotPasswordPage /> },
+      { path: 'privacidad', element: <PrivacyPolicyPage /> },
 
       // Client-specific routes (protected)
       {

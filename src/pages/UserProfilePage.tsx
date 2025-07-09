@@ -143,8 +143,8 @@ const UserProfilePage: React.FC = () => {
     if (authLoading || !currentUser || !profileData) return false;
     if (currentUser.uid === userId) return true; // User can edit their own profile
     if (userRole === 'admin') return true; // Admin can edit any profile
-    // Coach can edit client profiles - this might need refinement based on coach's assigned clients
-    if (userRole === 'coach' && profileData.role === 'client') return true;
+    // Coach o admin pueden editar perfiles de cliente
+    if ((['coach', 'admin'].includes(userRole as string)) && profileData.role === 'client') return true;
     return false;
   };
 

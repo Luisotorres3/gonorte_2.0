@@ -80,9 +80,9 @@ const Footer: React.FC = () => {
             <h3 className={sectionTitleClasses}>{t('footer.contactUs', 'Contact Us')}</h3>
             {/* Ensure text color for address details is also themed if needed */}
             <address className="not-italic text-sm space-y-space-xs text-text-muted-light dark:text-text-muted-dark">
-              <p><a href="mailto:info@example.com" className={footerLinkClasses}>info@example.com</a></p>
-              <p><a href="tel:+1234567890" className={footerLinkClasses}>+1 (234) 567-890</a></p>
-              <p>123 Cosmic Way, Galaxy City, ST 45678</p>
+              <p><a href="mailto:gonorte.biomechanics@gmail.com" className={footerLinkClasses}>gonorte.biomechanics@gmail.com</a></p>
+              <p><a href="tel:+34644001599" className={footerLinkClasses}>+34 644 00 15 99</a></p>
+              <p>Jaén, España</p>
             </address>
           </div>
 
@@ -92,12 +92,22 @@ const Footer: React.FC = () => {
             <div className="mb-space-md">
               <LanguageSelector />
             </div>
-            <div className="flex space-x-space-md">
-              <a href="#" aria-label="Twitter" className={iconClasses}><TwitterIcon /></a>
-              <a href="#" aria-label="LinkedIn" className={iconClasses}><LinkedInIcon /></a>
-              <a href="#" aria-label="GitHub" className={iconClasses}><GitHubIcon /></a>
-              {/* Placeholder for Instagram */}
-              <a href="#" aria-label="Instagram" className={`${footerLinkClasses} ${iconClasses}`}><InstagramIcon /></a> {/* Apply icon classes if it's an icon, or just footerLinkClasses */}
+            <div className="flex flex-row items-center justify-start gap-5 mb-space-md mt-2">
+              <a href="https://www.facebook.com/profile.php?id=61577890884590" aria-label="Facebook" className={iconClasses} target="_blank" rel="noopener noreferrer">
+                <span className="inline-flex items-center justify-center w-8 h-8 md:w-10 md:h-10 text-2xl md:text-3xl">📘</span>
+              </a>
+              <a href="https://www.instagram.com/gonorte.training/" aria-label="Instagram" className={`${footerLinkClasses} ${iconClasses}`} target="_blank" rel="noopener noreferrer">
+                <span className="inline-flex items-center justify-center w-8 h-8 md:w-10 md:h-10 text-2xl md:text-3xl"><InstagramIcon /></span>
+              </a>
+              <a href="https://www.linkedin.com/in/carmen-mar%C3%ADa-gonz%C3%A1lez-ortega-3747b5258/" aria-label="LinkedIn" className={iconClasses} target="_blank" rel="noopener noreferrer">
+                <span className="inline-flex items-center justify-center w-8 h-8 md:w-10 md:h-10 text-2xl md:text-3xl">💼</span>
+              </a>
+              <a href="https://www.tiktok.com/@gonorte.training" aria-label="TikTok" className={iconClasses} target="_blank" rel="noopener noreferrer">
+                <span className="inline-flex items-center justify-center w-8 h-8 md:w-10 md:h-10 text-2xl md:text-3xl">🐦</span>
+              </a>
+              <a href="#" aria-label="YouTube" className={iconClasses} target="_blank" rel="noopener noreferrer">
+                <span className="inline-flex items-center justify-center w-8 h-8 md:w-10 md:h-10 text-2xl md:text-3xl">▶️</span>
+              </a>
             </div>
           </div>
         </div>

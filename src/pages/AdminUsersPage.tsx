@@ -48,7 +48,7 @@ const AdminUsersPage: React.FC = () => {
         // If current user is a coach, they should ideally only see their clients.
         // This filtering logic would be more complex, potentially requiring users to have a 'coachId' field.
         // For now, showing all users to both admin and coach.
-        // if (userRole === 'coach' && currentUser) {
+        // if (userRole === 'coach' || userRole === 'admin' && currentUser) {
         //   usersList = usersList.filter(user => user.coachId === currentUser.uid || user.uid === currentUser.uid);
         // }
         setUsers(usersList);

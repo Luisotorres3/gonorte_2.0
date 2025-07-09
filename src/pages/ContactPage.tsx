@@ -22,38 +22,39 @@ const contactInfo: ContactInfo[] = [
     titleKey: 'contactEmailTitle',
     defaultTitle: 'Email',
     valueKey: 'contactEmail',
-    defaultValue: 'gonorte@fitness.com',
-    link: 'mailto:gonorte@fitness.com'
+    defaultValue: 'gonorte.biomechanics@gmail.com',
+    link: 'mailto:gonorte.biomechanics@gmail.com'
   },
   {
     icon: '📱',
     titleKey: 'contactPhoneTitle',
     defaultTitle: 'Teléfono',
     valueKey: 'contactPhone',
-    defaultValue: '+34 600 123 456',
-    link: 'tel:+34600123456'
+    defaultValue: '+34 644 00 15 99',
+    link: 'tel:+34644001599'
   },
   {
     icon: '📍',
     titleKey: 'contactLocationTitle',
     defaultTitle: 'Ubicación',
     valueKey: 'contactLocation',
-    defaultValue: 'Madrid, España'
+    defaultValue: 'Jaén, España'
   },
   {
     icon: '⏰',
     titleKey: 'contactHoursTitle',
     defaultTitle: 'Horarios',
     valueKey: 'contactHours',
-    defaultValue: 'Lun-Vie: 6:00-22:00'
+    defaultValue: 'Lun-Vier: 9:00-21:00'
   }
 ];
 
 const socialLinks = [
-  { icon: '📘', name: 'Facebook', url: '#', color: 'hover:bg-blue-500' },
-  { icon: '📷', name: 'Instagram', url: '#', color: 'hover:bg-pink-500' },
-  { icon: '🐦', name: 'Twitter', url: '#', color: 'hover:bg-blue-400' },
-  { icon: '💼', name: 'LinkedIn', url: '#', color: 'hover:bg-blue-600' }
+  { icon: '📘', name: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61577890884590', color: 'hover:bg-blue-500' },
+  { icon: '📷', name: 'Instagram', url: 'https://www.instagram.com/gonorte.training/', color: 'hover:bg-pink-500' },
+  { icon: '💼', name: 'LinkedIn', url: 'https://www.linkedin.com/in/carmen-mar%C3%ADa-gonz%C3%A1lez-ortega-3747b5258/', color: 'hover:bg-blue-600' },
+  { icon: '🐦', name: 'TikTok', url: 'https://www.tiktok.com/@gonorte.training', color: 'hover:bg-black' },
+  { icon: '▶️', name: 'YouTube', url: '#', color: 'hover:bg-red-600' }
 ];
 
 /**
@@ -221,13 +222,10 @@ const ContactPage: React.FC = () => {
                         paddingRight: '2.5rem'
                       }}
                     >
-                      <option value="">{t('contactFormServicePlaceholder', 'Selecciona un servicio')}</option>
-                      <option value="personal-training">{t('service1Title', 'Entrenamiento Personalizado')}</option>
-                      <option value="nutrition-coaching">{t('service2Title', 'Asesoría Nutricional')}</option>
-                      <option value="online-classes">{t('service3Title', 'Clases Online')}</option>
-                      <option value="rehabilitation">{t('service4Title', 'Rehabilitación y Recuperación')}</option>
-                      <option value="sports-training">{t('service5Title', 'Entrenamiento Deportivo')}</option>
-                      <option value="group-sessions">{t('service6Title', 'Sesiones Grupales')}</option>
+                      <option value="">Selecciona un servicio</option>
+                      <option value="personal-training">Entrenamiento personal</option>
+                      <option value="3d-postural-analysis">Análisis postural en 3D</option>
+                      <option value="rehabilitation">Readaptación de lesiones</option>
                     </select>
                   </div>
                 </div>
@@ -321,12 +319,13 @@ const ContactPage: React.FC = () => {
                       {info.link ? (
                         <a 
                           href={info.link}
-                          className="text-xs text-primary-700 dark:text-primary-300 hover:text-primary-900 dark:hover:text-primary-100 transition-colors"
+                          className="text-xs text-primary-700 dark:text-primary-300 hover:text-primary-900 dark:hover:text-primary-100 transition-colors break-all max-w-[140px] inline-block truncate"
+                          style={{ wordBreak: 'break-all' }}
                         >
                           {t(info.valueKey, info.defaultValue)}
                         </a>
                       ) : (
-                        <p className="text-xs text-neutral-600 dark:text-neutral-300">
+                        <p className="text-xs text-neutral-600 dark:text-neutral-300 break-all max-w-[140px] inline-block truncate" style={{ wordBreak: 'break-all' }}>
                           {t(info.valueKey, info.defaultValue)}
                         </p>
                       )}
@@ -365,7 +364,7 @@ const ContactPage: React.FC = () => {
               </h3>
               <div className="bg-neutral-background-light dark:bg-neutral-background-dark rounded-xl flex-1 flex items-center justify-center">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3180.1234567890123!2d-3.9237!3d37.4627!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6dd7b8b8b8b8b8%3A0x8b8b8b8b8b8b8b8!2sAlcal%C3%A1%20la%20Real%2C%20Ja%C3%A9n!5e0!3m2!1ses!2ses!4v1234567890123&maptype=roadmap&zoom=15&disableDefaultUI=true&zoomControl=false&mapTypeControl=false&scaleControl=false&streetViewControl=false&rotateControl=false&fullscreenControl=false"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.632155525589!2d-3.790278!3d37.779594!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6dd7e5b8b8b8b8%3A0x8b8b8b8b8b8b8b8!2sJa%C3%A9n%2C%20Espa%C3%B1a!5e0!3m2!1ses!2ses!4v1717430000000&maptype=roadmap&zoom=15&disableDefaultUI=true&zoomControl=false&mapTypeControl=false&scaleControl=false&streetViewControl=false&rotateControl=false&fullscreenControl=false"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
