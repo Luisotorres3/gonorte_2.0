@@ -66,7 +66,7 @@ const ProfileSection: React.FC = () => {
                 <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-teal-100 to-cyan-100 dark:from-teal-900 dark:to-cyan-900 max-w-sm w-full min-h-[500px] mx-auto flex items-center justify-center">
                   <img
                     src={perfilImg}
-                    alt={t('profilePhotoAlt', 'Foto de Gonorte')}
+                    alt={t('profilePhotoAlt', 'Entrenadora personal sonriendo')}
                     className="w-full h-full object-contain rounded-2xl shadow-lg"
                   />
                 </div>
