@@ -62,9 +62,9 @@ export default {
             DEFAULT: "#1A202C",
           },
           muted: {
-            light: "#718096", // Medium Gray for muted text in light mode
-            dark: "#A0AEC0", // Lighter Gray for muted text in dark mode
-            DEFAULT: "#718096",
+            light: "#4A5568", // Increased contrast for light mode
+            dark: "#CBD5E0", // Increased contrast for dark mode
+            DEFAULT: "#4A5568",
           },
           primary: {
             light: "#4F9E81", // Dark Aqua Green for text on light backgrounds
