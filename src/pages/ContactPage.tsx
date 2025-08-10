@@ -100,34 +100,11 @@ const ContactPage: React.FC = () => {
         experience: '', 
         goals: '' 
       });
-    } catch (error) {
+    } catch {
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { 
-        duration: 0.6,
-        ease: "easeOut" as const
-      }
-    },
   };
 
   return (
@@ -333,6 +310,30 @@ const ContactPage: React.FC = () => {
                   </div>
                 </motion.div>
               ))}
+            </div>
+
+            {/* Quick Contact Buttons */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <motion.a
+                href="tel:+34644001599"
+                className="flex items-center justify-center space-x-3 bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105"
+                whileHover={{ y: -4, scale: 1.02 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="text-2xl">📞</span>
+                <span>{t('contactCallCTA', 'Llamar Ahora')}</span>
+              </motion.a>
+              <motion.a
+                href="https://wa.me/34644001599"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center space-x-3 bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105"
+                whileHover={{ y: -4, scale: 1.02 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="text-2xl">💬</span>
+                <span>{t('contactWhatsAppCTA', 'WhatsApp')}</span>
+              </motion.a>
             </div>
 
             {/* Social Links */}

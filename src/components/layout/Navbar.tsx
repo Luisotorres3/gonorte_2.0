@@ -6,7 +6,7 @@
  */
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import ThemeToggle from '../ui/ThemeToggle';
 import LanguageSelector from '../ui/LanguageSelector';
@@ -121,15 +121,7 @@ const Navbar: React.FC = () => {
         </>
       );
     } else {
-      return (
-        <NavLink
-          to="/login"
-          className={isMobile ? mobileAuthButtonClasses : authButtonClasses}
-          onClick={() => isMobile && setIsMobileMenuOpen(false)}
-        >
-          {t('navbar.login', 'Login')}
-        </NavLink>
-      );
+      return null;
     }
   };
 
@@ -172,7 +164,6 @@ const Navbar: React.FC = () => {
             </div>
 
             <div className="lg:hidden flex items-center space-x-2">
-              <ThemeToggle />
               <LanguageSelector />
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -219,6 +210,10 @@ const Navbar: React.FC = () => {
                 <hr className="my-3 border-neutral-border-light dark:border-neutral-border-dark" />
 
                 {!loading && renderAuthControls(true)}
+
+                <div className="flex justify-center pt-4">
+                  <ThemeToggle />
+                </div>
               </div>
             </motion.div>
           )}
