@@ -8,14 +8,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gonorte</title>
 
+    <!-- GitHub Pages SPA redirect workaround -->
+    <!-- This script restores the URL from the query string set by 404.html -->
+    <script>
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
+
     <!-- SEO Meta Tags -->
     <meta
       name="description"
-      content="A modern, elegant, and reusable web template built with React, Vite, and Tailwind CSS. Ready for customization and deployment, featuring dark mode and multi-language support."
+      content="Entrenadora personal certificada en Jaén que ofrece programas de entrenamiento personalizados y asesoría nutricional"
     />
     <meta
       name="keywords"
-      content="react, vite, tailwindcss, typescript, template, modern, responsive, dark mode, multi-language, i18n, starter, boilerplate"
+      content="entrenadora personal, Jaén, entrenamiento personalizado, nutrición, fitness, salud"
     />
 
     <!-- Theme Color for Browser UI -->
@@ -29,31 +44,51 @@
       content="#1F2937"
       media="(prefers-color-scheme: dark)"
     />
-    <!-- Updated to neutral.background.dark from palette -->
 
     <!-- Open Graph / Facebook Meta Tags -->
-    <meta property="og:title" content="Gonorte" />
+    <meta property="og:title" content="Gonorte - Entrenadora Personal en Jaén" />
     <meta
       property="og:description"
-      content="A feature-rich web template with React, Vite, Tailwind CSS, TypeScript, dark mode, and i18n."
+      content="Entrenadora personal certificada en Jaén que ofrece programas de entrenamiento personalizados y asesoría nutricional."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="YOUR_DEPLOYMENT_URL_HERE" />
-    <!-- TODO: Replace with actual deployment URL -->
-    <meta property="og:image" content="/social-preview.png" />
-    <!-- TODO: Create and replace with actual social preview image URL -->
+    <meta property="og:url" content="https://luisotorres3.github.io/gonorte_2.0/" />
+    <meta property="og:image" content="/gonorte_2.0/social-preview.png" />
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Gonorte" />
+    <meta name="twitter:title" content="Gonorte - Entrenadora Personal en Jaén" />
     <meta
       name="twitter:description"
-      content="A feature-rich web template with React, Vite, Tailwind CSS, TypeScript, dark mode, and i18n."
+      content="Entrenadora personal certificada en Jaén que ofrece programas de entrenamiento personalizados y asesoría nutricional."
     />
-    <meta name="twitter:image" content="/social-preview.png" />
-    <!-- TODO: Create and replace with actual social preview image URL -->
-    <script type="module" crossorigin src="/gonorte_2.0/assets/index-CckaLQpk.js"></script>
-    <link rel="stylesheet" crossorigin href="/gonorte_2.0/assets/index-CT8JupUa.css">
+    <meta name="twitter:image" content="/gonorte_2.0/social-preview.png" />
+
+    <!-- Schema.org / JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Gonorte – Entrenadora Personal",
+        "description": "Entrenadora personal certificada en Jaén que ofrece planes de entrenamiento personalizados, asesoría nutricional y clases online.",
+        "url": "https://luisotorres3.github.io/gonorte_2.0/",
+        "telephone": "+34 644 00 15 99",
+        "email": "gonorte.biomechanics@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Jaén",
+          "addressCountry": "ES"
+        },
+        "image": "https://luisotorres3.github.io/gonorte_2.0/social-preview.png"
+      }
+    </script>
+    <script type="module" crossorigin src="/gonorte_2.0/assets/index-CvVwlgaS.js"></script>
+    <link rel="modulepreload" crossorigin href="/gonorte_2.0/assets/vendor-By548NFL.js">
+    <link rel="modulepreload" crossorigin href="/gonorte_2.0/assets/i18n-BO_k7W9a.js">
+    <link rel="modulepreload" crossorigin href="/gonorte_2.0/assets/icons-CVUtS9SL.js">
+    <link rel="modulepreload" crossorigin href="/gonorte_2.0/assets/motion-9CxfCVqM.js">
+    <link rel="modulepreload" crossorigin href="/gonorte_2.0/assets/firebase-By5O2gbJ.js">
+    <link rel="stylesheet" crossorigin href="/gonorte_2.0/assets/index-Bn_EQSX8.css">
   </head>
   <body>
     <div id="root"></div>
