@@ -5,7 +5,6 @@
  * It utilizes framer-motion for animations and react-i18next for internationalization.
  * Updated for fitness trainer theme with elegant gym aesthetics and teal color palette.
  */
-import React from 'react';
 import AnimatedPage from '../components/motion/AnimatedPage';
 import HeroSection from '../components/landing/home/HeroSection';
 import FeaturesSection from '../components/landing/home/FeaturesSection';

@@ -1,13 +1,12 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { collection, getDocs, query, orderBy, addDoc, serverTimestamp, setDoc, doc, where, updateDoc } from 'firebase/firestore';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useEffect, useState, useMemo } from 'react';
+import { collection, getDocs, query, orderBy, addDoc, serverTimestamp, setDoc, doc, updateDoc } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { db } from '../firebase/config';
 import type { UserProfile } from '../types/user';
 import { useTranslation } from 'react-i18next';
 import { FaSearch, FaEdit, FaTrashAlt, FaUserPlus, FaDumbbell, FaUserCheck } from 'react-icons/fa';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
-import { auth, app } from '../firebase/config';
 import { initializeApp, getApps } from 'firebase/app';
 
 
@@ -27,7 +26,6 @@ const AdminUsersPage: React.FC = () => {
   const [selectedUser, setSelectedUser] = useState<UserProfile | null>(null);
   const [selectedPlanId, setSelectedPlanId] = useState<string>('');
   const navigate = useNavigate();
-  const location = useLocation();
 
 
   useEffect(() => {

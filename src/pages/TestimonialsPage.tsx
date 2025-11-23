@@ -3,7 +3,6 @@
  * @description This file defines the testimonials page component.
  * It displays customer testimonials and reviews in an attractive layout.
  */
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 

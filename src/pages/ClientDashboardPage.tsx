@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { FaPlay, FaHistory, FaBell, FaCog } from 'react-icons/fa';
 
 const ClientDashboardPage: React.FC = () => {
   const { t } = useTranslation();
-  const { currentUser, loading } = useAuth();
+  const { currentUser } = useAuth();
   const [progressUpdateText, setProgressUpdateText] = useState(''); // For text updates
   const [progressPhoto, setProgressPhoto] = useState<File | null>(null);
   const [photoCaption, setPhotoCaption] = useState('');

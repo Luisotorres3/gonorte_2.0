@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { doc, getDoc, updateDoc, Timestamp, arrayUnion } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
@@ -10,7 +10,6 @@ import type { TFunction } from 'i18next';
 import { 
   FaDownload, 
   FaFileUpload, 
-  FaExternalLinkAlt, 
   FaUser, 
   FaEnvelope, 
   FaPhone, 
@@ -24,7 +23,6 @@ import {
   FaTimes,
   FaSave,
   FaArrowLeft,
-  FaUserTie,
   FaUserGraduate,
   FaUserShield
 } from 'react-icons/fa';

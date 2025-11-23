@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext'; // Assuming AuthContext will have a registration function
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';

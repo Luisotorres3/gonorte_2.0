@@ -1,4 +1,3 @@
-import React from 'react';
 import AnimatedPage from '../components/motion/AnimatedPage';
 
 const PrivacyPolicyPage: React.FC = () => (

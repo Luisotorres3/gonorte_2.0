@@ -4,7 +4,7 @@
  * It provides a ThemeProvider component to wrap the application and a useTheme hook
  * to access and toggle the theme state. The theme is persisted in localStorage.
  */
-import React, { createContext, useContext, useEffect } from 'react';
+import { createContext, useContext, useEffect } from 'react';
 import type { ReactNode } from 'react';
 import useLocalStorage from '../hooks/useLocalStorage'; // Import the custom hook
 
