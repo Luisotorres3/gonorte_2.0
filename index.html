@@ -16,8 +16,15 @@
           var decoded = l.search.slice(1).split('&').map(function(s) { 
             return s.replace(/~and~/g, '&')
           }).join('?');
+          
+          // Get the base path (e.g., /gonorte_2.0/)
+          var pathSegments = l.pathname.split('/').filter(function(segment) {
+            return segment.length > 0;
+          });
+          var basePath = pathSegments.length > 0 ? '/' + pathSegments[0] + '/' : '/';
+          
           window.history.replaceState(null, null,
-            l.pathname.slice(0, -1) + decoded + l.hash
+            basePath + decoded + l.hash
           );
         }
       }(window.location))
