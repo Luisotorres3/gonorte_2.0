@@ -226,7 +226,7 @@ const UserProfilePage: React.FC = () => {
       // Add success feedback (e.g., toast message)
     } catch (error: any) {
       console.error("Error uploading file for coach/admin:", error);
-      setCoachUploadError(t('profile.coachUpload.uploadFailed', 'File upload failed. Error: ' + error.message));
+      setCoachUploadError(t('profile.coachUpload.uploadFailed', { message: error.message }));
     } finally {
       setIsUploadingCoachFile(false);
     }

@@ -7,7 +7,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import i18n from '../../i18n/config';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDownIcon } from './icons/ChevronDownIcon'; // Assuming an icon component exists or will be created
 
@@ -81,17 +80,31 @@ const getFlagDisplay = (code: string) => {
  * @returns {JSX.Element} The rendered LanguageSelector component.
  */
 const LanguageSelector: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n: i18nInstance } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
+  const [currentLang, setCurrentLang] = useState(i18nInstance.language);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerButtonRef = useRef<HTMLButtonElement>(null);
 
-  const currentLanguage = languages.find((lang) => lang.code === i18n.language) || { code: i18n.language, name: i18n.language.toUpperCase(), flag: '🌐' };
+  // Update current language when i18n language changes
+  useEffect(() => {
+    const handleLanguageChange = (lng: string) => {
+      setCurrentLang(lng);
+    };
+    
+    i18nInstance.on('languageChanged', handleLanguageChange);
+    
+    return () => {
+      i18nInstance.off('languageChanged', handleLanguageChange);
+    };
+  }, [i18nInstance]);
+
+  const currentLanguage = languages.find((lang) => lang.code === currentLang) || { code: currentLang, name: currentLang.toUpperCase(), flag: '🌐' };
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   const selectLanguage = (lngCode: string) => {
-    i18n.changeLanguage(lngCode);
+    i18nInstance.changeLanguage(lngCode);
     setIsOpen(false);
     triggerButtonRef.current?.focus(); // Return focus to button after selection
   };
@@ -171,9 +184,9 @@ const LanguageSelector: React.FC = () => {
                 key={lang.code}
                 role="option"
                 tabIndex={0}
-                aria-selected={i18n.language === lang.code}
+                aria-selected={currentLang === lang.code}
                 className={`flex items-center px-3 py-2 text-sm cursor-pointer
-                  ${ i18n.language === lang.code
+                  ${ currentLang === lang.code
                     ? 'bg-primary-DEFAULT text-text-default-dark dark:bg-primary-dark dark:text-text-default-light' // Active state with theme colors
                     : 'text-text-default-light dark:text-text-default-dark hover:bg-primary-light dark:hover:bg-primary-hover hover:text-primary-dark dark:hover:text-primary-light' // Default and hover states
                   }

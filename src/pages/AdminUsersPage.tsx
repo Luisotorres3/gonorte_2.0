@@ -95,10 +95,10 @@ const AdminUsersPage: React.FC = () => {
     // 3. Handle related data (e.g., storage files, entries in other collections).
     // 4. Confirm action with the admin.
     if (userRole !== 'admin') {
-        alert(t('adminUsers.deleteForbidden', 'Only admins can delete users.'));
-        return;
+      alert(t('adminUsers.deleteForbidden', 'Only admins can delete users.'));
+      return;
     }
-    if (window.confirm(t('adminUsers.deleteConfirm', `Are you sure you want to delete user ${userId}? This action cannot be undone.`))) {
+    if (window.confirm(t('adminUsers.deleteConfirm', { userId }))) {
       console.log(`TODO: Implement delete for user ${userId}`);
       alert(t('adminUsers.deleteNotImplemented', 'Delete functionality not yet fully implemented.'));
       // Example:

@@ -18,23 +18,23 @@ const contactInfo: ContactInfo[] = [
     titleKey: 'contactEmailTitle',
     defaultTitle: 'Email',
     valueKey: 'contactEmail',
-    defaultValue: 'gonorte@fitness.com',
-    link: 'mailto:gonorte@fitness.com'
+    defaultValue: 'gonorte.biomechanics@gmail.com',
+    link: 'mailto:gonorte.biomechanics@gmail.com'
   },
   {
     icon: '📱',
     titleKey: 'contactPhoneTitle',
     defaultTitle: 'Teléfono',
     valueKey: 'contactPhone',
-    defaultValue: '+34 600 123 456',
-    link: 'tel:+34600123456'
+    defaultValue: '+34 644 00 15 99',
+    link: 'tel:+34644001599'
   },
   {
     icon: '📍',
     titleKey: 'contactLocationTitle',
     defaultTitle: 'Ubicación',
     valueKey: 'contactLocation',
-    defaultValue: 'Madrid, España'
+    defaultValue: 'Jaén, España'
   }
 ];
 

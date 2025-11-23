@@ -134,97 +134,99 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <motion.nav
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-neutral-surface-light/95 dark:bg-neutral-surface-dark/95 backdrop-blur-md shadow-lg border-b border-neutral-border-light dark:border-neutral-border-dark'
-          : 'bg-neutral-background-light/80 dark:bg-neutral-background-dark/80'
-      }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative flex items-center justify-between h-16 lg:h-20">
-          <div className="flex-1 flex items-center justify-start">
-            <motion.div
-              className="flex items-center flex-shrink-0"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
-            >
-              <Logo textClassName="h-10 lg:h-12 w-auto" />
-            </motion.div>
-          </div>
-
-          <div className="hidden lg:flex items-center justify-center space-x-1 xl:space-x-2">
-            <NavLink to="/" className={navLinkClasses} end>{t('navHome')}</NavLink>
-            <NavLink to="/about" className={navLinkClasses}>{t('navAbout')}</NavLink>
-            <NavLink to="/services" className={navLinkClasses}>{t('navServices')}</NavLink>
-            <NavLink to="/testimonials" className={navLinkClasses}>{t('navTestimonials')}</NavLink>
-            <NavLink to="/contact" className={navLinkClasses}>{t('navContact')}</NavLink>
-          </div>
-
-          <div className="flex-1 flex items-center justify-end space-x-2 sm:space-x-3">
-            <div className="hidden lg:flex items-center space-x-1 xl:space-x-2">
-              {!loading && renderAuthControls(false)}
-              <ThemeToggle />
-              <LanguageSelector />
+    <>
+      <motion.nav
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+          isScrolled
+            ? 'bg-neutral-surface-light/95 dark:bg-neutral-surface-dark/95 backdrop-blur-md shadow-lg border-b border-neutral-border-light dark:border-neutral-border-dark'
+            : 'bg-neutral-background-light/80 dark:bg-neutral-background-dark/80'
+        }`}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative flex items-center justify-between h-16 lg:h-20">
+            <div className="flex-1 flex items-center justify-start">
+              <motion.div
+                className="flex items-center flex-shrink-0"
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.2 }}
+              >
+                <Logo textClassName="h-10 lg:h-12 w-auto" />
+              </motion.div>
             </div>
 
-            <div className="lg:hidden flex items-center space-x-2">
-              <ThemeToggle />
-              <LanguageSelector />
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-lg text-text-default-light dark:text-text-default-dark hover:bg-primary-light dark:hover:bg-primary-hover transition-colors"
-                aria-label={t('navbar.toggleMenu', 'Toggle mobile menu')}
-              >
-                <svg className="w-6 h-6 icon-default" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  {isMobileMenuOpen ? (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  ) : (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  )}
-                </svg>
-              </button>
+            <div className="hidden lg:flex items-center justify-center space-x-1 xl:space-x-2">
+              <NavLink to="/" className={navLinkClasses} end>{t('navHome', 'Inicio')}</NavLink>
+              <NavLink to="/about" className={navLinkClasses}>{t('navAbout', 'Sobre Mí')}</NavLink>
+              <NavLink to="/services" className={navLinkClasses}>{t('navServices', 'Servicios')}</NavLink>
+              <NavLink to="/testimonials" className={navLinkClasses}>{t('navTestimonials', 'Testimonios')}</NavLink>
+              <NavLink to="/contact" className={navLinkClasses}>{t('navContact', 'Contacto')}</NavLink>
+            </div>
+
+            <div className="flex-1 flex items-center justify-end space-x-2 sm:space-x-3">
+              <div className="hidden lg:flex items-center space-x-1 xl:space-x-2">
+                {!loading && renderAuthControls(false)}
+                <ThemeToggle />
+                <LanguageSelector />
+              </div>
+
+              <div className="lg:hidden flex items-center space-x-2">
+                <ThemeToggle />
+                <LanguageSelector />
+                <button
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="p-2 rounded-lg text-text-default-light dark:text-text-default-dark hover:bg-primary-light dark:hover:bg-primary-hover transition-colors"
+                  aria-label={t('navbar.toggleMenu', 'Toggle mobile menu')}
+                >
+                  <svg className="w-6 h-6 icon-default" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    {isMobileMenuOpen ? (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    ) : (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                    )}
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
+      </motion.nav>
 
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div
-              className="lg:hidden fixed inset-0 z-50 bg-neutral-surface-light/95 dark:bg-neutral-surface-dark/95 backdrop-blur-md pt-16"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.2 }}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            className="lg:hidden fixed inset-0 z-50 bg-neutral-surface-light/95 dark:bg-neutral-surface-dark/95 backdrop-blur-md pt-16"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+          >
+            <button
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="absolute top-3.5 right-4 p-2 rounded-lg text-text-default-light dark:text-text-default-dark hover:bg-primary-light dark:hover:bg-primary-hover transition-colors z-50"
+              aria-label={t('navbar.closeMenu', 'Close menu')}
             >
-               <button
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="absolute top-3.5 right-4 p-2 rounded-lg text-text-default-light dark:text-text-default-dark hover:bg-primary-light dark:hover:bg-primary-hover transition-colors z-50"
-                aria-label={t('navbar.closeMenu', 'Close menu')}
-              >
-                <svg className="w-6 h-6 icon-default" fill="none" stroke="currentColor" viewBox="0 0 24 24" >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-              </button>
-              <div className="flex flex-col h-full overflow-y-auto px-4 pt-8 pb-24 space-y-3">
-                <NavLink to="/" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)} end>{t('navHome')}</NavLink>
-                <NavLink to="/about" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navAbout')}</NavLink>
-                <NavLink to="/services" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navServices')}</NavLink>
-                <NavLink to="/testimonials" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navTestimonials')}</NavLink>
-                <NavLink to="/contact" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navContact')}</NavLink>
+              <svg className="w-6 h-6 icon-default" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <div className="flex flex-col h-full overflow-y-auto px-4 pt-8 pb-24 space-y-3">
+              <NavLink to="/" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)} end>{t('navHome', 'Inicio')}</NavLink>
+              <NavLink to="/about" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navAbout', 'Sobre Mí')}</NavLink>
+              <NavLink to="/services" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navServices', 'Servicios')}</NavLink>
+              <NavLink to="/testimonials" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navTestimonials', 'Testimonios')}</NavLink>
+              <NavLink to="/contact" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navContact', 'Contacto')}</NavLink>
 
-                <hr className="my-3 border-neutral-border-light dark:border-neutral-border-dark" />
+              <hr className="my-3 border-neutral-border-light dark:border-neutral-border-dark" />
 
-                {!loading && renderAuthControls(true)}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </motion.nav>
+              {!loading && renderAuthControls(true)}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 

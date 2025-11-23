@@ -87,7 +87,7 @@ const ClientDashboardPage: React.FC = () => {
       // Optionally, re-fetch user data or update local state to show the new photo
     } catch (error: any) {
       console.error("Error uploading photo:", error);
-      setUploadError(t('dashboard.client.photoUpload.uploadFailedError', 'Photo upload failed. Please try again. Error: ' + error.message));
+      setUploadError(t('dashboard.client.photoUpload.uploadFailedError', { message: error.message }));
     } finally {
       setIsUploading(false);
     }
@@ -127,7 +127,7 @@ const ClientDashboardPage: React.FC = () => {
             <h2 className="text-xl font-semibold text-secondary-dark dark:text-secondary-light mb-3">{t('dashboard.client.assignedRoutineTitle', 'Your Current Routine')}</h2>
             <p className="text-text-muted-light dark:text-text-muted-dark">
               {currentUser.assignedPlanId
-                ? t('dashboard.client.currentPlanInfo', `Details for plan ID: ${currentUser.assignedPlanId} will be shown here.`)
+                ? t('dashboard.client.currentPlanInfo', { planId: currentUser.assignedPlanId })
                 : t('dashboard.client.noPlanAssigned', 'No training plan assigned yet. Contact your coach!')}
             </p>
             {currentUser.assignedPlanId && (
