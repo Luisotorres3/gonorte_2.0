@@ -14,9 +14,10 @@ i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    supportedLngs: ['en', 'es', 'fr'],
+    supportedLngs: ['es', 'en', 'fr'],
     load: 'languageOnly',
     fallbackLng: 'es',
+    lng: 'es',
     debug: true,
     ns: ['translation'],
     defaultNS: 'translation',
@@ -27,7 +28,7 @@ i18n
       escapeValue: false,
     },
     detection: {
-      order: ['localStorage', 'navigator', 'htmlTag'],
+      order: ['localStorage'],
       caches: ['localStorage'],
     },
     react: {

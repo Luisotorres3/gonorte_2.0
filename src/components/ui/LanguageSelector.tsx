@@ -35,19 +35,19 @@ interface Language {
 
 const languages: Language[] = [
   {
-    code: "en",
-    flag: "https://flagcdn.com/gb.svg",
-    name: "EN",
-  },
-  {
     code: "es",
     flag: "https://flagcdn.com/es.svg",
-    name: "ES",
+    name: "Español",
+  },
+  {
+    code: "en",
+    flag: "https://flagcdn.com/gb.svg",
+    name: "English",
   },
   {
     code: "fr",
     flag: "https://flagcdn.com/fr.svg",
-    name: "FR",
+    name: "Français",
   },
 ];
 
@@ -173,7 +173,7 @@ const LanguageSelector: React.FC = () => {
             role="listbox"
             tabIndex={-1}
             onKeyDown={handleKeyDown}
-            className="absolute z-50 mt-1 w-auto min-w-[150px] right-0 md:left-0 bg-neutral-surface-light dark:bg-neutral-surface-dark border border-neutral-border-light dark:border-neutral-border-dark rounded-lg shadow-lg overflow-hidden focus:outline-none transition-colors duration-300"
+            className="absolute z-50 mt-1 w-auto min-w-[60px] right-0 md:left-0 bg-neutral-surface-light dark:bg-neutral-surface-dark border border-neutral-border-light dark:border-neutral-border-dark rounded-lg shadow-lg overflow-hidden focus:outline-none transition-colors duration-300"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -185,7 +185,7 @@ const LanguageSelector: React.FC = () => {
                 role="option"
                 tabIndex={0}
                 aria-selected={currentLang === lang.code}
-                className={`flex items-center px-3 py-2 text-sm cursor-pointer
+                className={`flex items-center justify-center gap-2 px-3 py-2 text-sm cursor-pointer
                   ${ currentLang === lang.code
                     ? 'bg-primary-DEFAULT text-text-default-dark dark:bg-primary-dark dark:text-text-default-light' // Active state with theme colors
                     : 'text-text-default-light dark:text-text-default-dark hover:bg-primary-light dark:hover:bg-primary-hover hover:text-primary-dark dark:hover:text-primary-light' // Default and hover states
@@ -197,10 +197,10 @@ const LanguageSelector: React.FC = () => {
                 <img
                   src={lang.flag}
                   alt={`${lang.name} flag`}
-                  className="w-5 h-4 object-cover rounded-sm mr-3"
+                  className="w-5 h-4 object-cover rounded-sm"
                   loading="lazy"
                 />
-                {lang.name}
+                <span className="sr-only">{lang.name}</span>
               </li>
             ))}
           </motion.ul>
