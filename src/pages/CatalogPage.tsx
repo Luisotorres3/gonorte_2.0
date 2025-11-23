@@ -3,7 +3,6 @@
  * @description Defines the Catalog page, which displays a collection of products or services.
  * Items are presented in a responsive grid format.
  */
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import AnimatedPage from '../components/motion/AnimatedPage';
 import CatalogItem, { type CatalogItemProps } from '../components/catalog/CatalogItem';

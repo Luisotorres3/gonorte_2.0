@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import { 
   FaDumbbell, 
-  FaCalendarAlt, 
-  FaClock, 
   FaArrowLeft,
   FaChartLine,
-  FaTrophy,
   FaFire,
   FaCheck,
-  FaTimes,
   FaHistory
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';

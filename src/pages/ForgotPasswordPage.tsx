@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext'; // Ensure useAuth and auth are correctly set up
 import { auth } from '../firebase/config'; // Direct import of auth for sendPasswordResetEmail
 import { sendPasswordResetEmail } from 'firebase/auth';

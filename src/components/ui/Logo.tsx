@@ -3,7 +3,6 @@
  * @description Defines a reusable Logo component featuring a space-themed SVG.
  * The logo links to the homepage.
  */
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -12,7 +11,7 @@ import { useTranslation } from 'react-i18next';
  * @param {{ className?: string }} props - Component props.
  * @param {string} [props.className] - Optional CSS classes for the span element.
  */
-const GonorteLogoText: React.FC<{ className?: string }> = ({ className }) => (
+const GonorteLogoText = ({ className }: { className?: string }) => (
   <span
     style={{ fontSize: '2rem', fontWeight: 'bold' }}
     // Apply text-primary which is already theme-aware (text-text-primary-light/dark)
@@ -39,7 +38,7 @@ export interface LogoProps {
  * @param {LogoProps} props - The component props.
  * @returns {JSX.Element} The rendered Logo component.
  */
-const Logo: React.FC<LogoProps> = ({ className = '', textClassName = '' }) => {
+const Logo = ({ className = '', textClassName = '' }: LogoProps) => {
   const { t } = useTranslation();
 
   return (

@@ -23,7 +23,7 @@ interface AnimatedPageProps {
  * @param {AnimatedPageProps} props The component props.
  * @returns {JSX.Element} The rendered animated page wrapper.
  */
-const AnimatedPage: React.FC<AnimatedPageProps> = ({ children, className }) => {
+const AnimatedPage = ({ children, className }: AnimatedPageProps) => {
   return (
     <motion.div
       className={`min-h-full w-full ${className || ''}`} // Ensure full height and width

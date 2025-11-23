@@ -3,7 +3,6 @@
  * @description This file defines the 404 Not Found page component.
  * It displays when users navigate to a route that doesn't exist.
  */
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';

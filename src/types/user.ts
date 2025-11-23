@@ -1,4 +1,27 @@
 import type { User as FirebaseUser } from 'firebase/auth';
+import type { Timestamp } from 'firebase/firestore';
+
+export type UserRole = 'admin' | 'coach' | 'client';
+export type PaymentStatus = 'paid' | 'pending' | 'overdue' | 'not_applicable';
+
+export interface ProgressPhoto {
+  url: string;
+  uploadedAt: Date | Timestamp;
+}
+
+export interface TrainingHistoryEntry {
+  date: Date | Timestamp;
+  routineCompleted: string;
+}
+
+export interface CoachUploadedFile {
+  url: string;
+  fileName: string;
+  uploadedAt: Date | Timestamp;
+  uploadedBy: string;
+  fileType?: string;
+  description?: string;
+}
 
 export interface UserProfile {
   uid: string;
@@ -6,33 +29,30 @@ export interface UserProfile {
   displayName: string | null;
   phoneNumber?: string | null;
   photoURL?: string | null;
-  role: 'admin' | 'coach' | 'client'; // User roles
+  role: UserRole;
+  
   // Physical data
   weight?: number | null;
   bodyFatPercentage?: number | null;
-  progressPhotos?: Array<{ url: string; uploadedAt: Date }>;
+  progressPhotos?: ProgressPhoto[];
   notes?: string | null;
+  
   // Training
   assignedPlanId?: string | null;
-  trainingHistory?: Array<{ date: Date; routineCompleted: string }>;
+  trainingHistory?: TrainingHistoryEntry[];
+  
   // Billing
-  paymentStatus?: 'paid' | 'pending' | 'overdue' | 'not_applicable';
+  paymentStatus?: PaymentStatus;
+  
   // Timestamps
-  registrationDate?: Date;
-  lastLoginDate?: Date;
+  registrationDate?: Date | Timestamp;
+  lastLoginDate?: Date | Timestamp;
+  
   // Files uploaded by coach/admin for this client
-  coachUploadedFiles?: Array<{
-    url: string;
-    fileName: string;
-    uploadedAt: Date; // Will be Timestamp in Firestore, Date in JS
-    uploadedBy: string; // UID of admin/coach
-    fileType?: string; // e.g., 'pdf', 'jpg', 'png'
-    description?: string;
-  }>;
+  coachUploadedFiles?: CoachUploadedFile[];
 }
 
 // Combine FirebaseUser with our custom UserProfile
-// We might not need all FirebaseUser fields, but it's good to have them available.
 export type AppUser = FirebaseUser & UserProfile;
 
 // Type for the AuthContext state
@@ -40,9 +60,8 @@ export interface AuthContextType {
   currentUser: AppUser | null;
   loading: boolean;
   isAuthenticated: boolean;
-  userRole: UserProfile['role'] | null;
+  userRole: UserRole | null;
   loginWithGoogle: () => Promise<void>;
   loginWithEmailPassword: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
-  // We'll add signup and other functions as needed
 }

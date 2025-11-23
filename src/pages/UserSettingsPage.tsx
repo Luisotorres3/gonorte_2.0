@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
 import { doc, updateDoc, serverTimestamp } from 'firebase/firestore';
@@ -8,19 +8,14 @@ import {
   FaBell, 
   FaShieldAlt, 
   FaPalette, 
-  FaGlobe,
   FaArrowLeft,
   FaSave,
   FaCheck,
-  FaTimes,
   FaEye,
   FaEyeSlash,
   FaUser,
   FaEnvelope,
-  FaPhone,
-  FaCalendarAlt,
-  FaToggleOn,
-  FaToggleOff
+  FaCalendarAlt
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
@@ -48,7 +43,7 @@ interface UserSettings {
 
 const UserSettingsPage: React.FC = () => {
   const { t } = useTranslation();
-  const { currentUser, userRole } = useAuth();
+  const { currentUser } = useAuth();
   
   const [settings, setSettings] = useState<UserSettings>({
     notifications: {

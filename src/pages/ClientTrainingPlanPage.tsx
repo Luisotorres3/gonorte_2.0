@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
-import { doc, getDoc, updateDoc, arrayUnion, serverTimestamp } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import { 
   FaDumbbell, 
   FaCalendarAlt, 
-  FaClock, 
   FaUser, 
   FaArrowLeft,
   FaPlay,
   FaCheck,
-  FaTimes,
   FaSave
 } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -35,13 +33,6 @@ interface Exercise {
   reps: string;
   rest: string;
   notes?: string;
-}
-
-interface ProgressSession {
-  date: any;
-  completedExercises: string[];
-  planId: string;
-  sessionId: string;
 }
 
 const ClientTrainingPlanPage: React.FC = () => {

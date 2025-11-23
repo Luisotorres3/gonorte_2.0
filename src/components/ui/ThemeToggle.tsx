@@ -4,7 +4,6 @@
  * It uses icons (Sun and Moon) to represent the current theme and the action to switch.
  * This component is typically placed in the Navbar or a settings menu.
  */
-import React from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
 
 /**
@@ -34,7 +33,7 @@ const MoonIcon = () => (
  * It displays either a SunIcon or MoonIcon based on the current theme.
  * @returns {JSX.Element} The rendered ThemeToggle button.
  */
-const ThemeToggle: React.FC = () => {
+const ThemeToggle = () => {
   const { theme, toggleTheme } = useTheme();
 
   return (

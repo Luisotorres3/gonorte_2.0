@@ -1,17 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
 import { 
   collection, 
-  addDoc, 
   getDocs, 
   doc, 
   updateDoc, 
   deleteDoc,
   query,
   orderBy,
-  serverTimestamp,
-  where 
+  serverTimestamp
 } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import { 
@@ -20,10 +18,6 @@ import {
   FaEdit, 
   FaTrash, 
   FaUserCheck, 
-  FaUsers,
-  FaCalendarAlt,
-  FaClock,
-  FaArrowLeft,
   FaSave,
   FaTimes,
   FaSearch
@@ -53,7 +47,7 @@ interface Exercise {
 
 const AdminPlansPage: React.FC = () => {
   const { t } = useTranslation();
-  const { currentUser, userRole } = useAuth();
+  const { currentUser } = useAuth();
   
   const [plans, setPlans] = useState<TrainingPlan[]>([]);
   const [clients, setClients] = useState<UserProfile[]>([]);

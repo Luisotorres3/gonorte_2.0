@@ -27,7 +27,8 @@ body {
     @apply text-text-primary-dark;
   }
 
-  .text-secondary { /* Added for secondary text color */
+  .text-secondary {
+    /* Added for secondary text color */
     @apply text-secondary-DEFAULT; /* Assuming you want to use the DEFAULT secondary color */
   }
   .dark .text-secondary {
@@ -91,7 +92,8 @@ body {
     @apply bg-primary-dark hover:bg-primary-hover active:bg-primary-active; /* Consider if hover/active need dark variants */
   }
 
-  .bg-secondary { /* Added for secondary background color */
+  .bg-secondary {
+    /* Added for secondary background color */
     @apply bg-secondary-DEFAULT hover:bg-secondary-hover active:bg-secondary-active;
   }
   .dark .bg-secondary {
@@ -113,21 +115,24 @@ body {
     @apply border-neutral-border-dark;
   }
 
-  .border-primary { /* Added for primary border color */
+  .border-primary {
+    /* Added for primary border color */
     @apply border-primary-DEFAULT;
   }
   .dark .border-primary {
     @apply border-primary-dark;
   }
 
-  .border-secondary { /* Added for secondary border color */
+  .border-secondary {
+    /* Added for secondary border color */
     @apply border-secondary-DEFAULT;
   }
   .dark .border-secondary {
     @apply border-secondary-dark;
   }
 
-  .border-accent { /* Added for accent border color */
+  .border-accent {
+    /* Added for accent border color */
     @apply border-accent-DEFAULT;
   }
   .dark .border-accent {

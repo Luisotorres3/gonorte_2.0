@@ -1,15 +1,14 @@
-import React from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import type { UserProfile } from '../types/user';
 
 interface PrivateRouteProps {
   allowedRoles?: UserProfile['role'][];
-  loginPath?: string; // Path to redirect if not authenticated
-  unauthorizedPath?: string; // Path to redirect if not authorized (role mismatch)
+  loginPath?: string;
+  unauthorizedPath?: string;
 }
 
-const PrivateRoute: React.FC<PrivateRouteProps> = ({
+const PrivateRoute = ({
   allowedRoles,
   loginPath = '/login', // Default login path
   unauthorizedPath = '/', // Default path if role is not authorized

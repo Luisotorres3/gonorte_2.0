@@ -4,7 +4,6 @@
  * It showcases Gonorte's profile with photo and description in an elegant layout.
  * Designed for fitness trainer theme with teal color palette and dark/light mode support.
  */
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import perfilImg from '../../../assets/perfil.webp';
@@ -14,7 +13,7 @@ import perfilImg from '../../../assets/perfil.webp';
  * Displays Gonorte's profile with photo and description.
  * @returns {JSX.Element} The rendered ProfileSection component.
  */
-const ProfileSection: React.FC = () => {
+const ProfileSection = () => {
   const { t } = useTranslation();
 
   const certifications = [

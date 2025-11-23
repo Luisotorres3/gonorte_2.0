@@ -1,4 +1,3 @@
-import React from 'react'; // Added React import for JSX
 import { useTranslation } from 'react-i18next';
 import AnimatedPage from '../components/motion/AnimatedPage';
 

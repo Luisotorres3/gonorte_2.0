@@ -1,78 +1,181 @@
-# React + TypeScript + Vite
+# Gonorte 2.0 - Fitness Training Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive fitness training platform built with React, TypeScript, Vite, and Firebase. This application provides comprehensive tools for fitness trainers to manage clients, training plans, and track progress.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Multi-role Authentication**: Support for Admin, Coach, and Client roles
+- **Internationalization**: Full i18n support for English, Spanish, and French
+- **Dark/Light Mode**: Seamless theme switching with persistent preferences
+- **Responsive Design**: Mobile-first design using Tailwind CSS
+- **Real-time Data**: Firebase Firestore for real-time data synchronization
+- **Secure Storage**: Firebase Storage for secure file uploads
+- **Training Management**: Complete training plan and history tracking
+- **Analytics Dashboard**: Coach analytics and client progress tracking
 
-## Expanding the ESLint configuration
+## 📋 Prerequisites
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Node.js (v18 or higher)
+- npm or yarn
+- Firebase account and project
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+## 🛠️ Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/Luisotorres3/gonorte_2.0.git
+cd gonorte_2.0
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Install dependencies:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-
-## Folder Structure
-
-Here's an overview of the key directories and their purposes:
-
--   `public/`: Contains static assets that are served directly.
--   `src/`: Main application source code.
-    -   `src/components/`: Contains reusable React components.
-        -   `src/components/layout/`: Components responsible for the overall page structure (e.g., `Navbar.tsx`, `Footer.tsx`, `MainLayout.tsx`).
-        -   `src/components/ui/`: Smaller, general-purpose UI elements (e.g., `ThemeToggle.tsx`, buttons, modals).
-    -   `src/contexts/`: Holds React Context API implementations for global state management (e.g., `ThemeContext.tsx`).
-    -   `src/i18n/`: Contains the configuration for the `i18next` internationalization library (`config.ts`).
-    -   `src/locales/`: Stores translation files (e.g., `en.json`, `es.json`, `fr.json`) for internationalization (i18n) using direct imports.
-    -   `src/pages/`: Top-level components that represent different pages or views of the application (e.g., `HomePage.tsx`, `AboutPage.tsx`).
-    -   `src/router/`: Defines the application's routing structure using `react-router-dom` (`index.tsx`).
-    -   `src/styles/`: Global stylesheets and Tailwind CSS setup (`index.css`).
-    -   `src/App.tsx`: The root React component that sets up the router.
-    -   `src/main.tsx`: The main entry point of the application, rendering the root component.
-
-**Suggested Additions (if needed):**
-
--   `src/assets/`: For static assets like images, SVGs, and custom fonts that are imported into components.
--   `src/hooks/`: For custom React hooks that can be reused across multiple components.
--   `src/utils/`: For general utility functions that are not specific to any single component.
+```bash
+npm install
 ```
+
+3. Set up environment variables:
+
+   - Copy `.env.example` to `.env`
+   - Add your Firebase configuration values
+
+4. Start the development server:
+
+```bash
+npm run dev
+```
+
+## 📁 Project Structure
+
+```
+gonorte_2.0/
+├── public/              # Static assets
+│   ├── locales/        # Translation files (en, es, fr)
+│   ├── robots.txt
+│   └── sitemap.xml
+├── scripts/            # Utility scripts
+├── src/
+│   ├── assets/         # Images and media files
+│   ├── components/     # React components
+│   │   ├── catalog/    # Catalog components
+│   │   ├── landing/    # Landing page sections
+│   │   ├── layout/     # Layout components (Navbar, Footer)
+│   │   ├── motion/     # Animation wrappers
+│   │   ├── ui/         # Reusable UI components
+│   │   └── utils/      # Component utilities
+│   ├── constants/      # App-wide constants
+│   ├── contexts/       # React Context providers
+│   │   ├── AuthContext.tsx
+│   │   └── ThemeContext.tsx
+│   ├── firebase/       # Firebase configuration
+│   ├── hooks/          # Custom React hooks
+│   ├── i18n/           # Internationalization config
+│   ├── pages/          # Page components
+│   │   ├── Admin/      # Admin dashboard pages
+│   │   ├── Client/     # Client dashboard pages
+│   │   ├── Coach/      # Coach dashboard pages
+│   │   └── Public/     # Public pages
+│   ├── router/         # Route configuration
+│   ├── styles/         # Global styles
+│   ├── types/          # TypeScript type definitions
+│   ├── utils/          # Utility functions
+│   ├── App.tsx
+│   └── main.tsx
+├── .env.example        # Environment variables template
+├── .gitignore
+├── eslint.config.js    # ESLint configuration
+├── package.json
+├── tailwind.config.js  # Tailwind CSS configuration
+├── tsconfig.json       # TypeScript configuration
+└── vite.config.ts      # Vite configuration
+```
+
+## 🔧 Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+- `npm run deploy` - Deploy to GitHub Pages
+
+## 🎨 Tech Stack
+
+- **Frontend**: React 19, TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **Animation**: Framer Motion
+- **Routing**: React Router v7
+- **Authentication**: Firebase Auth
+- **Database**: Firebase Firestore
+- **Storage**: Firebase Storage
+- **Internationalization**: i18next
+- **Icons**: React Icons
+- **Linting**: ESLint
+
+## 🌍 Internationalization
+
+The app supports three languages:
+
+- English (en)
+- Spanish (es) - Default
+- French (fr)
+
+Translation files are located in `public/locales/`.
+
+## 🔐 User Roles
+
+1. **Admin**: Full system access, user management, settings
+2. **Coach**: Client management, training plans, analytics
+3. **Client**: Personal dashboard, training plans, progress tracking
+
+## 🚀 Deployment
+
+The project is configured for deployment to GitHub Pages:
+
+```bash
+npm run deploy
+```
+
+For other hosting platforms, build the project and deploy the `dist` folder:
+
+```bash
+npm run build
+```
+
+## 📝 Environment Variables
+
+Required environment variables (see `.env.example`):
+
+```env
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+VITE_FIREBASE_MEASUREMENT_ID=your_measurement_id
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is private and proprietary.
+
+## 👤 Author
+
+Luis Torres (@Luisotorres3)
+
+## 🙏 Acknowledgments
+
+- Firebase for backend services
+- Tailwind CSS for styling utilities
+- Framer Motion for animations
+- React Router for routing
+- i18next for internationalization

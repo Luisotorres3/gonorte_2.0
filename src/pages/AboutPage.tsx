@@ -4,7 +4,6 @@
  * This page provides information about the project, its purpose, and the technologies used.
  * It uses framer-motion for entry animations and react-i18next for internationalization.
  */
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import AnimatedPage from '../components/motion/AnimatedPage'; // Import the new component
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
 import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, where, orderBy, serverTimestamp } from 'firebase/firestore';
@@ -12,7 +12,6 @@ import {
   FaEdit,
   FaTrash,
   FaCheck,
-  FaTimes,
   FaCalendarDay,
   FaCalendarWeek,
   FaCalendar
@@ -53,7 +52,6 @@ const CoachSchedulePage: React.FC = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [editingAppointment, setEditingAppointment] = useState<Appointment | null>(null);
   const [selectedView, setSelectedView] = useState<'day' | 'week' | 'month'>('week');
-  const [selectedDate, setSelectedDate] = useState(new Date());
   
   // Form state
   const [appointmentTitle, setAppointmentTitle] = useState('');
@@ -130,7 +128,6 @@ const CoachSchedulePage: React.FC = () => {
       if (!selectedClient) throw new Error('Cliente no encontrado');
 
       const startDateTime = new Date(`${appointmentDate}T${appointmentStartTime}`);
-      const endDateTime = new Date(startDateTime.getTime() + appointmentDuration * 60000);
 
       const appointmentData = {
         title: appointmentTitle,
@@ -181,7 +178,6 @@ const CoachSchedulePage: React.FC = () => {
       if (!selectedClient) throw new Error('Cliente no encontrado');
 
       const startDateTime = new Date(`${appointmentDate}T${appointmentStartTime}`);
-      const endDateTime = new Date(startDateTime.getTime() + appointmentDuration * 60000);
 
       const appointmentRef = doc(db, 'appointments', editingAppointment.id);
       await updateDoc(appointmentRef, {
