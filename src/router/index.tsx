@@ -23,7 +23,8 @@ import PrivacyPolicyPage from '../pages/PrivacyPolicyPage';
 // Auth Pages
 import LoginPage from '../pages/LoginPage';
 import RegistrationPage from '../pages/RegistrationPage';
-import ForgotPasswordPage from '../pages/ForgotPasswordPage'; // Import the new page
+import ForgotPasswordPage from '../pages/ForgotPasswordPage';
+import BookingPage from '../pages/BookingPage';
 
 // User Specific Pages
 import UserProfilePage from '../pages/UserProfilePage';
@@ -58,6 +59,7 @@ const routes: RouteObject[] = [
       { path: 'legal', element: <LegalPage /> },
       { path: 'testimonials', element: <TestimonialsPage /> },
       { path: 'contact', element: <ContactPage /> },
+      { path: 'booking', element: <BookingPage /> },
       { path: 'login', element: <LoginPage /> },
       { path: 'register', element: <RegistrationPage /> },
       { path: 'forgot-password', element: <ForgotPasswordPage /> },

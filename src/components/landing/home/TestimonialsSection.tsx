@@ -6,7 +6,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { FaStar, FaQuoteLeft, FaUserTie, FaUserGraduate, FaUserDoctor, FaUserInjured, FaPersonRunning } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
+import { FaStar, FaQuoteLeft, FaUserTie, FaUserGraduate, FaUserDoctor, FaArrowRight } from 'react-icons/fa6';
 
 interface Testimonial {
   id: string;
@@ -53,40 +54,7 @@ const testimonials: Testimonial[] = [
     defaultRole: 'Asesoramiento Nutricional',
     rating: 5,
     icon: <FaUserDoctor />
-  },
-  {
-    id: 'gonorteTestimonial4',
-    quoteKey: 'gonorteTestimonial4Quote',
-    defaultQuote: "Como principiante, estaba muy nerviosa por empezar. Gonorte me hizo sentir cómoda desde el primer día. Su paciencia y conocimiento me han ayudado a construir confianza y fuerza gradualmente.",
-    authorKey: 'gonorteTestimonial4Author',
-    defaultAuthor: 'María Rodríguez',
-    roleKey: 'gonorteTestimonial4Details',
-    defaultRole: 'Entrenamiento para Principiantes',
-    rating: 5,
-    icon: <FaUserGraduate />
-  },
-  {
-    id: 'gonorteTestimonial5',
-    quoteKey: 'gonorteTestimonial5Quote',
-    defaultQuote: "Después de una lesión, necesitaba rehabilitación específica. Gonorte diseñó un programa perfecto que me ayudó a recuperarme y volver más fuerte que antes. Su experiencia es invaluable.",
-    authorKey: 'gonorteTestimonial5Author',
-    defaultAuthor: 'David Martínez',
-    roleKey: 'gonorteTestimonial5Details',
-    defaultRole: 'Rehabilitación y Recuperación',
-    rating: 5,
-    icon: <FaUserInjured />
-  },
-  {
-    id: 'gonorteTestimonial6',
-    quoteKey: 'gonorteTestimonial6Quote',
-    defaultQuote: "Los resultados han sido increíbles. En solo 3 meses, he mejorado mi rendimiento deportivo significativamente. Gonorte entiende perfectamente las necesidades de los atletas.",
-    authorKey: 'gonorteTestimonial6Author',
-    defaultAuthor: 'Sofía Torres',
-    roleKey: 'gonorteTestimonial6Details',
-    defaultRole: 'Entrenamiento Deportivo',
-    rating: 5,
-    icon: <FaPersonRunning />
-  },
+  }
 ];
 
 const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
@@ -163,7 +131,7 @@ const TestimonialsSection: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
         >
-          {testimonials.map((testimonial, index) => (
+          {testimonials.map((testimonial) => (
             <motion.div
               key={testimonial.id}
               className="group relative"
@@ -172,7 +140,7 @@ const TestimonialsSection: React.FC = () => {
               transition={{ duration: 0.3 }}
             >
               {/* Card */}
-              <div className="bg-surface dark:bg-neutral-surface-dark rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-300 dark:border-teal-700 relative overflow-hidden">
+              <div className="bg-surface dark:bg-neutral-surface-dark rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-300 dark:border-teal-700 relative overflow-hidden h-full flex flex-col">
                 {/* Background Pattern */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-teal-100 to-cyan-100 dark:from-teal-900/20 dark:to-cyan-900/20 rounded-full -translate-y-16 translate-x-16 opacity-50 group-hover:opacity-70 transition-opacity duration-300" />
                 
@@ -187,7 +155,7 @@ const TestimonialsSection: React.FC = () => {
                 </div>
 
                 {/* Quote */}
-                <blockquote className="text-gray-700 dark:text-gray-200 text-lg leading-relaxed mb-6 relative z-10">
+                <blockquote className="text-gray-700 dark:text-gray-200 text-lg leading-relaxed mb-6 relative z-10 flex-grow">
                   {t(testimonial.quoteKey, testimonial.defaultQuote)}
                 </blockquote>
 
@@ -223,16 +191,13 @@ const TestimonialsSection: React.FC = () => {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-            {t('testimonialsCTA', '¿Listo para tu transformación? Únete a estos clientes satisfechos')}
-          </p>
-          <motion.button
-            className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <Link
+            to="/testimonials"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
           >
-            {t('testimonialsCTAButton', 'Comenzar Mi Transformación')}
-          </motion.button>
+            {t('testimonialsViewAll', 'Ver Más Historias')}
+            <FaArrowRight />
+          </Link>
         </motion.div>
       </div>
     </section>

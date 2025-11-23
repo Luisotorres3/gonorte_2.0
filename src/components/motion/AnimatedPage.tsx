@@ -31,7 +31,6 @@ const AnimatedPage = ({ children, className }: AnimatedPageProps) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }} // Consistent exit animation
       transition={{ duration: 0.3 }} // Short and smooth duration
-      style={{ overflowX: 'hidden' }} // Added overflowX hidden
     >
       {children}
     </motion.div>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { FaDumbbell, FaBowlFood, FaHouse, FaStethoscope, FaFutbol, FaCheck, FaUsers } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
+import { FaDumbbell, FaBowlFood, FaHouse, FaCheck, FaArrowRight } from 'react-icons/fa6';
 
 interface Service {
   id: string;
@@ -64,54 +65,6 @@ const services: Service[] = [
     ],
     price: 'Desde $40/mes',
     popular: true
-  },
-  {
-    id: 'rehabilitation',
-    titleKey: 'service4Title',
-    defaultTitle: 'Rehabilitación y Recuperación',
-    descriptionKey: 'service4Desc',
-    defaultDescription: 'Programas especializados para recuperación de lesiones y mejora de movilidad.',
-    icon: <FaStethoscope />,
-    features: [
-      'Evaluación de lesiones',
-      'Programa de rehabilitación',
-      'Ejercicios de movilidad',
-      'Prevención de recaídas',
-      'Seguimiento médico'
-    ],
-    price: 'Desde $100/mes'
-  },
-  {
-    id: 'sports-training',
-    titleKey: 'service5Title',
-    defaultTitle: 'Entrenamiento Deportivo',
-    descriptionKey: 'service5Desc',
-    defaultDescription: 'Mejora tu rendimiento deportivo con entrenamiento específico para tu disciplina.',
-    icon: <FaFutbol />,
-    features: [
-      'Análisis de rendimiento',
-      'Entrenamiento específico',
-      'Mejora de habilidades',
-      'Preparación física',
-      'Planificación de temporada'
-    ],
-    price: 'Desde $90/mes'
-  },
-  {
-    id: 'group-sessions',
-    titleKey: 'service6Title',
-    defaultTitle: 'Sesiones Grupales',
-    descriptionKey: 'service6Desc',
-    defaultDescription: 'Entrena en grupo con amigos o familiares para mayor motivación y diversión.',
-    icon: <FaUsers />,
-    features: [
-      'Sesiones de 2-6 personas',
-      'Precios reducidos',
-      'Entrenamiento divertido',
-      'Motivación grupal',
-      'Horarios flexibles'
-    ],
-    price: 'Desde $30/persona'
   }
 ];
 
@@ -169,7 +122,7 @@ const ServicesSection: React.FC = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.1 }}
         >
-          {services.map((service, index) => (
+          {services.map((service) => (
             <motion.div
               key={service.id}
               className="group relative"
@@ -191,7 +144,7 @@ const ServicesSection: React.FC = () => {
                 service.popular 
                   ? 'border-teal-500 dark:border-teal-400' 
                   : 'border-gray-300 dark:border-teal-700'
-              } relative overflow-hidden h-full`}>
+              } relative overflow-hidden h-full flex flex-col`}>
                 
                 {/* Background Pattern */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-teal-100 to-cyan-100 dark:from-teal-900/20 dark:to-cyan-900/20 rounded-full -translate-y-16 translate-x-16 opacity-50 group-hover:opacity-70 transition-opacity duration-300" />
@@ -207,13 +160,13 @@ const ServicesSection: React.FC = () => {
                 </h3>
 
                 {/* Description */}
-                <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed relative z-10">
+                <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed relative z-10 flex-grow">
                   {t(service.descriptionKey, service.defaultDescription)}
                 </p>
 
                 {/* Features */}
                 <ul className="space-y-3 mb-8 relative z-10">
-                  {service.features.map((feature, featureIndex) => (
+                  {service.features.slice(0, 3).map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-center text-gray-700 dark:text-gray-200">
                       <span className="text-teal-500 mr-3 flex-shrink-0">
                         <FaCheck className="w-5 h-5" />
@@ -221,29 +174,20 @@ const ServicesSection: React.FC = () => {
                       <span className="text-sm">{feature}</span>
                     </li>
                   ))}
+                  <li className="text-sm text-gray-500 italic pl-8">...y más</li>
                 </ul>
 
-                {/* Price */}
-                {service.price && (
-                  <div className="mb-6 relative z-10">
-                    <p className="text-2xl font-bold text-teal-600 dark:text-teal-400">
-                      {service.price}
-                    </p>
-                  </div>
-                )}
-
                 {/* CTA Button */}
-                <motion.button
-                  className={`w-full py-3 px-6 rounded-xl font-semibold transition-all duration-300 relative z-10 ${
+                <Link
+                  to="/services"
+                  className={`w-full py-3 px-6 rounded-xl font-semibold transition-all duration-300 relative z-10 text-center block ${
                     service.popular
                       ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white hover:shadow-lg'
                       : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-teal-50 dark:hover:bg-teal-900/20'
                   }`}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
                 >
-                  {t('serviceCTA', 'Comenzar')}
-                </motion.button>
+                  {t('serviceCTA', 'Ver Detalles')}
+                </Link>
 
                 {/* Decorative Element */}
                 <div className="absolute bottom-4 right-4 w-8 h-8 bg-gradient-to-br from-teal-400 to-cyan-400 rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-300" />
@@ -260,16 +204,13 @@ const ServicesSection: React.FC = () => {
           viewport={{ once: true, amount: 0.3 }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-            {t('servicesCTA', '¿No encuentras lo que buscas? Contáctame para un plan personalizado')}
-          </p>
-          <motion.button
-            className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+          <Link
+            to="/services"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
           >
-            {t('servicesCTAButton', 'Consulta Personalizada')}
-          </motion.button>
+            {t('servicesViewAll', 'Ver Todos los Servicios')}
+            <FaArrowRight />
+          </Link>
         </motion.div>
       </div>
     </section>
