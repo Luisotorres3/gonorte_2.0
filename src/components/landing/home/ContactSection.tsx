@@ -2,9 +2,10 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { FaEnvelope, FaPhone, FaLocationDot, FaFacebook, FaInstagram, FaTwitter, FaLinkedin, FaDumbbell } from 'react-icons/fa6';
 
 interface ContactInfo {
-  icon: string;
+  icon: React.ReactNode;
   titleKey: string;
   defaultTitle: string;
   valueKey: string;
@@ -14,7 +15,7 @@ interface ContactInfo {
 
 const contactInfo: ContactInfo[] = [
   {
-    icon: '📧',
+    icon: <FaEnvelope />,
     titleKey: 'contactEmailTitle',
     defaultTitle: 'Email',
     valueKey: 'contactEmail',
@@ -22,7 +23,7 @@ const contactInfo: ContactInfo[] = [
     link: 'mailto:gonorte.biomechanics@gmail.com'
   },
   {
-    icon: '📱',
+    icon: <FaPhone />,
     titleKey: 'contactPhoneTitle',
     defaultTitle: 'Teléfono',
     valueKey: 'contactPhone',
@@ -30,7 +31,7 @@ const contactInfo: ContactInfo[] = [
     link: 'tel:+34644001599'
   },
   {
-    icon: '📍',
+    icon: <FaLocationDot />,
     titleKey: 'contactLocationTitle',
     defaultTitle: 'Ubicación',
     valueKey: 'contactLocation',
@@ -39,10 +40,10 @@ const contactInfo: ContactInfo[] = [
 ];
 
 const socialLinks = [
-  { icon: '📘', name: 'Facebook', url: '#', color: 'hover:bg-blue-500' },
-  { icon: '📷', name: 'Instagram', url: '#', color: 'hover:bg-pink-500' },
-  { icon: '🐦', name: 'Twitter', url: '#', color: 'hover:bg-blue-400' },
-  { icon: '💼', name: 'LinkedIn', url: '#', color: 'hover:bg-blue-600' }
+  { icon: <FaFacebook />, name: 'Facebook', url: '#', color: 'hover:bg-blue-500' },
+  { icon: <FaInstagram />, name: 'Instagram', url: '#', color: 'hover:bg-pink-500' },
+  { icon: <FaTwitter />, name: 'Twitter', url: '#', color: 'hover:bg-blue-400' },
+  { icon: <FaLinkedin />, name: 'LinkedIn', url: '#', color: 'hover:bg-blue-600' }
 ];
 
 const ContactSection: React.FC = () => {
@@ -107,7 +108,9 @@ const ContactSection: React.FC = () => {
               <div className="space-y-6">
                 {contactInfo.map((info, index) => (
                   <div key={index} className="flex items-center space-x-4">
-                    <div className="text-2xl">{info.icon}</div>
+                    <div className="text-2xl text-teal-600 dark:text-teal-400 bg-teal-100 dark:bg-teal-900/30 p-3 rounded-full">
+                      {info.icon}
+                    </div>
                     <div className="flex-1">
                       <h4 className="font-semibold text-gray-900 dark:text-white">
                         {t(info.titleKey, info.defaultTitle)}
@@ -139,7 +142,7 @@ const ContactSection: React.FC = () => {
                     <a
                       key={index}
                       href={social.url}
-                      className={`w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-xl transition-all duration-300 ${social.color} hover:scale-110`}
+                      className={`w-12 h-12 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-xl transition-all duration-300 ${social.color} hover:text-white hover:scale-110`}
                       aria-label={social.name}
                     >
                       {social.icon}
@@ -169,7 +172,7 @@ const ContactSection: React.FC = () => {
           <motion.div variants={itemVariants} className="order-1 lg:order-2">
             <div className="bg-gradient-to-br from-teal-500 to-cyan-600 rounded-2xl p-8 text-white shadow-xl">
               <div className="text-center">
-                <div className="text-6xl mb-6">💪</div>
+                <div className="text-6xl mb-6 flex justify-center"><FaDumbbell /></div>
                 <h3 className="text-3xl font-bold mb-4">
                   {t('contactReadyTitle', '¿Listo para tu Transformación?')}
                 </h3>

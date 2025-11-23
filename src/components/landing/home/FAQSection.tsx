@@ -7,6 +7,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FaChevronDown } from 'react-icons/fa6';
 
 interface FAQItem {
   id: number;
@@ -69,6 +70,7 @@ const faqData: FAQItem[] = [
 const FAQSection: React.FC = () => {
   const { t } = useTranslation();
   const [openItems, setOpenItems] = useState<number[]>([]);
+  const [showAll, setShowAll] = useState(false);
 
   const toggleItem = (id: number) => {
     setOpenItems(prev => 
@@ -77,6 +79,8 @@ const FAQSection: React.FC = () => {
         : [...prev, id]
     );
   };
+
+  const displayedFaqData = showAll ? faqData : faqData.slice(0, 3);
 
   return (
     <section className="w-full bg-gradient-to-b from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 py-20 md:py-32">
@@ -98,7 +102,7 @@ const FAQSection: React.FC = () => {
 
         <div className="max-w-4xl mx-auto">
           <div className="space-y-4">
-            {faqData.map((faq, index) => (
+            {displayedFaqData.map((faq, index) => (
               <motion.div
                 key={faq.id}
                 className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-300 dark:border-teal-700 overflow-hidden"
@@ -119,18 +123,7 @@ const FAQSection: React.FC = () => {
                     animate={{ rotate: openItems.includes(faq.id) ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
                   >
-                    <svg
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
+                    <FaChevronDown className="w-full h-full" />
                   </motion.div>
                 </button>
 
@@ -156,6 +149,17 @@ const FAQSection: React.FC = () => {
               </motion.div>
             ))}
           </div>
+
+          {faqData.length > 3 && (
+            <div className="text-center mt-8">
+              <button
+                onClick={() => setShowAll(!showAll)}
+                className="text-teal-600 dark:text-teal-400 font-semibold hover:underline focus:outline-none"
+              >
+                {showAll ? t('showLess', 'Ver menos preguntas') : t('showMore', 'Ver más preguntas')}
+              </button>
+            </div>
+          )}
 
           {/* CTA Section */}
           <motion.div

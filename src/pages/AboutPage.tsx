@@ -8,6 +8,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import AnimatedPage from '../components/motion/AnimatedPage';
+import { 
+  FaPersonRunning, 
+  FaDumbbell, 
+  FaPenToSquare, 
+  FaWind, 
+  FaBowlFood, 
+  FaStopwatch,
+  FaBullseye,
+  FaHandshake,
+  FaMicroscope,
+  FaSeedling,
+  FaCompass,
+  FaEarthAmericas,
+  FaLightbulb,
+  FaWandMagicSparkles,
+  FaRocket
+} from 'react-icons/fa6';
 
 /**
  * The About page of the application.
@@ -90,12 +107,12 @@ const AboutPage: React.FC = () => {
   ];
 
   const toolset = [
-    { name: t('aboutToolset1', 'Mobility Flow Systems'), icon: '🧘' },
-    { name: t('aboutToolset2', 'Strength & Conditioning'), icon: '💪' },
-    { name: t('aboutToolset3', 'Mindset Journaling'), icon: '📝' },
-    { name: t('aboutToolset4', 'Breathwork Protocols'), icon: '🌬️' },
-    { name: t('aboutToolset5', 'Nutrition Micro-habits'), icon: '🥗' },
-    { name: t('aboutToolset6', 'Wearable Analytics'), icon: '⌚' },
+    { name: t('aboutToolset1', 'Mobility Flow Systems'), icon: <FaPersonRunning /> },
+    { name: t('aboutToolset2', 'Strength & Conditioning'), icon: <FaDumbbell /> },
+    { name: t('aboutToolset3', 'Mindset Journaling'), icon: <FaPenToSquare /> },
+    { name: t('aboutToolset4', 'Breathwork Protocols'), icon: <FaWind /> },
+    { name: t('aboutToolset5', 'Nutrition Micro-habits'), icon: <FaBowlFood /> },
+    { name: t('aboutToolset6', 'Wearable Analytics'), icon: <FaStopwatch /> },
   ];
 
   const skills = [
@@ -107,22 +124,22 @@ const AboutPage: React.FC = () => {
 
   const values = [
     {
-      icon: '🎯',
+      icon: <FaBullseye />,
       title: t('aboutValue1Title', 'Results-Driven'),
       description: t('aboutValue1Desc', 'Every program is built around measurable progress and sustainable outcomes'),
     },
     {
-      icon: '🤝',
+      icon: <FaHandshake />,
       title: t('aboutValue2Title', 'Human-First'),
       description: t('aboutValue2Desc', 'Your life context shapes the training, not the other way around'),
     },
     {
-      icon: '🔬',
+      icon: <FaMicroscope />,
       title: t('aboutValue3Title', 'Evidence-Based'),
       description: t('aboutValue3Desc', 'Rooted in exercise science, refined through real-world application'),
     },
     {
-      icon: '🌱',
+      icon: <FaSeedling />,
       title: t('aboutValue4Title', 'Growth Mindset'),
       description: t('aboutValue4Desc', 'Building habits that compound over years, not just weeks'),
     },
@@ -283,7 +300,7 @@ const AboutPage: React.FC = () => {
             {[missionLines, globalLines].map((lines, index) => {
               if (!lines.length) return null;
               const [title, ...body] = lines;
-              const icons = ['🧭', '🌍'];
+              const icons = [<FaCompass />, <FaEarthAmericas />];
               const gradients = [
                 'from-primary/10 to-primary/5',
                 'from-secondary/10 to-secondary/5'
@@ -317,12 +334,12 @@ const AboutPage: React.FC = () => {
               );
             })}
             <div className="relative rounded-2xl border border-neutral-border-light bg-gradient-to-br from-accent/10 to-accent/5 p-6 shadow-sm hover:shadow-lg transition-all duration-300 dark:border-neutral-border-dark overflow-hidden group">
-              <div className="absolute -right-8 -top-8 text-8xl opacity-5 group-hover:opacity-10 transition-opacity">💡</div>
+              <div className="absolute -right-8 -top-8 text-8xl opacity-5 group-hover:opacity-10 transition-opacity"><FaLightbulb /></div>
               
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-white dark:bg-neutral-surface-dark shadow-sm">
-                    <span className="text-2xl">💡</span>
+                    <span className="text-2xl"><FaLightbulb /></span>
                   </div>
                   <h3 className="text-2xl font-bold text-primary dark:text-primary-dark">{innovationTitle}</h3>
                 </div>
@@ -344,7 +361,7 @@ const AboutPage: React.FC = () => {
             <div className="relative rounded-2xl border border-neutral-border-light bg-white dark:bg-neutral-surface-dark p-6 shadow-sm dark:border-neutral-border-dark mt-6">
               <div className="flex items-center gap-3 mb-5">
                 <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 dark:from-primary-dark/20 dark:to-primary-dark/5">
-                  <span className="text-xl">🎯</span>
+                  <span className="text-xl"><FaBullseye /></span>
                 </div>
                 <h3 className="text-xl font-bold text-primary dark:text-primary-dark">{t('aboutSkillsTitle', 'Expertise Areas')}</h3>
               </div>
@@ -477,8 +494,8 @@ const AboutPage: React.FC = () => {
                     <h3 className="mt-2 text-2xl font-bold text-primary dark:text-primary-dark">{item.title}</h3>
                     <p className="mt-2 text-lg text-text-default/90 dark:text-text-default-dark/90">{item.description}</p>
                   </div>
-                  <div className="text-3xl opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300">
-                    {idx === 0 ? '✨' : idx === 1 ? '🌍' : idx === 2 ? '🚀' : '🎯'}
+                  <div className="text-3xl opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 text-primary dark:text-primary-dark">
+                    {idx === 0 ? <FaWandMagicSparkles /> : idx === 1 ? <FaEarthAmericas /> : idx === 2 ? <FaRocket /> : <FaBullseye />}
                   </div>
                 </div>
               </div>

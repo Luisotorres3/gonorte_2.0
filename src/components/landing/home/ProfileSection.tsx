@@ -6,6 +6,7 @@
  */
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import { FaTrophy, FaBowlFood, FaSpa, FaHeart, FaDumbbell } from 'react-icons/fa6';
 import perfilImg from '../../../assets/perfil.webp';
 
 /**
@@ -17,10 +18,10 @@ const ProfileSection = () => {
   const { t } = useTranslation();
 
   const certifications = [
-    { id: 1, name: t('certification1', 'Entrenadora Personal Certificada'), icon: '🏆' },
-    { id: 2, name: t('certification2', 'Especialista en Nutrición Deportiva'), icon: '🥗' },
-    { id: 3, name: t('certification3', 'Instructora de Yoga y Pilates'), icon: '🧘‍♀️' },
-    { id: 4, name: t('certification4', 'Coach de Bienestar Integral'), icon: '💚' }
+    { id: 1, name: t('certification1', 'Entrenadora Personal Certificada'), icon: <FaTrophy className="text-yellow-500" /> },
+    { id: 2, name: t('certification2', 'Especialista en Nutrición Deportiva'), icon: <FaBowlFood className="text-green-500" /> },
+    { id: 3, name: t('certification3', 'Instructora de Yoga y Pilates'), icon: <FaSpa className="text-purple-500" /> },
+    { id: 4, name: t('certification4', 'Coach de Bienestar Integral'), icon: <FaHeart className="text-red-500" /> }
   ];
 
   const achievements = [
@@ -79,7 +80,7 @@ const ProfileSection = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
-                <span className="text-2xl">🏆</span>
+                <span className="text-2xl"><FaTrophy /></span>
               </motion.div>
 
               <motion.div
@@ -89,7 +90,7 @@ const ProfileSection = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.5 }}
               >
-                <span className="text-2xl">💪</span>
+                <span className="text-2xl"><FaDumbbell /></span>
               </motion.div>
             </div>
           </motion.div>

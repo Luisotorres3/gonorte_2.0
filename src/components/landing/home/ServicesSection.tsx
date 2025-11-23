@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import { FaDumbbell, FaBowlFood, FaHouse, FaStethoscope, FaFutbol, FaCheck, FaUsers } from 'react-icons/fa6';
 
 interface Service {
   id: string;
@@ -8,7 +9,7 @@ interface Service {
   defaultTitle: string;
   descriptionKey: string;
   defaultDescription: string;
-  icon: string;
+  icon: React.ReactNode;
   features: string[];
   price?: string;
   popular?: boolean;
@@ -21,7 +22,7 @@ const services: Service[] = [
     defaultTitle: 'Entrenamiento Personalizado',
     descriptionKey: 'service1Desc',
     defaultDescription: 'Planes completamente personalizados adaptados a tus objetivos, nivel y estilo de vida.',
-    icon: '💪',
+    icon: <FaDumbbell />,
     features: [
       'Evaluación inicial completa',
       'Plan de entrenamiento personalizado',
@@ -37,7 +38,7 @@ const services: Service[] = [
     defaultTitle: 'Asesoría Nutricional',
     descriptionKey: 'service2Desc',
     defaultDescription: 'Guía nutricional personalizada para complementar tu entrenamiento y maximizar resultados.',
-    icon: '🥗',
+    icon: <FaBowlFood />,
     features: [
       'Análisis de composición corporal',
       'Plan nutricional personalizado',
@@ -53,7 +54,7 @@ const services: Service[] = [
     defaultTitle: 'Clases Online',
     descriptionKey: 'service3Desc',
     defaultDescription: 'Entrena desde donde quieras con clases en vivo y rutinas grabadas de alta calidad.',
-    icon: '🏠',
+    icon: <FaHouse />,
     features: [
       'Clases en vivo diarias',
       'Biblioteca de rutinas',
@@ -70,7 +71,7 @@ const services: Service[] = [
     defaultTitle: 'Rehabilitación y Recuperación',
     descriptionKey: 'service4Desc',
     defaultDescription: 'Programas especializados para recuperación de lesiones y mejora de movilidad.',
-    icon: '🩺',
+    icon: <FaStethoscope />,
     features: [
       'Evaluación de lesiones',
       'Programa de rehabilitación',
@@ -86,7 +87,7 @@ const services: Service[] = [
     defaultTitle: 'Entrenamiento Deportivo',
     descriptionKey: 'service5Desc',
     defaultDescription: 'Mejora tu rendimiento deportivo con entrenamiento específico para tu disciplina.',
-    icon: '⚽',
+    icon: <FaFutbol />,
     features: [
       'Análisis de rendimiento',
       'Entrenamiento específico',
@@ -102,7 +103,7 @@ const services: Service[] = [
     defaultTitle: 'Sesiones Grupales',
     descriptionKey: 'service6Desc',
     defaultDescription: 'Entrena en grupo con amigos o familiares para mayor motivación y diversión.',
-    icon: '👥',
+    icon: <FaUsers />,
     features: [
       'Sesiones de 2-6 personas',
       'Precios reducidos',
@@ -196,7 +197,7 @@ const ServicesSection: React.FC = () => {
                 <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-teal-100 to-cyan-100 dark:from-teal-900/20 dark:to-cyan-900/20 rounded-full -translate-y-16 translate-x-16 opacity-50 group-hover:opacity-70 transition-opacity duration-300" />
                 
                 {/* Icon */}
-                <div className="text-5xl mb-6 relative z-10">
+                <div className="text-5xl mb-6 relative z-10 text-teal-600 dark:text-teal-400">
                   {service.icon}
                 </div>
 
@@ -214,10 +215,10 @@ const ServicesSection: React.FC = () => {
                 <ul className="space-y-3 mb-8 relative z-10">
                   {service.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-center text-gray-700 dark:text-gray-200">
-                      <svg className="w-5 h-5 text-teal-500 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                      {feature}
+                      <span className="text-teal-500 mr-3 flex-shrink-0">
+                        <FaCheck className="w-5 h-5" />
+                      </span>
+                      <span className="text-sm">{feature}</span>
                     </li>
                   ))}
                 </ul>

@@ -5,6 +5,7 @@
  */
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import { FaUserTie, FaUserGraduate, FaUserDoctor, FaUserInjured, FaPersonRunning, FaStar } from 'react-icons/fa6';
 
 /**
  * Displays the testimonials page with customer reviews and feedback.
@@ -20,7 +21,7 @@ const TestimonialsPage: React.FC = () => {
       position: 'CEO, TechStart',
       content: 'Excelente trabajo en nuestro proyecto. El equipo demostró profesionalismo y entregó resultados excepcionales.',
       rating: 5,
-      avatar: '👩‍💼'
+      icon: <FaUserTie />
     },
     {
       id: 2,
@@ -28,7 +29,7 @@ const TestimonialsPage: React.FC = () => {
       position: 'Director de Marketing',
       content: 'La calidad del servicio superó nuestras expectativas. Definitivamente volveremos a trabajar juntos.',
       rating: 5,
-      avatar: '👨‍💼'
+      icon: <FaUserGraduate />
     },
     {
       id: 3,
@@ -36,7 +37,7 @@ const TestimonialsPage: React.FC = () => {
       position: 'Fundadora, InnovateLab',
       content: 'Proceso transparente y comunicación constante. El resultado final fue exactamente lo que necesitábamos.',
       rating: 5,
-      avatar: '👩‍🔬'
+      icon: <FaUserDoctor />
     },
     {
       id: 4,
@@ -44,7 +45,7 @@ const TestimonialsPage: React.FC = () => {
       position: 'CTO, DigitalCorp',
       content: 'Técnicamente sólido y entregado a tiempo. Un partner confiable para proyectos tecnológicos.',
       rating: 5,
-      avatar: '👨‍💻'
+      icon: <FaUserInjured />
     },
     {
       id: 5,
@@ -52,7 +53,7 @@ const TestimonialsPage: React.FC = () => {
       position: 'Diseñadora Senior',
       content: 'Creatividad y atención al detalle excepcionales. El diseño final fue perfecto para nuestra marca.',
       rating: 5,
-      avatar: '👩‍🎨'
+      icon: <FaPersonRunning />
     },
     {
       id: 6,
@@ -60,7 +61,7 @@ const TestimonialsPage: React.FC = () => {
       position: 'Product Manager',
       content: 'Colaboración fluida y resultados medibles. Transformaron nuestra visión en realidad.',
       rating: 5,
-      avatar: '👨‍💼'
+      icon: <FaUserTie />
     }
   ];
 
@@ -114,7 +115,7 @@ const TestimonialsPage: React.FC = () => {
               {/* Rating */}
               <div className="flex mb-4">
                 {[...Array(testimonial.rating)].map((_, index) => (
-                  <span key={index} className="text-yellow-400 text-xl">⭐</span>
+                  <FaStar key={index} className="text-yellow-400 text-xl" />
                 ))}
               </div>
 
@@ -125,8 +126,8 @@ const TestimonialsPage: React.FC = () => {
 
               {/* Author */}
               <div className="flex items-center">
-                <div className="text-3xl mr-3">
-                  {testimonial.avatar}
+                <div className="text-3xl mr-3 text-primary dark:text-primary-dark bg-primary/10 dark:bg-primary-dark/10 p-2 rounded-full">
+                  {testimonial.icon}
                 </div>
                 <div>
                   <h4 className="font-semibold text-text-primary">

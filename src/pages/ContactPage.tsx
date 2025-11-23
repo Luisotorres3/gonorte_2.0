@@ -6,9 +6,10 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import { FaEnvelope, FaPhone, FaLocationDot, FaClock, FaFacebook, FaInstagram, FaLinkedin, FaTiktok, FaYoutube } from 'react-icons/fa6';
 
 interface ContactInfo {
-  icon: string;
+  icon: React.ReactNode;
   titleKey: string;
   defaultTitle: string;
   valueKey: string;
@@ -18,7 +19,7 @@ interface ContactInfo {
 
 const contactInfo: ContactInfo[] = [
   {
-    icon: '📧',
+    icon: <FaEnvelope />,
     titleKey: 'contactEmailTitle',
     defaultTitle: 'Email',
     valueKey: 'contactEmail',
@@ -26,7 +27,7 @@ const contactInfo: ContactInfo[] = [
     link: 'mailto:gonorte.biomechanics@gmail.com'
   },
   {
-    icon: '📱',
+    icon: <FaPhone />,
     titleKey: 'contactPhoneTitle',
     defaultTitle: 'Teléfono',
     valueKey: 'contactPhone',
@@ -34,14 +35,14 @@ const contactInfo: ContactInfo[] = [
     link: 'tel:+34644001599'
   },
   {
-    icon: '📍',
+    icon: <FaLocationDot />,
     titleKey: 'contactLocationTitle',
     defaultTitle: 'Ubicación',
     valueKey: 'contactLocation',
     defaultValue: 'Jaén, España'
   },
   {
-    icon: '⏰',
+    icon: <FaClock />,
     titleKey: 'contactHoursTitle',
     defaultTitle: 'Horarios',
     valueKey: 'contactHours',
@@ -50,11 +51,11 @@ const contactInfo: ContactInfo[] = [
 ];
 
 const socialLinks = [
-  { icon: '📘', name: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61577890884590', color: 'hover:bg-blue-500' },
-  { icon: '📷', name: 'Instagram', url: 'https://www.instagram.com/gonorte.training/', color: 'hover:bg-pink-500' },
-  { icon: '💼', name: 'LinkedIn', url: 'https://www.linkedin.com/in/carmen-mar%C3%ADa-gonz%C3%A1lez-ortega-3747b5258/', color: 'hover:bg-blue-600' },
-  { icon: '🐦', name: 'TikTok', url: 'https://www.tiktok.com/@gonorte.training', color: 'hover:bg-black' },
-  { icon: '▶️', name: 'YouTube', url: '#', color: 'hover:bg-red-600' }
+  { icon: <FaFacebook />, name: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61577890884590', color: 'hover:bg-blue-500' },
+  { icon: <FaInstagram />, name: 'Instagram', url: 'https://www.instagram.com/gonorte.training/', color: 'hover:bg-pink-500' },
+  { icon: <FaLinkedin />, name: 'LinkedIn', url: 'https://www.linkedin.com/in/carmen-mar%C3%ADa-gonz%C3%A1lez-ortega-3747b5258/', color: 'hover:bg-blue-600' },
+  { icon: <FaTiktok />, name: 'TikTok', url: 'https://www.tiktok.com/@gonorte.training', color: 'hover:bg-black' },
+  { icon: <FaYoutube />, name: 'YouTube', url: '#', color: 'hover:bg-red-600' }
 ];
 
 /**

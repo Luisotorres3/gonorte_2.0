@@ -7,13 +7,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
+import { FaUsers, FaStar, FaBullseye, FaHeadset } from 'react-icons/fa6';
 
 interface StatItem {
   id: string;
   number: string;
   labelKey: string;
   defaultLabel: string;
-  icon: string;
+  icon: React.ReactNode;
 }
 
 const stats: StatItem[] = [
@@ -22,28 +23,28 @@ const stats: StatItem[] = [
     number: '500+',
     labelKey: 'statsClients',
     defaultLabel: 'Clientes Transformados',
-    icon: '💪'
+    icon: <FaUsers />
   },
   {
     id: 'stat2',
     number: '5+',
     labelKey: 'statsYears',
     defaultLabel: 'Años de Experiencia',
-    icon: '⭐'
+    icon: <FaStar />
   },
   {
     id: 'stat3',
     number: '98%',
     labelKey: 'statsSuccess',
     defaultLabel: 'Tasa de Éxito',
-    icon: '🎯'
+    icon: <FaBullseye />
   },
   {
     id: 'stat4',
     number: '24/7',
     labelKey: 'statsSupport',
     defaultLabel: 'Soporte Disponible',
-    icon: '📱'
+    icon: <FaHeadset />
   }
 ];
 

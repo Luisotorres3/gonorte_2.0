@@ -7,13 +7,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import FitnessIcon1 from './icons/FitnessIcon1';
-import FitnessIcon2 from './icons/FitnessIcon2';
-import FitnessIcon3 from './icons/FitnessIcon3';
+import { FaDumbbell, FaAppleWhole, FaLaptop } from 'react-icons/fa6';
 
 interface FeatureItem {
   id: string;
   icon: React.ElementType;
+  gradient: string;
   titleKey: string;
   defaultTitle: string;
   descriptionKey: string;
@@ -23,7 +22,8 @@ interface FeatureItem {
 const features: FeatureItem[] = [
   {
     id: 'feature1',
-    icon: FitnessIcon1,
+    icon: FaDumbbell,
+    gradient: 'from-teal-500 to-cyan-500',
     titleKey: 'feature1Title',
     defaultTitle: 'Entrenamiento Personalizado',
     descriptionKey: 'feature1Desc',
@@ -31,7 +31,8 @@ const features: FeatureItem[] = [
   },
   {
     id: 'feature2',
-    icon: FitnessIcon2,
+    icon: FaAppleWhole,
+    gradient: 'from-teal-500 to-emerald-500',
     titleKey: 'feature2Title',
     defaultTitle: 'Asesoría Nutricional',
     descriptionKey: 'feature2Desc',
@@ -39,7 +40,8 @@ const features: FeatureItem[] = [
   },
   {
     id: 'feature3',
-    icon: FitnessIcon3,
+    icon: FaLaptop,
+    gradient: 'from-cyan-500 to-teal-500',
     titleKey: 'feature3Title',
     defaultTitle: 'Entrenamiento Online',
     descriptionKey: 'feature3Desc',
@@ -106,7 +108,9 @@ const FeaturesSection: React.FC = () => {
               
               <div className="relative z-10">
                 <div className="flex justify-center mb-6">
-                  <feature.icon />
+                  <div className={`w-16 h-16 bg-gradient-to-br ${feature.gradient} rounded-full flex items-center justify-center mb-4 shadow-md`}>
+                    <feature.icon className="w-8 h-8 text-white" />
+                  </div>
                 </div>
                 
                 <h3 className="text-2xl font-bold mb-4 text-slate-800 dark:text-slate-200 group-hover:text-teal-700 dark:group-hover:text-teal-300 transition-colors duration-300">
