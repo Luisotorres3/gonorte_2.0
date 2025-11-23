@@ -3,13 +3,14 @@
  * @description Defines the multi-column footer component for the application.
  * It includes quick navigation links, contact information, language selection,
  * social media links, newsletter subscription, and a copyright notice.
- * Used within the MainLayout.
+ * Used within the MainLayout. Now supports internationalized routes.
  */
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import LanguageSelector from '../ui/LanguageSelector';
 import Logo from '../ui/Logo';
+import { getLocalizedRoute } from '../../router/routes.config';
 
 const FacebookIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg fill="currentColor" viewBox="0 0 24 24" {...props} aria-hidden="true">
@@ -48,9 +49,10 @@ const YouTubeIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
  * @returns {JSX.Element} The rendered Footer component.
  */
 const Footer: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const currentYear = new Date().getFullYear();
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const currentLang = i18n.language || 'es';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -106,12 +108,12 @@ const Footer: React.FC = () => {
           <div className="text-center lg:text-left">
             <h3 className={sectionTitleClasses}>{t('footer.quickLinks', 'Quick Links')}</h3>
             <ul className="grid grid-cols-2 gap-2 lg:block lg:space-y-space-sm">
-              <li><NavLink to="/" className={footerLinkClasses}>{t('navHome', 'Home')}</NavLink></li>
-              <li><NavLink to="/about" className={footerLinkClasses}>{t('navAbout', 'About Me')}</NavLink></li>
-              <li><NavLink to="/services" className={footerLinkClasses}>{t('navServices', 'Services')}</NavLink></li>
-              <li><NavLink to="/testimonials" className={footerLinkClasses}>{t('navTestimonials', 'Testimonials')}</NavLink></li>
-              <li><NavLink to="/contact" className={footerLinkClasses}>{t('navContact', 'Contact')}</NavLink></li>
-              <li><NavLink to="/legal" className={footerLinkClasses}>{t('footer.legal', 'Legal')}</NavLink></li>
+              <li><NavLink to={getLocalizedRoute('home', currentLang)} className={footerLinkClasses}>{t('navHome', 'Home')}</NavLink></li>
+              <li><NavLink to={getLocalizedRoute('about', currentLang)} className={footerLinkClasses}>{t('navAbout', 'About Me')}</NavLink></li>
+              <li><NavLink to={getLocalizedRoute('services', currentLang)} className={footerLinkClasses}>{t('navServices', 'Services')}</NavLink></li>
+              <li><NavLink to={getLocalizedRoute('testimonials', currentLang)} className={footerLinkClasses}>{t('navTestimonials', 'Testimonials')}</NavLink></li>
+              <li><NavLink to={getLocalizedRoute('contact', currentLang)} className={footerLinkClasses}>{t('navContact', 'Contact')}</NavLink></li>
+              <li><NavLink to={getLocalizedRoute('legal', currentLang)} className={footerLinkClasses}>{t('footer.legal', 'Legal')}</NavLink></li>
             </ul>
           </div>
 

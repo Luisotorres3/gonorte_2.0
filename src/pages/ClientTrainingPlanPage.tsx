@@ -36,7 +36,8 @@ interface Exercise {
 }
 
 const ClientTrainingPlanPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'es';
   const { currentUser } = useAuth();
   
   const [plan, setPlan] = useState<TrainingPlan | null>(null);

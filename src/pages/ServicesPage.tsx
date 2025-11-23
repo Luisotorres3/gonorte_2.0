@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useMemo, useState } from 'react';
 import AnimatedPage from '../components/motion/AnimatedPage';
 import { Link } from 'react-router-dom';
+import { getLocalizedRoute } from '../router/routes.config';
 import { 
   FaCheck, 
   FaXmark, 
@@ -76,6 +77,7 @@ const PlanFeatures = ({ features, t }: { features: PlanFeature[], t: any }) => {
 
 const ServicesPage: React.FC = () => {
   const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'es';
   const [billingCycle, setBillingCycle] = useState<BillingCycle>('monthly');
   const [activePlanIndex, setActivePlanIndex] = useState(1); // Default to Professional plan (index 1)
 
@@ -378,7 +380,7 @@ const ServicesPage: React.FC = () => {
 
               {/* CTA Button */}
               <Link 
-                to="/booking" 
+                to={getLocalizedRoute('booking', currentLang)} 
                 state={{ plan, billingCycle }}
               >
                 <button
@@ -504,12 +506,12 @@ const ServicesPage: React.FC = () => {
             {t('servicesCTADesc', 'Contáctanos para una consulta gratuita y descubre cómo podemos ayudarte a alcanzar tus objetivos.')}
           </p>
           <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4">
-            <Link to="/contact" className="w-full sm:w-auto">
+            <Link to={getLocalizedRoute('contact', currentLang)} className="w-full sm:w-auto">
               <button className="w-full sm:w-auto bg-primary text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-primary-dark transition-all duration-300 hover:shadow-xl hover:scale-105">
                 {t('servicesCTAButton', 'Consulta Gratuita')}
               </button>
             </Link>
-            <Link to="/testimonials" className="w-full sm:w-auto">
+            <Link to={getLocalizedRoute('testimonials', currentLang)} className="w-full sm:w-auto">
               <button className="w-full sm:w-auto bg-transparent border-2 border-primary text-primary dark:text-primary-dark px-8 py-4 rounded-xl font-bold text-lg hover:bg-primary/10 transition-all duration-300">
                 {t('viewTestimonials', 'Ver Testimonios')}
               </button>

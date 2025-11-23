@@ -7,6 +7,7 @@
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { getLocalizedRoute } from '../../../router/routes.config';
 import { FaArrowRight } from 'react-icons/fa6';
 import perfilImg from '../../../assets/perfil.webp';
 
@@ -16,7 +17,8 @@ import perfilImg from '../../../assets/perfil.webp';
  * @returns {JSX.Element} The rendered ProfileSection component.
  */
 const ProfileSection = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'es';
 
   return (
     <section className="w-full bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-800 py-20 md:py-32">
@@ -81,7 +83,7 @@ const ProfileSection = () => {
 
             <div className="pt-6">
               <Link 
-                to="/about"
+                to={getLocalizedRoute('about', currentLang)}
                 className="inline-flex items-center gap-2 bg-teal-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-teal-700 transition-colors shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
                 {t('profileReadMore', 'Leer más sobre mí')}

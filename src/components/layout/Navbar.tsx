@@ -3,15 +3,17 @@
  * @description This file defines the main navigation bar component for the application.
  * It includes links to different pages, a theme toggle, a language selector,
  * and conditional rendering for login/logout/profile links based on authentication state.
+ * Now supports internationalized routes.
  */
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import ThemeToggle from '../ui/ThemeToggle';
 import LanguageSelector from '../ui/LanguageSelector';
 import Logo from '../ui/Logo';
 import { useAuth } from '../../contexts/AuthContext'; // Updated path
+import { getLocalizedRoute } from '../../router/routes.config';
 
 /**
  * Displays the main navigation bar for the application.
@@ -19,11 +21,14 @@ import { useAuth } from '../../contexts/AuthContext'; // Updated path
  * @returns {JSX.Element} The rendered Navbar component.
  */
 const Navbar: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { isAuthenticated, currentUser, userRole, logout, loading } = useAuth();
   const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Get current language
+  const currentLang = i18n.language || 'es';
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -48,20 +53,20 @@ const Navbar: React.FC = () => {
   const handleLogout = async () => {
     await logout();
     setIsMobileMenuOpen(false); // Close menu on logout
-    navigate('/'); // Redirect to home page after logout
+    navigate(getLocalizedRoute('home', currentLang)); // Redirect to home page after logout
   };
 
   const getDashboardPath = () => {
-    if (!userRole) return '/login'; // Should not happen if authenticated
+    if (!userRole) return getLocalizedRoute('login', currentLang);
     switch (userRole) {
       case 'admin':
-        return '/admin/users';
+        return `/${currentLang}/${t('routes.admin')}/${t('routes.users')}`;
       case 'coach':
-        return '/dashboard/coach';
+        return `/${currentLang}/${t('routes.dashboard')}/coach`;
       case 'client':
-        return '/dashboard/client';
+        return `/${currentLang}/${t('routes.dashboard')}/client`;
       default:
-        return '/';
+        return getLocalizedRoute('home', currentLang);
     }
   };
 
@@ -91,7 +96,7 @@ const Navbar: React.FC = () => {
       return (
         <>
           <NavLink
-            to={`/profile/${currentUser.uid}`}
+            to={getLocalizedRoute('profile', currentLang).replace(':userId', currentUser.uid)}
             className={isMobile ? mobileNavLinkClasses : navLinkClasses}
             onClick={() => isMobile && setIsMobileMenuOpen(false)}
           >
@@ -100,7 +105,7 @@ const Navbar: React.FC = () => {
           {/* Mostrar solo el panel de coach si es admin */}
           {userRole === 'admin' ? (
             <NavLink
-              to="/dashboard/coach"
+              to={`/${currentLang}/${t('routes.dashboard')}/coach`}
               className={isMobile ? mobileNavLinkClasses : navLinkClasses}
               onClick={() => isMobile && setIsMobileMenuOpen(false)}
             >
@@ -123,7 +128,7 @@ const Navbar: React.FC = () => {
     } else {
       return (
         <NavLink
-          to="/login"
+          to={getLocalizedRoute('login', currentLang)}
           className={isMobile ? mobileAuthButtonClasses : authButtonClasses}
           onClick={() => isMobile && setIsMobileMenuOpen(false)}
         >
@@ -158,11 +163,11 @@ const Navbar: React.FC = () => {
             </div>
 
             <div className="hidden lg:flex items-center justify-center space-x-1 xl:space-x-2">
-              <NavLink to="/" className={navLinkClasses} end>{t('navHome', 'Inicio')}</NavLink>
-              <NavLink to="/about" className={navLinkClasses}>{t('navAbout', 'Sobre Mí')}</NavLink>
-              <NavLink to="/services" className={navLinkClasses}>{t('navServices', 'Servicios')}</NavLink>
-              <NavLink to="/testimonials" className={navLinkClasses}>{t('navTestimonials', 'Testimonios')}</NavLink>
-              <NavLink to="/contact" className={navLinkClasses}>{t('navContact', 'Contacto')}</NavLink>
+              <NavLink to={getLocalizedRoute('home', currentLang)} className={navLinkClasses} end>{t('navHome', 'Inicio')}</NavLink>
+              <NavLink to={getLocalizedRoute('about', currentLang)} className={navLinkClasses}>{t('navAbout', 'Sobre Mí')}</NavLink>
+              <NavLink to={getLocalizedRoute('services', currentLang)} className={navLinkClasses}>{t('navServices', 'Servicios')}</NavLink>
+              <NavLink to={getLocalizedRoute('testimonials', currentLang)} className={navLinkClasses}>{t('navTestimonials', 'Testimonios')}</NavLink>
+              <NavLink to={getLocalizedRoute('contact', currentLang)} className={navLinkClasses}>{t('navContact', 'Contacto')}</NavLink>
             </div>
 
             <div className="flex-1 flex items-center justify-end space-x-2 sm:space-x-3">
@@ -213,11 +218,11 @@ const Navbar: React.FC = () => {
               </svg>
             </button>
             <div className="flex flex-col h-full overflow-y-auto px-4 pt-8 pb-24 space-y-3">
-              <NavLink to="/" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)} end>{t('navHome', 'Inicio')}</NavLink>
-              <NavLink to="/about" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navAbout', 'Sobre Mí')}</NavLink>
-              <NavLink to="/services" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navServices', 'Servicios')}</NavLink>
-              <NavLink to="/testimonials" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navTestimonials', 'Testimonios')}</NavLink>
-              <NavLink to="/contact" className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navContact', 'Contacto')}</NavLink>
+              <NavLink to={getLocalizedRoute('home', currentLang)} className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)} end>{t('navHome', 'Inicio')}</NavLink>
+              <NavLink to={getLocalizedRoute('about', currentLang)} className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navAbout', 'Sobre Mí')}</NavLink>
+              <NavLink to={getLocalizedRoute('services', currentLang)} className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navServices', 'Servicios')}</NavLink>
+              <NavLink to={getLocalizedRoute('testimonials', currentLang)} className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navTestimonials', 'Testimonios')}</NavLink>
+              <NavLink to={getLocalizedRoute('contact', currentLang)} className={mobileNavLinkClasses} onClick={() => setIsMobileMenuOpen(false)}>{t('navContact', 'Contacto')}</NavLink>
 
               <hr className="my-3 border-neutral-border-light dark:border-neutral-border-dark" />
 

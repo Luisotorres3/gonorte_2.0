@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
+import { getLocalizedRoute } from '../router/routes.config';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/config';
 import { 
@@ -36,7 +37,8 @@ interface Exercise {
 }
 
 const ClientTrainingHistoryPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'es';
   const { currentUser } = useAuth();
   
   const [trainingHistory, setTrainingHistory] = useState<TrainingSession[]>([]);
@@ -224,7 +226,7 @@ const ClientTrainingHistoryPage: React.FC = () => {
             </div>
             
             <Link
-              to="/dashboard/client"
+              to={`/${currentLang}/${t('routes.dashboard')}/client`}
               className="px-4 py-2 bg-white dark:bg-slate-800 text-text-default-light dark:text-text-default-dark font-medium rounded-xl transition-all duration-300 flex items-center shadow-lg hover:shadow-xl"
             >
               <FaArrowLeft className="mr-2" />
@@ -318,7 +320,7 @@ const ClientTrainingHistoryPage: React.FC = () => {
                 {t('clientTrainingHistory.noSessionsDescription', 'Comienza a entrenar y verás tu historial aquí')}
               </p>
               <Link
-                to="/training-plan"
+                to={getLocalizedRoute('trainingPlan', currentLang)}
                 className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white font-medium rounded-xl transition-all duration-300"
               >
                 <FaDumbbell className="mr-2" />

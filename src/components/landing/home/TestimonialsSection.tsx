@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { FaStar, FaQuoteLeft, FaUserTie, FaUserGraduate, FaUserDoctor, FaArrowRight } from 'react-icons/fa6';
+import { getLocalizedRoute } from '../../../router/routes.config';
 
 interface Testimonial {
   id: string;
@@ -78,7 +79,8 @@ const StarRating: React.FC<{ rating: number }> = ({ rating }) => {
  * @returns {JSX.Element} The rendered TestimonialsSection component.
  */
 const TestimonialsSection: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'es';
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -192,7 +194,7 @@ const TestimonialsSection: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <Link
-            to="/testimonials"
+            to={getLocalizedRoute('testimonials', currentLang)}
             className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
           >
             {t('testimonialsViewAll', 'Ver Más Historias')}

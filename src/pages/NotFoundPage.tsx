@@ -6,13 +6,15 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { getLocalizedRoute } from '../router/routes.config';
 
 /**
  * Displays the 404 Not Found page.
  * @returns {JSX.Element} The rendered NotFoundPage component.
  */
 const NotFoundPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'es';
 
   return (
     <motion.div
@@ -85,19 +87,19 @@ const NotFoundPage: React.FC = () => {
           </h3>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              to="/about"
+              to={getLocalizedRoute('about', currentLang)}
               className="text-primary hover:text-primary-dark transition-colors"
             >
               {t('navAbout', 'Sobre Mí')}
             </Link>
             <Link
-              to="/services"
+              to={getLocalizedRoute('services', currentLang)}
               className="text-primary hover:text-primary-dark transition-colors"
             >
               {t('navServices', 'Servicios')}
             </Link>
             <Link
-              to="/contact"
+              to={getLocalizedRoute('contact', currentLang)}
               className="text-primary hover:text-primary-dark transition-colors"
             >
               {t('navContact', 'Contacto')}

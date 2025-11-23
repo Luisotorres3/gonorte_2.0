@@ -41,7 +41,8 @@ interface PlanStats {
 }
 
 const CoachAnalyticsPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'es';
   const { currentUser, userRole } = useAuth();
   
   const [clients, setClients] = useState<ClientProgress[]>([]);
@@ -308,7 +309,7 @@ const CoachAnalyticsPage: React.FC = () => {
               </select>
               
               <Link
-                to="/dashboard/coach"
+                to={`/${currentLang}/${t('routes.dashboard')}/coach`}
                 className="px-4 py-2 bg-white dark:bg-slate-800 text-text-default-light dark:text-text-default-dark font-medium rounded-xl transition-all duration-300 flex items-center shadow-lg hover:shadow-xl"
               >
                 <FaArrowLeft className="mr-2" />

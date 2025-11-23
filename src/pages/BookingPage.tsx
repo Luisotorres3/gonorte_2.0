@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { getLocalizedRoute } from '../router/routes.config';
 import { InlineWidget } from 'react-calendly';
 import AnimatedPage from '../components/motion/AnimatedPage';
 import { FaCheck, FaArrowLeft } from 'react-icons/fa6';
@@ -31,9 +32,10 @@ interface BookingPageState {
 }
 
 const BookingPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
+  const currentLang = i18n.language || 'es';
   const state = location.state as BookingPageState;
   const { plan, billingCycle } = state || {};
 
@@ -62,9 +64,9 @@ const BookingPage: React.FC = () => {
 
   useEffect(() => {
     if (!plan) {
-      navigate('/services');
+      navigate(getLocalizedRoute('services', currentLang));
     }
-  }, [plan, navigate]);
+  }, [plan, navigate, currentLang]);
 
   if (!plan) return null;
 
@@ -155,7 +157,7 @@ const BookingPage: React.FC = () => {
     if (step === 3) {
       setStep(2);
     } else {
-      navigate('/services');
+      navigate(getLocalizedRoute('services', currentLang));
     }
   };
 

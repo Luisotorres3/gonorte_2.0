@@ -2,10 +2,12 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { getLocalizedRoute } from '../../../router/routes.config';
 import { FaDumbbell } from 'react-icons/fa6';
 
 const ContactSection: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'es';
 
   return (
     <section className="w-full py-20 lg:py-32 bg-gradient-to-br from-gray-50 via-white to-teal-50 dark:from-gray-900 dark:via-gray-800 dark:to-teal-900/20">
@@ -28,7 +30,7 @@ const ContactSection: React.FC = () => {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                to="/contact"
+                to={getLocalizedRoute('contact', currentLang)}
                 className="inline-block bg-white text-teal-600 font-semibold py-4 px-8 rounded-xl hover:bg-gray-50 transition-colors transform hover:scale-105 shadow-lg"
               >
                 {t('contactCTA', 'Enviar Mensaje')}

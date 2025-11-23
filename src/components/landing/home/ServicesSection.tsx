@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { getLocalizedRoute } from '../../../router/routes.config';
 import { FaDumbbell, FaBowlFood, FaHouse, FaCheck, FaArrowRight } from 'react-icons/fa6';
 
 interface Service {
@@ -69,7 +70,8 @@ const services: Service[] = [
 ];
 
 const ServicesSection: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'es';
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -179,7 +181,7 @@ const ServicesSection: React.FC = () => {
 
                 {/* CTA Button */}
                 <Link
-                  to="/services"
+                  to={getLocalizedRoute('services', currentLang)}
                   className={`w-full py-3 px-6 rounded-xl font-semibold transition-all duration-300 relative z-10 text-center block ${
                     service.popular
                       ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white hover:shadow-lg'
@@ -205,7 +207,7 @@ const ServicesSection: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <Link
-            to="/services"
+            to={getLocalizedRoute('services', currentLang)}
             className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
           >
             {t('servicesViewAll', 'Ver Todos los Servicios')}

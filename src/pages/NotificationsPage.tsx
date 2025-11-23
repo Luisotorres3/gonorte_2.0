@@ -29,7 +29,8 @@ interface Notification {
 }
 
 const NotificationsPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'es';
   const { currentUser } = useAuth();
   
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -264,7 +265,7 @@ const NotificationsPage: React.FC = () => {
               )}
               
               <Link
-                to="/dashboard/client"
+                to={`/${currentLang}/${t('routes.dashboard')}/client`}
                 className="px-4 py-2 bg-white dark:bg-slate-800 text-text-default-light dark:text-text-default-dark font-medium rounded-xl transition-all duration-300 flex items-center shadow-lg hover:shadow-xl"
               >
                 <FaArrowLeft className="mr-2" />

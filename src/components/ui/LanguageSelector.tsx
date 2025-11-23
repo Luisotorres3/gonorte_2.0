@@ -3,12 +3,15 @@
  * @description Defines a dropdown component for selecting the application language.
  * It displays the current language with its flag and allows users to switch between supported languages.
  * This component is typically used in the Navbar.
+ * Now handles internationalized routing when switching languages.
  */
 import React, { useState, useEffect, useRef } from 'react';
 import type { KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDownIcon } from './icons/ChevronDownIcon'; // Assuming an icon component exists or will be created
+import { switchLanguagePath } from '../../router/routes.config';
 
 // Helper function to get a simple ChevronDownIcon if not available
 const DefaultChevronDownIcon = () => (
@@ -77,10 +80,13 @@ const getFlagDisplay = (code: string) => {
  * LanguageSelector component allows users to switch the application's language via a dropdown menu.
  * It displays the currently selected language (flag and name) and provides options to choose other supported languages.
  * Includes keyboard navigation and accessibility features.
+ * Now navigates to the equivalent route in the new language when switching.
  * @returns {JSX.Element} The rendered LanguageSelector component.
  */
 const LanguageSelector: React.FC = () => {
   const { t, i18n: i18nInstance } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [currentLang, setCurrentLang] = useState(i18nInstance.language);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -104,7 +110,18 @@ const LanguageSelector: React.FC = () => {
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   const selectLanguage = (lngCode: string) => {
+    // Get the current path without the hash
+    const currentPath = location.pathname;
+    
+    // Calculate the new path in the target language
+    const newPath = switchLanguagePath(currentPath, lngCode);
+    
+    // Change the language in i18n
     i18nInstance.changeLanguage(lngCode);
+    
+    // Navigate to the equivalent route in the new language
+    navigate(newPath);
+    
     setIsOpen(false);
     triggerButtonRef.current?.focus(); // Return focus to button after selection
   };

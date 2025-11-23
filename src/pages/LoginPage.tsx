@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { getLocalizedRoute } from '../router/routes.config';
 import { FaGoogle } from 'react-icons/fa'; // Example icon
 
 const LoginPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'es';
   const { loginWithEmailPassword, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -156,7 +158,7 @@ const LoginPage: React.FC = () => {
 
           <div className="flex items-center justify-end">
             <div className="text-sm">
-              <Link to="/forgot-password" className="font-medium text-primary hover:text-primary-dark dark:text-primary-light dark:hover:text-primary transition-colors duration-300 ease-in-out">
+              <Link to={getLocalizedRoute('forgotPassword', currentLang)} className="font-medium text-primary hover:text-primary-dark dark:text-primary-light dark:hover:text-primary transition-colors duration-300 ease-in-out">
                 {t('login.forgotPasswordLink', 'Forgot your password?')}
               </Link>
             </div>

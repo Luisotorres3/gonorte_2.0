@@ -4,10 +4,12 @@ import { auth } from '../firebase/config'; // Direct import of auth for sendPass
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { getLocalizedRoute } from '../router/routes.config';
 import { FaEnvelope } from 'react-icons/fa';
 
 const ForgotPasswordPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'es';
   const [email, setEmail] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
@@ -113,7 +115,7 @@ const ForgotPasswordPage: React.FC = () => {
         )}
 
         <div className="text-sm text-center mt-6">
-          <Link to="/login" className="font-medium text-primary hover:text-primary-dark dark:text-primary-light dark:hover:text-primary transition-colors duration-300 ease-in-out">
+          <Link to={getLocalizedRoute('login', currentLang)} className="font-medium text-primary hover:text-primary-dark dark:text-primary-light dark:hover:text-primary transition-colors duration-300 ease-in-out">
             {t('forgotPassword.backToLogin', 'Back to Log In')}
           </Link>
         </div>

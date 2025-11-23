@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext'; // Assuming AuthContext will have a registration function
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { getLocalizedRoute } from '../router/routes.config';
 import { FaGoogle } from 'react-icons/fa';
 import { Timestamp, doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../firebase/config'; // Ensure auth is exported from firebase/config
@@ -9,7 +10,8 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import type { UserProfile } from '../types/user';
 
 const RegistrationPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'es';
   // We'll use createUserWithEmailAndPassword directly, then potentially update profile via AuthContext or another service
   const { loginWithGoogle } = useAuth(); // For Google Sign-Up/Login
   const navigate = useNavigate();
@@ -249,7 +251,7 @@ const RegistrationPage: React.FC = () => {
         <div className="text-sm text-center">
           <p className="text-text-muted dark:text-text-muted-dark">
             {t('register.alreadyHaveAccount', 'Already have an account?')} {' '}
-            <Link to="/login" className="font-medium text-primary hover:text-primary-dark dark:text-primary-light dark:hover:text-primary transition-colors duration-300 ease-in-out">
+            <Link to={getLocalizedRoute('login', currentLang)} className="font-medium text-primary hover:text-primary-dark dark:text-primary-light dark:hover:text-primary transition-colors duration-300 ease-in-out">
               {t('login.loginButton', 'Log In')}
             </Link>
           </p>

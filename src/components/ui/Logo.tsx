@@ -1,10 +1,11 @@
 /**
  * @file Logo.tsx
  * @description Defines a reusable Logo component featuring a space-themed SVG.
- * The logo links to the homepage.
+ * The logo links to the homepage. Now supports internationalized routes.
  */
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { getLocalizedRoute } from '../../router/routes.config';
 
 /**
  * The Gonorte Logo text.
@@ -39,11 +40,12 @@ export interface LogoProps {
  * @returns {JSX.Element} The rendered Logo component.
  */
 const Logo = ({ className = '', textClassName = '' }: LogoProps) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'es';
 
   return (
     <NavLink
-      to="/"
+      to={getLocalizedRoute('home', currentLang)}
       aria-label={t('ariaLabelGoToHome', 'Gonorte - Go to homepage')}
       className={`group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface dark:focus-visible:ring-offset-surface-dark rounded-sm ${className}`}
     >

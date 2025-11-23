@@ -7,6 +7,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { getLocalizedRoute } from '../router/routes.config';
 import AnimatedPage from '../components/motion/AnimatedPage';
 import { 
   FaPersonRunning, 
@@ -33,7 +34,8 @@ import {
  * @returns {JSX.Element} The rendered AboutPage component.
  */
 const AboutPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'es';
 
   const splitParagraph = (content: string) =>
     content
@@ -172,14 +174,14 @@ const AboutPage: React.FC = () => {
             </div>
             <div className="flex flex-wrap gap-4">
               <Link
-                to="/contact"
+                to={getLocalizedRoute('contact', currentLang)}
                 className="group rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:scale-105 relative overflow-hidden"
               >
                 <span className="relative z-10">{t('aboutCTAContact', 'Book a discovery call')}</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary-dark to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Link>
               <Link
-                to="/services"
+                to={getLocalizedRoute('services', currentLang)}
                 className="group rounded-full border border-primary px-6 py-3 text-sm font-semibold text-primary transition-all duration-300 hover:bg-primary/10 hover:scale-105 dark:text-primary-dark dark:hover:bg-primary-dark/10"
               >
                 <span className="flex items-center gap-2">

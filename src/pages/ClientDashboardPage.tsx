@@ -2,13 +2,15 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import { getLocalizedRoute } from '../router/routes.config';
 import { doc, updateDoc, arrayUnion, Timestamp } from 'firebase/firestore';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { db, storage } from '../firebase/config'; // storage is new
 import { FaPlay, FaHistory, FaBell, FaCog } from 'react-icons/fa';
 
 const ClientDashboardPage: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'es';
   const { currentUser } = useAuth();
   const [progressUpdateText, setProgressUpdateText] = useState(''); // For text updates
   const [progressPhoto, setProgressPhoto] = useState<File | null>(null);
@@ -133,7 +135,7 @@ const ClientDashboardPage: React.FC = () => {
             {currentUser.assignedPlanId && (
                  <div className="mt-4">
                     <Link
-                        to="/training-plan"
+                        to={getLocalizedRoute('trainingPlan', currentLang)}
                         className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700 text-white text-sm font-medium rounded-lg transition-all duration-300"
                     >
                         <FaPlay className="mr-2" />
@@ -149,7 +151,7 @@ const ClientDashboardPage: React.FC = () => {
             <p className="text-text-muted-light dark:text-text-muted-dark">{t('dashboard.client.historyPlaceholder', 'Your recent workouts and completed routines will appear here.')}</p>
             <div className="mt-4">
                  <Link
-                    to="/training-history"
+                    to={getLocalizedRoute('trainingHistory', currentLang)}
                     className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-sm font-medium rounded-lg transition-all duration-300"
                 >
                     <FaHistory className="mr-2" />
@@ -164,7 +166,7 @@ const ClientDashboardPage: React.FC = () => {
             <p className="text-text-muted-light dark:text-text-muted-dark">{t('dashboard.client.notificationsDescription', 'Mantente al día con tus alertas y mensajes importantes.')}</p>
             <div className="mt-4">
                  <Link
-                    to="/notifications"
+                    to={getLocalizedRoute('notifications', currentLang)}
                     className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white text-sm font-medium rounded-lg transition-all duration-300"
                 >
                     <FaBell className="mr-2" />
@@ -179,7 +181,7 @@ const ClientDashboardPage: React.FC = () => {
             <p className="text-text-muted-light dark:text-text-muted-dark">{t('dashboard.client.settingsDescription', 'Gestiona tus preferencias y configuración de cuenta.')}</p>
             <div className="mt-4">
                  <Link
-                    to="/settings"
+                    to={getLocalizedRoute('settings', currentLang)}
                     className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white text-sm font-medium rounded-lg transition-all duration-300"
                 >
                     <FaCog className="mr-2" />
