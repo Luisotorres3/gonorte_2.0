@@ -11,23 +11,26 @@
     <!-- GitHub Pages SPA redirect workaround -->
     <!-- This script restores the URL from the query string set by 404.html -->
     <script>
-      (function(l) {
-        if (l.search[1] === '/' ) {
-          var decoded = l.search.slice(1).split('&').map(function(s) { 
-            return s.replace(/~and~/g, '&')
-          }).join('?');
-          
+      (function (l) {
+        if (l.search[1] === "/") {
+          var decoded = l.search
+            .slice(1)
+            .split("&")
+            .map(function (s) {
+              return s.replace(/~and~/g, "&");
+            })
+            .join("?");
+
           // Get the base path (e.g., /gonorte_2.0/)
-          var pathSegments = l.pathname.split('/').filter(function(segment) {
+          var pathSegments = l.pathname.split("/").filter(function (segment) {
             return segment.length > 0;
           });
-          var basePath = pathSegments.length > 0 ? '/' + pathSegments[0] + '/' : '/';
-          
-          window.history.replaceState(null, null,
-            basePath + decoded + l.hash
-          );
+          var basePath =
+            pathSegments.length > 0 ? "/" + pathSegments[0] + "/" : "/";
+
+          window.history.replaceState(null, null, basePath + decoded + l.hash);
         }
-      }(window.location))
+      })(window.location);
     </script>
 
     <!-- SEO Meta Tags -->
@@ -53,18 +56,27 @@
     />
 
     <!-- Open Graph / Facebook Meta Tags -->
-    <meta property="og:title" content="Gonorte - Entrenadora Personal en Jaén" />
+    <meta
+      property="og:title"
+      content="Gonorte - Entrenadora Personal en Jaén"
+    />
     <meta
       property="og:description"
       content="Entrenadora personal certificada en Jaén que ofrece programas de entrenamiento personalizados y asesoría nutricional."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://luisotorres3.github.io/gonorte_2.0/" />
+    <meta
+      property="og:url"
+      content="https://luisotorres3.github.io/gonorte_2.0/"
+    />
     <meta property="og:image" content="/gonorte_2.0/social-preview.png" />
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Gonorte - Entrenadora Personal en Jaén" />
+    <meta
+      name="twitter:title"
+      content="Gonorte - Entrenadora Personal en Jaén"
+    />
     <meta
       name="twitter:description"
       content="Entrenadora personal certificada en Jaén que ofrece programas de entrenamiento personalizados y asesoría nutricional."
@@ -89,7 +101,7 @@
         "image": "https://luisotorres3.github.io/gonorte_2.0/social-preview.png"
       }
     </script>
-    <script type="module" crossorigin src="/gonorte_2.0/assets/index-C5OTyi6S.js"></script>
+    <script type="module" crossorigin src="/gonorte_2.0/assets/index-BKATIPnm.js"></script>
     <link rel="modulepreload" crossorigin href="/gonorte_2.0/assets/vendor-C5SkNNUu.js">
     <link rel="modulepreload" crossorigin href="/gonorte_2.0/assets/i18n-cN_5UyHf.js">
     <link rel="modulepreload" crossorigin href="/gonorte_2.0/assets/icons-0Im1N9QN.js">
