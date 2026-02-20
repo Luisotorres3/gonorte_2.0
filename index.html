@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/gonorte_2.0/logo.png" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gonorte</title>
+
+    <!-- GitHub Pages SPA redirect workaround -->
+    <!-- This script restores the URL from the query string set by 404.html -->
+    <script>
+      (function (l) {
+        if (l.search[1] === "/") {
+          var decoded = l.search
+            .slice(1)
+            .split("&")
+            .map(function (s) {
+              return s.replace(/~and~/g, "&");
+            })
+            .join("?");
+
+          // Get the base path (e.g., /gonorte_2.0/)
+          var pathSegments = l.pathname.split("/").filter(function (segment) {
+            return segment.length > 0;
+          });
+          var basePath =
+            pathSegments.length > 0 ? "/" + pathSegments[0] + "/" : "/";
+
+          window.history.replaceState(null, null, basePath + decoded + l.hash);
+        }
+      })(window.location);
+    </script>
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Entrenadora personal certificada en Jaén que ofrece programas de entrenamiento personalizados y asesoría nutricional"
+    />
+    <meta
+      name="keywords"
+      content="entrenadora personal, Jaén, entrenamiento personalizado, nutrición, fitness, salud"
+    />
+
+    <!-- Theme Color for Browser UI -->
+    <meta
+      name="theme-color"
+      content="#6D28D9"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#1F2937"
+      media="(prefers-color-scheme: dark)"
+    />
+
+    <!-- Open Graph / Facebook Meta Tags -->
+    <meta
+      property="og:title"
+      content="Gonorte - Entrenadora Personal en Jaén"
+    />
+    <meta
+      property="og:description"
+      content="Entrenadora personal certificada en Jaén que ofrece programas de entrenamiento personalizados y asesoría nutricional."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://luisotorres3.github.io/gonorte_2.0/"
+    />
+    <meta property="og:image" content="/gonorte_2.0/social-preview.png" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Gonorte - Entrenadora Personal en Jaén"
+    />
+    <meta
+      name="twitter:description"
+      content="Entrenadora personal certificada en Jaén que ofrece programas de entrenamiento personalizados y asesoría nutricional."
+    />
+    <meta name="twitter:image" content="/gonorte_2.0/social-preview.png" />
+
+    <!-- Schema.org / JSON-LD -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Gonorte – Entrenadora Personal",
+        "description": "Entrenadora personal certificada en Jaén que ofrece planes de entrenamiento personalizados, asesoría nutricional y clases online.",
+        "url": "https://luisotorres3.github.io/gonorte_2.0/",
+        "telephone": "+34 644 00 15 99",
+        "email": "gonorte.biomechanics@gmail.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Jaén",
+          "addressCountry": "ES"
+        },
+        "image": "https://luisotorres3.github.io/gonorte_2.0/social-preview.png"
+      }
+    </script>
+    <script type="module" crossorigin src="/gonorte_2.0/assets/index-X5tkpbJx.js"></script>
+    <link rel="modulepreload" crossorigin href="/gonorte_2.0/assets/vendor-BiJGMNyw.js">
+    <link rel="modulepreload" crossorigin href="/gonorte_2.0/assets/i18n-DKVRXdOy.js">
+    <link rel="modulepreload" crossorigin href="/gonorte_2.0/assets/icons-D8Agzev2.js">
+    <link rel="modulepreload" crossorigin href="/gonorte_2.0/assets/motion-BEjcWhCc.js">
+    <link rel="modulepreload" crossorigin href="/gonorte_2.0/assets/firebase-DfaCLgxg.js">
+    <link rel="stylesheet" crossorigin href="/gonorte_2.0/assets/index-D4h_cEuN.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

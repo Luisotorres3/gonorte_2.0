@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting...</title>
+    <script>
+      // GitHub Pages SPA redirect workaround
+      // This script takes the current URL and converts it into a query string
+      // that will be processed by index.html to restore the correct route
+
+      var l = window.location;
+      var pathSegmentsToKeep = 1; // Number of path segments for base path (e.g., /gonorte_2.0/)
+
+      // Split the pathname and determine the base path
+      var pathSegments = l.pathname.split("/").filter(function (segment) {
+        return segment.length > 0;
+      });
+
+      // If we have segments, build the redirect
+      if (pathSegments.length > 0) {
+        var basePath =
+          "/" + pathSegments.slice(0, pathSegmentsToKeep).join("/");
+        var routePath = pathSegments.slice(pathSegmentsToKeep).join("/");
+
+        // Redirect to index.html with the path encoded in the query string
+        l.replace(
+          l.protocol +
+            "//" +
+            l.hostname +
+            (l.port ? ":" + l.port : "") +
+            basePath +
+            "/?/" +
+            routePath.replace(/&/g, "~and~") +
+            (l.search ? "&" + l.search.slice(1).replace(/&/g, "~and~") : "") +
+            l.hash
+        );
+      }
+    </script>
+  </head>
+  <body></body>
+</html>
