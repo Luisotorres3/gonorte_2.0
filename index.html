@@ -8,8 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gonorte</title>
 
-    <!-- GitHub Pages SPA redirect workaround -->
-    <!-- This script restores the URL from the query string set by 404.html -->
+    <!-- GitHub Pages SPA redirect workaround (custom domain in root) -->
     <script>
       (function (l) {
         if (l.search[1] === "/") {
@@ -21,16 +20,6 @@
             })
             .join("?");
 
-          // Get the base path (e.g., /gonorte_2.0/)
-          var pathSegments = l.pathname.split("/").filter(function (segment) {
-            return segment.length > 0;
-          });
-          var basePath =
-            pathSegments.length > 0 ? "/" + pathSegments[0] + "/" : "/";
-          var normalizedBasePath =
-            basePath.length > 1 && basePath.endsWith("/")
-              ? basePath.slice(0, -1)
-              : basePath;
           var normalizedDecoded = decoded.startsWith("/")
             ? decoded
             : "/" + decoded;
@@ -38,7 +27,7 @@
           window.history.replaceState(
             null,
             null,
-            normalizedBasePath + normalizedDecoded + l.hash,
+            normalizedDecoded + l.hash,
           );
         }
       })(window.location);
