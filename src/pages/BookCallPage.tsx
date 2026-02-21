@@ -78,13 +78,25 @@ const CalendlySkeleton: React.FC = () => (
 // ─── Page ────────────────────────────────────────────────────────────────────
 
 const WIDGET_MIN_HEIGHT = 980;
+const WIDGET_MIN_HEIGHT_MOBILE = 1320;
 
 const FALLBACK_MS = 10_000; // show widget after 10 s even if event never fires
 
 const BookCallPage: React.FC = () => {
   const { t } = useTranslation();
   const [loaded, setLoaded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const updateIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    updateIsMobile();
+    window.addEventListener('resize', updateIsMobile);
+    return () => window.removeEventListener('resize', updateIsMobile);
+  }, []);
 
   useEffect(() => {
     // Fallback: if Calendly never fires the ready event, reveal widget anyway
@@ -106,6 +118,8 @@ const BookCallPage: React.FC = () => {
     };
   }, []);
 
+  const widgetMinHeight = isMobile ? WIDGET_MIN_HEIGHT_MOBILE : WIDGET_MIN_HEIGHT;
+
   return (
     <div className="min-h-full bg-neutral-100 dark:bg-neutral-900 flex flex-col">
 
@@ -125,35 +139,49 @@ const BookCallPage: React.FC = () => {
       </motion.div>
 
       {/* Widget area — explicit height so absolute skeleton and iframe both fill it */}
-      <div className="relative w-full" style={{ minHeight: `${WIDGET_MIN_HEIGHT}px` }}>
+      <div className="w-full px-3 sm:px-0">
+        <div
+          className="relative w-full max-w-[520px] sm:max-w-none mx-auto"
+          style={{
+            minHeight: `${widgetMinHeight}px`,
+            touchAction: 'pan-y',
+            overscrollBehaviorY: 'contain'
+          }}
+        >
 
         {/* Skeleton — sits on top until widget is ready */}
-        <AnimatePresence>
-          {!loaded && (
-            <motion.div
-              key="skeleton"
-              initial={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="absolute inset-0 z-10"
-            >
-              <CalendlySkeleton />
-            </motion.div>
-          )}
-        </AnimatePresence>
+          <AnimatePresence>
+            {!loaded && (
+              <motion.div
+                key="skeleton"
+                initial={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className="absolute inset-0 z-10"
+              >
+                <CalendlySkeleton />
+              </motion.div>
+            )}
+          </AnimatePresence>
 
         {/* InlineWidget — always mounted, fades in when ready */}
-        <motion.div
-          className="absolute inset-0"
-          animate={{ opacity: loaded ? 1 : 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <InlineWidget
-            url={CALENDLY_URL}
-            styles={{ width: '100%', minHeight: `${WIDGET_MIN_HEIGHT}px`, height: '100%' }}
-          />
-        </motion.div>
+          <motion.div
+            className="absolute inset-0"
+            animate={{ opacity: loaded ? 1 : 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <InlineWidget
+              url={CALENDLY_URL}
+              styles={{
+                width: '100%',
+                minHeight: `${widgetMinHeight}px`,
+                height: '100%',
+                touchAction: 'pan-y'
+              }}
+            />
+          </motion.div>
 
+        </div>
       </div>
     </div>
   );

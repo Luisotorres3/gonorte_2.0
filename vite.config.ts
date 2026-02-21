@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
   return {
-    base: mode === 'production' ? '/gonorte_2.0/' : '/',
+    base: '/',
     plugins: [react()],
     build: {
       chunkSizeWarningLimit: 900,

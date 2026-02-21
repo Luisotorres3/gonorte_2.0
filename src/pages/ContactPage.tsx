@@ -63,18 +63,43 @@ const ContactPage: React.FC = () => {
     goals: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error' | 'validation-error'>('idle');
+  const [consents, setConsents] = useState({
+    privacyAccepted: false,
+    legalAccepted: false,
+    marketingAccepted: false
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+    if (submitStatus === 'validation-error') {
+      setSubmitStatus('idle');
+    }
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
   };
 
+  const handleConsentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = e.target;
+    if (submitStatus === 'validation-error') {
+      setSubmitStatus('idle');
+    }
+    setConsents(prev => ({
+      ...prev,
+      [name]: checked
+    }));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!consents.privacyAccepted || !consents.legalAccepted) {
+      setSubmitStatus('validation-error');
+      return;
+    }
+
     setIsSubmitting(true);
     
     // Simulate form submission
@@ -89,6 +114,11 @@ const ContactPage: React.FC = () => {
         service: '', 
         experience: '', 
         goals: '' 
+      });
+      setConsents({
+        privacyAccepted: false,
+        legalAccepted: false,
+        marketingAccepted: false
       });
     } catch {
       setSubmitStatus('error');
@@ -127,6 +157,12 @@ const ContactPage: React.FC = () => {
               {submitStatus === 'error' && (
                 <div className="mb-6 p-4 bg-semantic-error-light/20 dark:bg-semantic-error-dark/20 border border-semantic-error-light dark:border-semantic-error-dark text-semantic-error-light dark:text-semantic-error-dark rounded-xl">
                   {t('contactError', 'Hubo un error al enviar el mensaje. Por favor, inténtalo de nuevo.')}
+                </div>
+              )}
+
+              {submitStatus === 'validation-error' && (
+                <div className="mb-6 p-4 bg-semantic-error-light/20 dark:bg-semantic-error-dark/20 border border-semantic-error-light dark:border-semantic-error-dark text-semantic-error-light dark:text-semantic-error-dark rounded-xl">
+                  {t('contactFormLegalRequired', 'Debes aceptar la Política de Privacidad y el Aviso Legal para enviar el formulario.')}
                 </div>
               )}
 
@@ -261,6 +297,68 @@ const ContactPage: React.FC = () => {
                     className="w-full px-4 py-3 border border-gray-300 dark:border-neutral-border-dark rounded-xl focus:ring-2 focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:border-primary-DEFAULT bg-gray-50 dark:bg-neutral-surface-dark text-gray-900 dark:text-text-default-dark placeholder-gray-500 dark:placeholder-text-muted-dark resize-none transition-colors duration-300"
                     placeholder={t('contactFormMessagePlaceholder', 'Cuéntame sobre tus objetivos y cómo puedo ayudarte...')}
                   />
+                </div>
+
+                <div className="p-4 border border-gray-200 dark:border-neutral-border-dark rounded-xl bg-gray-50 dark:bg-neutral-background-dark space-y-3">
+                  <p className="text-sm font-semibold text-gray-900 dark:text-text-default-dark">
+                    {t('contactFormLegalTitle', 'Privacidad y consentimiento')}
+                  </p>
+
+                  <label className="flex items-start gap-3 text-sm text-gray-700 dark:text-text-default-dark">
+                    <input
+                      type="checkbox"
+                      name="privacyAccepted"
+                      checked={consents.privacyAccepted}
+                      onChange={handleConsentChange}
+                      className="mt-1 h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                    />
+                    <span>
+                      * {t('contactFormPrivacyConsent', 'He leído y acepto la Política de Privacidad')}
+                      {' · '}
+                      <Link to={getLocalizedRoute('privacy', currentLang)} className="text-primary-600 dark:text-primary-300 underline">
+                        {t('privacyPolicyTitle', 'Política de Privacidad')}
+                      </Link>
+                    </span>
+                  </label>
+
+                  <label className="flex items-start gap-3 text-sm text-gray-700 dark:text-text-default-dark">
+                    <input
+                      type="checkbox"
+                      name="legalAccepted"
+                      checked={consents.legalAccepted}
+                      onChange={handleConsentChange}
+                      className="mt-1 h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                    />
+                    <span>
+                      * {t('contactFormLegalConsent', 'He leído y acepto el Aviso Legal')}
+                      {' · '}
+                      <Link to={getLocalizedRoute('legal', currentLang)} className="text-primary-600 dark:text-primary-300 underline">
+                        {t('footer.legal', 'Legal')}
+                      </Link>
+                    </span>
+                  </label>
+
+                  <p className="text-xs text-gray-600 dark:text-text-muted-dark">
+                    {t('contactFormLegalHint', 'Necesitamos este consentimiento para tratar tus datos y responder tu solicitud.')}
+                  </p>
+
+                  <label className="flex items-start gap-3 text-sm text-gray-700 dark:text-text-default-dark">
+                    <input
+                      type="checkbox"
+                      name="marketingAccepted"
+                      checked={consents.marketingAccepted}
+                      onChange={handleConsentChange}
+                      className="mt-1 h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                    />
+                    <span>
+                      {t('contactFormMarketingConsent', 'Acepto recibir comunicaciones comerciales por email (opcional)')}{' '}
+                      <span className="font-semibold">({t('contactFormOptional', 'Opcional')})</span>
+                    </span>
+                  </label>
+
+                  <p className="text-xs text-gray-600 dark:text-text-muted-dark">
+                    {t('contactFormMarketingHint', 'Aunque no aceptes comunicaciones comerciales, podremos enviarte emails necesarios para responderte y gestionar tu solicitud.')}
+                  </p>
                 </div>
 
                 <motion.button

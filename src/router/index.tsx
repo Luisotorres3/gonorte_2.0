@@ -9,7 +9,8 @@
 import React from 'react';
 import { createBrowserRouter, Navigate, useParams } from 'react-router-dom';
 import type { RouteObject } from 'react-router-dom';
-import { SUPPORTED_LANGUAGES, getLocalizedPath } from './routes.config';
+import { ROUTE_TRANSLATIONS, SUPPORTED_LANGUAGES, getLocalizedPath } from './routes.config';
+import type { RouteKey, SupportedLanguage } from './routes.config';
 import i18n from '../i18n/config';
 
 // Layouts and Core Pages
@@ -28,10 +29,79 @@ import PrivacyPolicyPage from '../pages/PrivacyPolicyPage';
 import BookingPage from '../pages/BookingPage';
 import BookCallPage from '../pages/BookCallPage';
 
-/** Redirects /any-slug → /es/any-slug for non-prefixed Spanish URLs */
+const normalizeSlug = (value: string) =>
+  decodeURIComponent(value)
+    .toLowerCase()
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+
+const routeKeys = Object.keys(ROUTE_TRANSLATIONS) as RouteKey[];
+
+const LEGACY_ALIASES: Record<string, RouteKey> = {
+  servicios: 'services',
+  services: 'services',
+  recursos: 'resources',
+  resources: 'resources',
+  contact: 'contact',
+  contacto: 'contact',
+  privacy: 'privacy',
+  privacidad: 'privacy',
+};
+
+const SLUG_TO_ROUTE_KEY = (() => {
+  const map = new Map<string, RouteKey>();
+
+  routeKeys.forEach((routeKey) => {
+    SUPPORTED_LANGUAGES.forEach((lang) => {
+      const localized = ROUTE_TRANSLATIONS[routeKey][lang];
+      if (localized) {
+        map.set(normalizeSlug(localized), routeKey);
+      }
+    });
+
+    if (routeKey !== 'home') {
+      map.set(normalizeSlug(routeKey), routeKey);
+    }
+  });
+
+  Object.entries(LEGACY_ALIASES).forEach(([slug, routeKey]) => {
+    map.set(normalizeSlug(slug), routeKey);
+  });
+
+  return map;
+})();
+
+const resolveRouteKeyFromSlug = (slug?: string | null): RouteKey | null => {
+  if (!slug) return null;
+  return SLUG_TO_ROUTE_KEY.get(normalizeSlug(slug)) ?? null;
+};
+
+/** Redirects /any-slug (or old slug) to canonical /es route, otherwise shows 404 */
 const RedirectToEs: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
-  return <Navigate to={`/es/${slug ?? ''}`} replace />;
+  const routeKey = resolveRouteKeyFromSlug(slug);
+
+  if (!routeKey) {
+    return <NotFoundPage />;
+  }
+
+  return <Navigate to={`/${'es'}/${getLocalizedPath(routeKey, 'es')}`} replace />;
+};
+
+/** Handles unmatched routes inside a language prefix: redirects known wrong slug, else 404 */
+const LocalizedFallbackRoute: React.FC<{ lang: SupportedLanguage }> = ({ lang }) => {
+  const params = useParams<{ '*': string }>();
+  const unmatched = params['*'] || '';
+  const firstSegment = unmatched.split('/')[0] || '';
+  const routeKey = resolveRouteKeyFromSlug(firstSegment);
+
+  if (routeKey) {
+    const target = getLocalizedPath(routeKey, lang);
+    return <Navigate to={`/${lang}/${target}`} replace />;
+  }
+
+  return <NotFoundPage />;
 };
 
 // Debug routes only when explicitly enabled
@@ -56,6 +126,7 @@ if (import.meta.env.DEV && import.meta.env.VITE_DEBUG_ROUTES === 'true') {
  * Generate localized route children for a specific language
  */
 const generateLocalizedRoutes = (lang: string): RouteObject['children'] => {
+  const typedLang = lang as SupportedLanguage;
   const routes: RouteObject[] = [
     { index: true, element: <HomePage /> }, // Home page at /{lang}
     { path: getLocalizedPath('about', lang), element: <AboutPage /> },
@@ -106,6 +177,7 @@ const generateLocalizedRoutes = (lang: string): RouteObject['children'] => {
     { path: `${getLocalizedPath('admin', lang)}/${getLocalizedPath('users', lang)}`, element: <Navigate to={`/${lang}`} replace /> },
     { path: `${getLocalizedPath('admin', lang)}/${getLocalizedPath('plans', lang)}`, element: <Navigate to={`/${lang}`} replace /> },
     { path: `${getLocalizedPath('admin', lang)}/${getLocalizedPath('settings', lang)}`, element: <Navigate to={`/${lang}`} replace /> },
+    { path: '*', element: <LocalizedFallbackRoute lang={typedLang} /> },
   ];
   
   return routes;

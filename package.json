@@ -2,7 +2,7 @@
   "name": "gonorte_2.0",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://Luisotorres3.github.io/gonorte_2.0",
+  "homepage": "https://www.gonorte.com",
   "type": "module",
   "scripts": {
     "dev": "vite",

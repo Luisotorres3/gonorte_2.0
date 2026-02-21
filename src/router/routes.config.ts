@@ -80,7 +80,7 @@ export const getLocalizedPath = (routeKey: RouteKey, language?: string): string 
   const lang = (language || i18n.language || 'es') as SupportedLanguage;
   
   // Use hardcoded translations first for reliability
-  if (ROUTE_TRANSLATIONS[routeKey] && ROUTE_TRANSLATIONS[routeKey][lang]) {
+  if (ROUTE_TRANSLATIONS[routeKey] && Object.prototype.hasOwnProperty.call(ROUTE_TRANSLATIONS[routeKey], lang)) {
     return ROUTE_TRANSLATIONS[routeKey][lang];
   }
   

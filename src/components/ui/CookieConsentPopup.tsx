@@ -5,8 +5,10 @@
  */
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import useLocalStorage from '../../hooks/useLocalStorage'; // Ensure this path is correct
+import { getLocalizedRoute } from '../../router/routes.config';
 
 /**
  * CookieConsentPopup component displays a banner at the bottom of the screen
@@ -16,23 +18,32 @@ import useLocalStorage from '../../hooks/useLocalStorage'; // Ensure this path i
  * @returns {JSX.Element | null} The rendered popup or null if consent has been given.
  */
 const CookieConsentPopup: React.FC = () => {
-  const { t } = useTranslation();
-  const [consentAccepted, setConsentAccepted] = useLocalStorage<boolean>('cookieConsentAccepted', false);
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language || 'es';
+  const [consentStatus, setConsentStatus] = useLocalStorage<'accepted' | 'rejected' | null>('cookieConsentStatus', null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Only show the popup if consent has not been accepted.
-    // Delay showing slightly to ensure localStorage is read by useLocalStorage hook.
+    // Compatibility with previous cookie key.
+    const legacyConsent = typeof window !== 'undefined' ? window.localStorage.getItem('cookieConsentAccepted') : null;
+    if (legacyConsent === 'true' && consentStatus === null) {
+      setConsentStatus('accepted');
+      return;
+    }
+
     const timer = setTimeout(() => {
-      if (!consentAccepted) {
+      if (consentStatus === null) {
         setIsVisible(true);
       }
-    }, 100); // Small delay to allow useLocalStorage to initialize
+    }, 100);
     return () => clearTimeout(timer);
-  }, [consentAccepted]);
+  }, [consentStatus, setConsentStatus]);
 
-  const handleAccept = () => {
-    setConsentAccepted(true);
+  const handleConsent = (status: 'accepted' | 'rejected') => {
+    setConsentStatus(status);
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem('cookieConsentAccepted', status === 'accepted' ? 'true' : 'false');
+    }
     setIsVisible(false);
   };
 
@@ -50,15 +61,30 @@ const CookieConsentPopup: React.FC = () => {
         >
           <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-space-md">
             <p className="text-sm flex-grow">
-              {t('cookieConsentText', 'We use cookies to improve your experience. By using our site, you agree to our use of cookies.')}
+              {t('cookieConsentText', 'We use essential cookies so the website can work and, with your permission, additional cookies for analytics and improvement.')}
             </p>
-            <button
-              onClick={handleAccept}
-              className="bg-gray-200 dark:bg-gray-700 text-primary-DEFAULT dark:text-white font-semibold py-space-xs px-space-md rounded-radius-md transition-all whitespace-nowrap border border-primary-DEFAULT dark:border-transparent"
-              aria-label={t('cookieConsentAcceptLabel', 'Accept cookie usage')}
-            >
-              {t('cookieConsentAccept', 'Accept')}
-            </button>
+            <div className="flex flex-wrap items-center justify-end gap-2">
+              <Link
+                to={getLocalizedRoute('privacy', currentLang)}
+                className="text-sm underline text-primary-DEFAULT dark:text-primary-300"
+              >
+                {t('cookieConsentManageLink', 'Read privacy policy')}
+              </Link>
+              <button
+                onClick={() => handleConsent('rejected')}
+                className="bg-transparent text-gray-700 dark:text-text-default-dark font-semibold py-space-xs px-space-md rounded-radius-md transition-all whitespace-nowrap border border-gray-300 dark:border-neutral-border-dark"
+                aria-label={t('cookieConsentRejectLabel', 'Reject non-essential cookies')}
+              >
+                {t('cookieConsentReject', 'Essential only')}
+              </button>
+              <button
+                onClick={() => handleConsent('accepted')}
+                className="bg-gray-200 dark:bg-gray-700 text-primary-DEFAULT dark:text-white font-semibold py-space-xs px-space-md rounded-radius-md transition-all whitespace-nowrap border border-primary-DEFAULT dark:border-transparent"
+                aria-label={t('cookieConsentAcceptLabel', 'Accept cookie usage')}
+              >
+                {t('cookieConsentAccept', 'Accept all')}
+              </button>
+            </div>
           </div>
         </motion.div>
       )}
