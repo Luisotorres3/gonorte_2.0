@@ -1,62 +1,63 @@
 # How to Access Routes
 
-## Important: HashRouter URLs
+## Important: BrowserRouter URLs
 
-This application uses **HashRouter** which requires the `#` symbol in URLs. This is necessary for deployment on GitHub Pages.
+This application uses **BrowserRouter** (`createBrowserRouter`) with a language prefix.
 
 ## URL Structure
 
 All URLs follow this pattern:
 
 ```
-http://your-domain.com/#/{language}/{route}
+https://your-domain.com/{language}/{route}
 ```
 
 ## Examples
 
 ### Public Routes
 
-| Page         | Spanish            | English             | French             |
-| ------------ | ------------------ | ------------------- | ------------------ |
-| Home         | `#/es`             | `#/en`              | `#/fr`             |
-| Services     | `#/es/servicios`   | `#/en/services`     | `#/fr/services`    |
-| About        | `#/es/acerca-de`   | `#/en/about`        | `#/fr/a-propos`    |
-| Contact      | `#/es/contacto`    | `#/en/contact`      | `#/fr/contact`     |
-| Testimonials | `#/es/testimonios` | `#/en/testimonials` | `#/fr/temoignages` |
+| Page         | Spanish           | English            | French                  |
+| ------------ | ----------------- | ------------------ | ----------------------- |
+| Home         | `/es`             | `/en`              | `/fr`                   |
+| Plan         | `/es/plan`        | `/en/plan`         | `/fr/plan`              |
+| Analysis     | `/es/analisis`    | `/en/analysis`     | `/fr/analyse-posturale` |
+| About        | `/es/acerca-de`   | `/en/about`        | `/fr/a-propos`          |
+| Contact      | `/es/contacto`    | `/en/contact`      | `/fr/contact`           |
+| Testimonials | `/es/testimonios` | `/en/testimonials` | `/fr/temoignages`       |
 
 ### Auth Routes
 
-| Page     | Spanish               | English         | French             |
-| -------- | --------------------- | --------------- | ------------------ |
-| Login    | `#/es/iniciar-sesion` | `#/en/login`    | `#/fr/connexion`   |
-| Register | `#/es/registrarse`    | `#/en/register` | `#/fr/inscription` |
+| Page     | Spanish              | English        | French            |
+| -------- | -------------------- | -------------- | ----------------- |
+| Login    | `/es/iniciar-sesion` | `/en/login`    | `/fr/connexion`   |
+| Register | `/es/registrarse`    | `/en/register` | `/fr/inscription` |
 
 ### Admin Routes (Protected)
 
-| Page     | Spanish                    | English               | French                    |
-| -------- | -------------------------- | --------------------- | ------------------------- |
-| Users    | `#/es/admin/usuarios`      | `#/en/admin/users`    | `#/fr/admin/utilisateurs` |
-| Plans    | `#/es/admin/planes`        | `#/en/admin/plans`    | `#/fr/admin/plans`        |
-| Settings | `#/es/admin/configuracion` | `#/en/admin/settings` | `#/fr/admin/parametres`   |
+| Page     | Spanish                   | English              | French                   |
+| -------- | ------------------------- | -------------------- | ------------------------ |
+| Users    | `/es/admin/usuarios`      | `/en/admin/users`    | `/fr/admin/utilisateurs` |
+| Plans    | `/es/admin/planes`        | `/en/admin/plans`    | `/fr/admin/plans`        |
+| Settings | `/es/admin/configuracion` | `/en/admin/settings` | `/fr/admin/parametres`   |
 
 ### Client Dashboard Routes (Protected)
 
-| Page          | Spanish                   | English                 | French                        |
-| ------------- | ------------------------- | ----------------------- | ----------------------------- |
-| Dashboard     | `#/es/panel/client`       | `#/en/dashboard/client` | `#/fr/tableau-de-bord/client` |
-| Training Plan | `#/es/plan-entrenamiento` | `#/en/training-plan`    | `#/fr/plan-entrainement`      |
+| Page          | Spanish                  | English                | French                       |
+| ------------- | ------------------------ | ---------------------- | ---------------------------- |
+| Dashboard     | `/es/panel/client`       | `/en/dashboard/client` | `/fr/tableau-de-bord/client` |
+| Training Plan | `/es/plan-entrenamiento` | `/en/training-plan`    | `/fr/plan-entrainement`      |
 
 ## Common Issues
 
-### ❌ 404 Error when accessing `/planes`
+### ❌ 404 Error on direct deep link
 
-**Problem**: Trying to access without the `#` symbol
-**Solution**: Use `#/es/admin/planes` instead
+**Problem**: Wrong base path in production deployment.
+**Solution**: Verify `homepage` in `package.json` and `BASE_URL` behavior in Vite deployment.
 
-### ❌ Page refreshes but URL doesn't change
+### ❌ Route not found
 
-**Problem**: Browser might be caching or trying to navigate without hash
-**Solution**: Always include `#` in your URLs
+**Problem**: Wrong localized slug for the current language.
+**Solution**: Use `getLocalizedRoute()` from `src/router/routes.config.ts`.
 
 ### ❌ Route not found
 
@@ -67,22 +68,19 @@ http://your-domain.com/#/{language}/{route}
 
 When testing locally with `npm run dev`, use:
 
-- `http://localhost:5173/#/es` for Spanish
-- `http://localhost:5173/#/en` for English
-- `http://localhost:5173/#/fr` for French
+- `http://localhost:5173/es` for Spanish
+- `http://localhost:5173/en` for English
+- `http://localhost:5173/fr` for French
 
 ## Production
 
 On GitHub Pages, use:
 
-- `https://yourusername.github.io/gonorte_2.0/#/es`
-- `https://yourusername.github.io/gonorte_2.0/#/en`
-- `https://yourusername.github.io/gonorte_2.0/#/fr`
+- `https://yourusername.github.io/gonorte_2.0/es`
+- `https://yourusername.github.io/gonorte_2.0/en`
+- `https://yourusername.github.io/gonorte_2.0/fr`
 
-## Switching to BrowserRouter (Optional)
+## Routing source of truth
 
-If you want clean URLs without `#`, you can switch to `BrowserRouter`, but you'll need:
-
-1. Server-side configuration to handle SPA routing
-2. A different hosting setup (not GitHub Pages)
-3. Update `src/router/index.tsx` to use `createBrowserRouter`
+- Route localization keys and slugs: `src/router/routes.config.ts`
+- Router setup and legacy redirects: `src/router/index.tsx`

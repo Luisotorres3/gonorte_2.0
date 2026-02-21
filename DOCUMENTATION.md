@@ -10,7 +10,6 @@
 - **Styling**: Tailwind CSS 3.4
 - **Routing**: React Router DOM 7.6
 - **Animation**: Framer Motion 12.18
-- **Backend**: Firebase (Auth, Firestore, Storage, Analytics)
 - **Internationalization**: i18next 25.2
 
 ### Design Patterns
@@ -31,13 +30,11 @@ Components are organized by feature and responsibility:
 - `components/landing`: Landing page specific sections
 - `components/motion`: Animation wrappers and utilities
 
-#### Route Protection
+#### Routing
 
-Private routes are protected using the `PrivateRoute` component which:
-
-- Checks authentication status
-- Validates user roles
-- Redirects unauthorized users
+- Router is implemented with `createBrowserRouter` in `src/router/index.tsx`
+- Language-aware routes are generated from `src/router/routes.config.ts`
+- Legacy slug redirects are preserved for backwards compatibility
 
 ### State Management
 
@@ -54,9 +51,8 @@ Private routes are protected using the `PrivateRoute` component which:
 
 #### Server State
 
-- Firebase Firestore for real-time data
-- Optimistic updates where appropriate
-- Error handling and loading states
+- Current public flow is mostly static content + local UI state.
+- Auth context is present but authentication actions are currently disabled.
 
 ### Code Organization
 
@@ -77,21 +73,10 @@ Private routes are protected using the `PrivateRoute` component which:
 6. Styles
 7. Assets
 
-### Firebase Structure
+### Authentication State
 
-#### Collections
-
-- `users`: User profiles with roles and metadata
-- `trainingPlans`: Training plan templates
-- `sessions`: Training session records
-- `notifications`: User notifications
-
-#### Security Rules
-
-- Role-based access control
-- User can only read/write their own data
-- Coaches can access their assigned clients
-- Admins have full access
+- `AuthContext` currently exposes disabled login methods and safe no-op logout behavior.
+- Related protected routes are redirected to language home while public pages remain active.
 
 ### Performance Optimization
 
@@ -108,9 +93,8 @@ Private routes are protected using the `PrivateRoute` component which:
 
 #### Caching Strategy
 
-- Service worker for offline support
-- LocalStorage for preferences
-- Firebase caching for offline data
+- LocalStorage is used for preferences (theme and selected language behavior).
+- Static assets are cached by the browser/CDN depending on hosting headers.
 
 ### Accessibility
 
@@ -142,30 +126,14 @@ Private routes are protected using the `PrivateRoute` component which:
 
 ### Testing Strategy
 
-#### Unit Tests
-
-- Utility functions
-- Custom hooks
-- Pure components
-
-#### Integration Tests
-
-- User flows
-- Authentication
-- Form submissions
-
-#### E2E Tests
-
-- Critical user journeys
-- Cross-browser compatibility
+Current repository has no dedicated automated test suite configured.
 
 ### Deployment
 
 #### GitHub Pages
 
-- Automated deployment via GitHub Actions
-- Base path configuration for subdirectory hosting
-- Environment variable management
+- Deployment target is GitHub Pages using `gh-pages` package and `npm run deploy`.
+- Base path is derived from `homepage` in `package.json`.
 
 #### Build Process
 
@@ -176,11 +144,8 @@ Private routes are protected using the `PrivateRoute` component which:
 
 ### Environment Variables
 
-All Firebase configuration is stored in environment variables:
-
-- Never commit `.env` file
-- Use `.env.example` as template
-- Update environment variables in hosting platform
+- No required runtime secrets are currently documented for core public pages.
+- Keep `.env` out of version control if new integrations are added.
 
 ### Development Workflow
 
@@ -214,11 +179,6 @@ Follow conventional commits:
 
 ### Future Improvements
 
-- [ ] Implement comprehensive error boundaries
-- [ ] Add unit tests for critical components
-- [ ] Implement progressive web app features
-- [ ] Add analytics dashboard
-- [ ] Improve SEO with meta tags
-- [ ] Add sitemap generation
-- [ ] Implement rate limiting for API calls
-- [ ] Add data export functionality
+- [ ] Add automated tests for routing and i18n regressions
+- [ ] Add CI checks for missing translation keys
+- [ ] Consolidate remaining legacy docs to a single source of truth

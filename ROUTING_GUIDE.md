@@ -6,9 +6,9 @@ This document explains how to use the internationalized routing system in this a
 
 The application now supports language-dependent routes. For example:
 
-- Spanish: `/es/servicios`
-- English: `/en/services`
-- French: `/fr/services`
+- Spanish: `/es/plan`
+- English: `/en/plan`
+- French: `/fr/plan`
 
 ## How It Works
 
@@ -21,7 +21,7 @@ All route translations are stored in the locale files (`public/locales/*.json`) 
   "routes": {
     "home": "",
     "about": "about",
-    "services": "services",
+    "services": "plan",
     ...
   }
 }
@@ -47,7 +47,7 @@ function MyComponent() {
   const currentLang = i18n.language || "es";
 
   return (
-    <NavLink to={getLocalizedRoute("services", currentLang)}>Services</NavLink>
+    <NavLink to={getLocalizedRoute("services", currentLang)}>Plan</NavLink>
   );
 }
 ```
@@ -117,8 +117,8 @@ navigateTo("services");
 
 All available route keys can be found in `src/router/routes.config.ts`:
 
-- `home`, `about`, `projects`, `catalog`, `services`, `legal`, `testimonials`
-- `contact`, `booking`, `login`, `register`, `forgotPassword`, `privacy`
+- `home`, `about`, `projects`, `catalog`, `services`, `resources`, `legal`, `testimonials`
+- `contact`, `booking`, `videoCall`, `login`, `register`, `forgotPassword`, `privacy`
 - `profile`, `dashboard`, `trainingPlan`, `trainingHistory`, `notifications`
 - `settings`, `analytics`, `schedule`, `admin`, `users`, `plans`
 
@@ -140,8 +140,8 @@ All available route keys can be found in `src/router/routes.config.ts`:
 ### Dashboard with Dynamic Path
 
 ```tsx
-const dashboardPath = `/${currentLang}/${t("routes.dashboard")}/client`;
-<NavLink to={dashboardPath}>Dashboard</NavLink>;
+const videoCallPath = getLocalizedRoute("videoCall", currentLang);
+<NavLink to={videoCallPath}>{t("bookCallTitle")}</NavLink>;
 ```
 
 ### Profile with User ID
@@ -149,7 +149,7 @@ const dashboardPath = `/${currentLang}/${t("routes.dashboard")}/client`;
 ```tsx
 const profilePath = getLocalizedRoute("profile", currentLang).replace(
   ":userId",
-  userId
+  userId,
 );
 <NavLink to={profilePath}>Profile</NavLink>;
 ```
