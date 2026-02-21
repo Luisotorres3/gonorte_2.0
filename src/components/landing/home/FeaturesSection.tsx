@@ -73,7 +73,7 @@ const FeaturesSection: React.FC = () => {
   };
 
   return (
-    <section className="w-full bg-background dark:bg-neutral-background-dark py-20 md:py-32">
+    <section className="w-full bg-primary-50 dark:bg-neutral-800 py-20 md:py-32">
       <div className="container mx-auto px-space-md text-center">
         <motion.div
           className="mb-16"

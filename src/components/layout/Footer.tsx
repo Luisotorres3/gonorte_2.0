@@ -68,35 +68,39 @@ const Footer: React.FC = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const footerLinkClasses = "text-text-muted-light dark:text-text-muted-dark hover:text-primary-DEFAULT dark:hover:text-primary-light transition-all duration-300 text-sm inline-block relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary-DEFAULT dark:after:bg-primary-light after:transition-all after:duration-300 hover:after:w-full";
-  const sectionTitleClasses = "text-text-default-light dark:text-text-default-dark font-bold mb-space-md text-base uppercase tracking-wider";
-  const iconClasses = "text-text-muted-light dark:text-text-muted-dark hover:text-primary-DEFAULT dark:hover:text-primary-light transition-all duration-300 transform hover:scale-110 hover:-translate-y-1";
+  const footerLinkClasses = "text-fg-muted hover:text-primary-500 transition-all duration-300 text-sm inline-block relative after:content-[''] after:absolute after:w-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary-500 after:transition-all after:duration-300 hover:after:w-full";
+  const sectionTitleClasses = "text-fg-base font-bold mb-space-md text-base uppercase tracking-wider";
+  const iconClasses = "text-primary-600 dark:text-primary-400 hover:text-secondary-600 dark:hover:text-secondary-400 transition-all duration-300 transform hover:scale-110 hover:-translate-y-1";
 
   return (
     <>
       {/* Fixed Scroll to Top Button - Only shows when scrolled */}
       <button
         onClick={scrollToTop}
-        className={`fixed right-6 bottom-6 z-50 bg-primary-DEFAULT dark:bg-primary-light text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-primary-light/50 ${
+        className={`fixed right-4 sm:right-6 bottom-4 sm:bottom-6 z-50 bg-primary-500 text-fg-on-primary p-3 sm:p-4 rounded-full shadow-lg hover:shadow-xl hover:bg-primary-600 transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-4 focus:ring-primary-500/50 ${
           showScrollTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16 pointer-events-none'
         }`}
         aria-label={t('footer.backToTop', 'Back to top')}
       >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
         </svg>
       </button>
 
-      <footer className="relative bg-gradient-to-b from-neutral-surface-light to-neutral-bg-light dark:from-neutral-surface-dark dark:to-neutral-bg-dark text-text-muted-light dark:text-text-muted-dark pt-16 pb-8 border-t-2 border-neutral-border-light dark:border-neutral-border-dark shadow-2xl transition-colors duration-300">
+      <footer className="relative bg-gradient-to-b from-bg-surface to-bg-muted text-fg-muted pt-10 sm:pt-16 pb-6 sm:pb-8 border-t border-border-base shadow-2xl transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Main Footer Content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-space-xl mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-space-xl mb-8 sm:mb-12">
           {/* Column 1: About & Logo */}
           <div className="space-y-space-md text-center lg:text-left flex flex-col items-center lg:items-start">
             <div className="mb-space-md">
-              <Logo className="h-12 w-auto" />
+              <Logo
+                textClassName="h-[10rem] w-auto"
+                lightLogoSrc={`${import.meta.env.BASE_URL}logos/logo_negro.png`}
+                darkLogoSrc={`${import.meta.env.BASE_URL}logos/logo_blanco_sinfondo.png`}
+              />
             </div>
-            <p className="text-sm leading-relaxed text-text-muted-light dark:text-text-muted-dark">
+            <p className="text-sm leading-relaxed text-fg-muted">
               {t('footer.aboutText', 'Transform your body and mind with personalized training programs designed by certified professionals.')}
             </p>
             <div className="pt-space-sm">
@@ -109,9 +113,10 @@ const Footer: React.FC = () => {
             <h3 className={sectionTitleClasses}>{t('footer.quickLinks', 'Quick Links')}</h3>
             <ul className="grid grid-cols-2 gap-2 lg:block lg:space-y-space-sm">
               <li><NavLink to={getLocalizedRoute('home', currentLang)} className={footerLinkClasses}>{t('navHome', 'Home')}</NavLink></li>
-              <li><NavLink to={getLocalizedRoute('about', currentLang)} className={footerLinkClasses}>{t('navAbout', 'About Me')}</NavLink></li>
-              <li><NavLink to={getLocalizedRoute('services', currentLang)} className={footerLinkClasses}>{t('navServices', 'Services')}</NavLink></li>
+              <li><NavLink to={getLocalizedRoute('services', currentLang)} className={footerLinkClasses}>{t('navProgram', 'El Plan')}</NavLink></li>
+              <li><NavLink to={getLocalizedRoute('resources', currentLang)} className={footerLinkClasses}>{t('navResources', 'Análisis postural')}</NavLink></li>
               <li><NavLink to={getLocalizedRoute('testimonials', currentLang)} className={footerLinkClasses}>{t('navTestimonials', 'Testimonials')}</NavLink></li>
+              <li><NavLink to={getLocalizedRoute('about', currentLang)} className={footerLinkClasses}>{t('navAbout', 'About Me')}</NavLink></li>
               <li><NavLink to={getLocalizedRoute('contact', currentLang)} className={footerLinkClasses}>{t('navContact', 'Contact')}</NavLink></li>
               <li><NavLink to={getLocalizedRoute('legal', currentLang)} className={footerLinkClasses}>{t('footer.legal', 'Legal')}</NavLink></li>
             </ul>
@@ -120,9 +125,9 @@ const Footer: React.FC = () => {
           {/* Column 3: Contact Info */}
           <div className="text-center lg:text-left">
             <h3 className={sectionTitleClasses}>{t('footer.contactUs', 'Contact Us')}</h3>
-            <address className="not-italic text-sm space-y-space-sm text-text-muted-light dark:text-text-muted-dark flex flex-col items-center lg:items-start">
+            <address className="not-italic text-sm space-y-space-sm text-fg-muted flex flex-col items-center lg:items-start">
               <div className="flex items-center justify-center lg:justify-start gap-2">
-                <svg className="w-5 h-5 flex-shrink-0 text-primary-DEFAULT" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 flex-shrink-0 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
                 <a href="mailto:gonorte.biomechanics@gmail.com" className={footerLinkClasses}>
@@ -130,7 +135,7 @@ const Footer: React.FC = () => {
                 </a>
               </div>
               <div className="flex items-center justify-center lg:justify-start gap-2">
-                <svg className="w-5 h-5 flex-shrink-0 text-primary-DEFAULT" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 flex-shrink-0 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
                 <a href="tel:+34644001599" className={footerLinkClasses}>
@@ -138,11 +143,18 @@ const Footer: React.FC = () => {
                 </a>
               </div>
               <div className="flex items-center justify-center lg:justify-start gap-2">
-                <svg className="w-5 h-5 flex-shrink-0 text-primary-DEFAULT" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 flex-shrink-0 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <span>Jaén, España</span>
+                <a
+                  href="https://maps.app.goo.gl/ZXPstJWdyFbfrDqBA"
+                  className={footerLinkClasses}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Jaén, España
+                </a>
               </div>
             </address>
           </div>
@@ -150,7 +162,7 @@ const Footer: React.FC = () => {
           {/* Column 4: Social Media */}
           <div className="text-center lg:text-left">
             <h3 className={sectionTitleClasses}>{t('footer.followUs', 'Follow Us')}</h3>
-            <p className="text-sm mb-space-lg text-text-muted-light dark:text-text-muted-dark">
+            <p className="text-sm mb-space-lg text-fg-muted">
               {t('footer.followUsText', 'Stay connected on social media')}
             </p>
             <div className="flex flex-wrap justify-center lg:justify-start gap-4 mt-4">
@@ -173,7 +185,7 @@ const Footer: React.FC = () => {
                 <TikTokIcon className="w-7 h-7" />
               </a>
               <a 
-                href="#" 
+                href="https://www.youtube.com/@Gonorte.training" 
                 aria-label={t('footer.visitYouTube', 'Visit our YouTube page')} 
                 className={iconClasses}
                 target="_blank" 
@@ -204,8 +216,8 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-neutral-border-light dark:border-neutral-border-dark pt-6 mt-8 text-center">
-          <p className="text-xs text-text-muted-light dark:text-text-muted-dark">
+        <div className="border-t border-border-base pt-6 mt-8 text-center">
+          <p className="text-xs text-fg-muted">
             &copy; {currentYear} {t('footer.companyName', 'Gonorte')}. {t('footer.allRightsReserved', 'All rights reserved.')}
           </p>
         </div>

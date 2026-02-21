@@ -110,20 +110,13 @@ const LanguageSelector: React.FC = () => {
   const toggleDropdown = () => setIsOpen(!isOpen);
 
   const selectLanguage = (lngCode: string) => {
-    // Get the current path without the hash
-    const currentPath = location.pathname;
-    
-    // Calculate the new path in the target language
-    const newPath = switchLanguagePath(currentPath, lngCode);
-    
-    // Change the language in i18n
-    i18nInstance.changeLanguage(lngCode);
-    
-    // Navigate to the equivalent route in the new language
-    navigate(newPath);
+    const newPath = switchLanguagePath(location.pathname, lngCode);
     
     setIsOpen(false);
-    triggerButtonRef.current?.focus(); // Return focus to button after selection
+
+    localStorage.setItem('i18nextLng', lngCode);
+    void i18nInstance.changeLanguage(lngCode);
+    navigate(newPath);
   };
 
   // Close dropdown on outside click
@@ -173,7 +166,7 @@ const LanguageSelector: React.FC = () => {
       <button
         ref={triggerButtonRef}
         type="button"
-        className="flex items-center justify-center px-3 py-2 bg-neutral-surface-light dark:bg-neutral-surface-dark text-text-default-light dark:text-text-default-dark hover:bg-neutral-border-light dark:hover:bg-neutral-border-dark rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-DEFAULT dark:focus:ring-primary-dark focus:ring-offset-2 focus:ring-offset-neutral-background-light dark:focus:ring-offset-neutral-background-dark transition-colors"
+        className="flex items-center justify-center px-3 py-2 bg-bg-surface text-fg-base hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-bg-base transition-colors shadow-md border border-border-base"
         onClick={toggleDropdown}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
@@ -181,7 +174,7 @@ const LanguageSelector: React.FC = () => {
       >
         {getFlagDisplay(currentLanguage.code)}
         {/* Ensure ChevronDownIcon also uses themed colors if it's a custom component */}
-        {typeof ChevronDownIcon !== 'undefined' ? <ChevronDownIcon className="w-5 h-5 ml-1 opacity-70 icon-default" /> : <DefaultChevronDownIcon />}
+        {typeof ChevronDownIcon !== 'undefined' ? <ChevronDownIcon className="w-5 h-5 ml-1 opacity-70 text-fg-base" /> : <DefaultChevronDownIcon />}
       </button>
 
       <AnimatePresence>
@@ -190,7 +183,7 @@ const LanguageSelector: React.FC = () => {
             role="listbox"
             tabIndex={-1}
             onKeyDown={handleKeyDown}
-            className="absolute z-50 mt-1 w-auto min-w-[60px] right-0 md:left-0 bg-neutral-surface-light dark:bg-neutral-surface-dark border border-neutral-border-light dark:border-neutral-border-dark rounded-lg shadow-lg overflow-hidden focus:outline-none transition-colors duration-300"
+            className="absolute z-50 mt-1 w-auto min-w-[60px] right-0 md:left-0 bg-bg-surface border border-border-base rounded-lg shadow-lg overflow-hidden focus:outline-none transition-colors duration-300"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -204,10 +197,10 @@ const LanguageSelector: React.FC = () => {
                 aria-selected={currentLang === lang.code}
                 className={`flex items-center justify-center gap-2 px-3 py-2 text-sm cursor-pointer
                   ${ currentLang === lang.code
-                    ? 'bg-primary-DEFAULT text-text-default-dark dark:bg-primary-dark dark:text-text-default-light' // Active state with theme colors
-                    : 'text-text-default-light dark:text-text-default-dark hover:bg-primary-light dark:hover:bg-primary-hover hover:text-primary-dark dark:hover:text-primary-light' // Default and hover states
+                    ? 'bg-primary-500 text-white' // Active state with theme colors
+                    : 'text-fg-base hover:bg-primary-100 dark:hover:bg-primary-900/30 hover:text-primary-600' // Default and hover states
                   }
-                  focus:bg-primary-light dark:focus:bg-primary-hover focus:text-primary-dark dark:focus:text-primary-light focus:outline-none transition-colors duration-150`}
+                  focus:bg-primary-100 dark:focus:bg-primary-900/30 focus:text-primary-600 focus:outline-none transition-colors duration-150`}
                 onClick={() => selectLanguage(lang.code)}
                 onKeyDown={(e) => handleOptionKeyDown(e, lang.code)}
               >

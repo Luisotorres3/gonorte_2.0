@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /**
  * @file router/index.tsx
  * @description Defines the routing configuration for the application.
@@ -5,13 +6,36 @@
  * under a common MainLayout. This file exports the configured router instance.
  * Supports internationalized routes with language prefixes.
  */
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import React from 'react';
+import { createBrowserRouter, Navigate, useParams } from 'react-router-dom';
 import type { RouteObject } from 'react-router-dom';
 import { SUPPORTED_LANGUAGES, getLocalizedPath } from './routes.config';
 import i18n from '../i18n/config';
 
-// Debug routes in development
-if (import.meta.env.DEV) {
+// Layouts and Core Pages
+import MainLayout from '../components/layout/MainLayout';
+import HomePage from '../pages/HomePage';
+import AboutPage from '../pages/AboutPage';
+import ProjectsPage from '../pages/ProjectsPage';
+import CatalogPage from '../pages/CatalogPage';
+import LegalPage from '../pages/LegalPage';
+import PlanPage from '../pages/PlanPage';
+import TestimonialsPage from '../pages/TestimonialsPage';
+import AnalysisPage from '../pages/AnalysisPage';
+import ContactPage from '../pages/ContactPage';
+import NotFoundPage from '../pages/NotFoundPage';
+import PrivacyPolicyPage from '../pages/PrivacyPolicyPage';
+import BookingPage from '../pages/BookingPage';
+import BookCallPage from '../pages/BookCallPage';
+
+/** Redirects /any-slug → /es/any-slug for non-prefixed Spanish URLs */
+const RedirectToEs: React.FC = () => {
+  const { slug } = useParams<{ slug: string }>();
+  return <Navigate to={`/es/${slug ?? ''}`} replace />;
+};
+
+// Debug routes only when explicitly enabled
+if (import.meta.env.DEV && import.meta.env.VITE_DEBUG_ROUTES === 'true') {
   // Wait for i18n to be ready before logging routes
   i18n.on('initialized', () => {
     console.log('🌐 i18n initialized, current language:', i18n.language);
@@ -28,44 +52,6 @@ if (import.meta.env.DEV) {
   });
 }
 
-// Layouts and Core Pages
-import MainLayout from '../components/layout/MainLayout';
-import HomePage from '../pages/HomePage';
-import AboutPage from '../pages/AboutPage';
-import ProjectsPage from '../pages/ProjectsPage';
-import CatalogPage from '../pages/CatalogPage';
-import LegalPage from '../pages/LegalPage';
-import ServicesPage from '../pages/ServicesPage';
-import TestimonialsPage from '../pages/TestimonialsPage';
-import ContactPage from '../pages/ContactPage';
-import NotFoundPage from '../pages/NotFoundPage';
-import PrivacyPolicyPage from '../pages/PrivacyPolicyPage';
-
-// Auth Pages
-import LoginPage from '../pages/LoginPage';
-import RegistrationPage from '../pages/RegistrationPage';
-import ForgotPasswordPage from '../pages/ForgotPasswordPage';
-import BookingPage from '../pages/BookingPage';
-
-// User Specific Pages
-import UserProfilePage from '../pages/UserProfilePage';
-import ClientDashboardPage from '../pages/ClientDashboardPage';
-import CoachDashboardPage from '../pages/CoachDashboardPage';
-import ClientTrainingPlanPage from '../pages/ClientTrainingPlanPage';
-import ClientTrainingHistoryPage from '../pages/ClientTrainingHistoryPage';
-import CoachAnalyticsPage from '../pages/CoachAnalyticsPage';
-import CoachSchedulePage from '../pages/CoachSchedulePage';
-import NotificationsPage from '../pages/NotificationsPage';
-import UserSettingsPage from '../pages/UserSettingsPage';
-
-// Admin Pages
-import AdminUsersPage from '../pages/AdminUsersPage';
-import AdminPlansPage from '../pages/AdminPlansPage';
-import AdminSettingsPage from '../pages/AdminSettingsPage';
-
-// PrivateRoute HOC
-import PrivateRoute from './PrivateRoute';
-
 /**
  * Generate localized route children for a specific language
  */
@@ -75,58 +61,51 @@ const generateLocalizedRoutes = (lang: string): RouteObject['children'] => {
     { path: getLocalizedPath('about', lang), element: <AboutPage /> },
     { path: getLocalizedPath('projects', lang), element: <ProjectsPage /> },
     { path: getLocalizedPath('catalog', lang), element: <CatalogPage /> },
-    { path: getLocalizedPath('services', lang), element: <ServicesPage /> },
+    { path: getLocalizedPath('services', lang), element: <PlanPage /> },
+    ...(lang === 'es'
+      ? [{ path: 'servicios', element: <Navigate to={`/${lang}/${getLocalizedPath('services', lang)}`} replace /> }]
+      : []),
+    ...(lang === 'en'
+      ? [{ path: 'services', element: <Navigate to={`/${lang}/${getLocalizedPath('services', lang)}`} replace /> }]
+      : []),
+    ...(lang === 'fr'
+      ? [{ path: 'services', element: <Navigate to={`/${lang}/${getLocalizedPath('services', lang)}`} replace /> }]
+      : []),
+    { path: getLocalizedPath('resources', lang), element: <AnalysisPage /> },
+    ...(lang === 'es'
+      ? [{ path: 'recursos', element: <Navigate to={`/${lang}/${getLocalizedPath('resources', lang)}`} replace /> }]
+      : []),
+    ...(lang === 'en'
+      ? [{ path: 'resources', element: <Navigate to={`/${lang}/${getLocalizedPath('resources', lang)}`} replace /> }]
+      : []),
+    ...(lang === 'fr'
+      ? [{ path: 'ressources', element: <Navigate to={`/${lang}/${getLocalizedPath('resources', lang)}`} replace /> }]
+      : []),
     { path: getLocalizedPath('legal', lang), element: <LegalPage /> },
     { path: getLocalizedPath('testimonials', lang), element: <TestimonialsPage /> },
     { path: getLocalizedPath('contact', lang), element: <ContactPage /> },
     { path: getLocalizedPath('booking', lang), element: <BookingPage /> },
-    { path: getLocalizedPath('login', lang), element: <LoginPage /> },
-    { path: getLocalizedPath('register', lang), element: <RegistrationPage /> },
-    { path: getLocalizedPath('forgotPassword', lang), element: <ForgotPasswordPage /> },
+    { path: getLocalizedPath('videoCall', lang), element: <BookCallPage /> },
     { path: getLocalizedPath('privacy', lang), element: <PrivacyPolicyPage /> },
 
-  // Client-specific routes (protected)
-  {
-    element: <PrivateRoute allowedRoles={['client', 'coach', 'admin']} loginPath={`/${lang}/${getLocalizedPath('login', lang)}`} />,
-    children: [
-      { path: `${getLocalizedPath('profile', lang)}/:userId`, element: <UserProfilePage /> },
-    ],
-  },
-  {
-    element: <PrivateRoute allowedRoles={['client']} loginPath={`/${lang}/${getLocalizedPath('login', lang)}`} />,
-    children: [
-      { path: `${getLocalizedPath('dashboard', lang)}/client`, element: <ClientDashboardPage /> },
-      { path: getLocalizedPath('trainingPlan', lang), element: <ClientTrainingPlanPage /> },
-      { path: getLocalizedPath('trainingHistory', lang), element: <ClientTrainingHistoryPage /> },
-      { path: getLocalizedPath('notifications', lang), element: <NotificationsPage /> },
-      { path: getLocalizedPath('settings', lang), element: <UserSettingsPage /> },
-    ],
-  },
+    // Auth routes - disabled, redirect to home
+    { path: getLocalizedPath('login', lang), element: <Navigate to={`/${lang}`} replace /> },
+    { path: getLocalizedPath('register', lang), element: <Navigate to={`/${lang}`} replace /> },
+    { path: getLocalizedPath('forgotPassword', lang), element: <Navigate to={`/${lang}`} replace /> },
 
-  // Coach-specific routes (protected)
-  {
-    element: <PrivateRoute allowedRoles={['coach', 'admin']} loginPath={`/${lang}/${getLocalizedPath('login', lang)}`} />,
-    children: [
-      { path: `${getLocalizedPath('dashboard', lang)}/coach`, element: <CoachDashboardPage /> },
-      { path: getLocalizedPath('analytics', lang), element: <CoachAnalyticsPage /> },
-      { path: getLocalizedPath('schedule', lang), element: <CoachSchedulePage /> },
-    ],
-  },
-
-  // Admin-specific routes (protected)
-  {
-    element: <PrivateRoute allowedRoles={['admin', 'coach']} loginPath={`/${lang}/${getLocalizedPath('login', lang)}`} />,
-    children: [
-      { path: `${getLocalizedPath('admin', lang)}/${getLocalizedPath('users', lang)}`, element: <AdminUsersPage /> },
-      { path: `${getLocalizedPath('admin', lang)}/${getLocalizedPath('plans', lang)}`, element: <AdminPlansPage /> },
-    ],
-  },
-  {
-    element: <PrivateRoute allowedRoles={['admin']} loginPath={`/${lang}/${getLocalizedPath('login', lang)}`} />,
-    children: [
-      { path: `${getLocalizedPath('admin', lang)}/${getLocalizedPath('settings', lang)}`, element: <AdminSettingsPage /> },
-    ],
-  },
+    // Protected routes - disabled, redirect to home
+    { path: `${getLocalizedPath('profile', lang)}/:userId`, element: <Navigate to={`/${lang}`} replace /> },
+    { path: `${getLocalizedPath('dashboard', lang)}/client`, element: <Navigate to={`/${lang}`} replace /> },
+    { path: `${getLocalizedPath('dashboard', lang)}/coach`, element: <Navigate to={`/${lang}`} replace /> },
+    { path: getLocalizedPath('trainingPlan', lang), element: <Navigate to={`/${lang}`} replace /> },
+    { path: getLocalizedPath('trainingHistory', lang), element: <Navigate to={`/${lang}`} replace /> },
+    { path: getLocalizedPath('notifications', lang), element: <Navigate to={`/${lang}`} replace /> },
+    { path: getLocalizedPath('settings', lang), element: <Navigate to={`/${lang}`} replace /> },
+    { path: getLocalizedPath('analytics', lang), element: <Navigate to={`/${lang}`} replace /> },
+    { path: getLocalizedPath('schedule', lang), element: <Navigate to={`/${lang}`} replace /> },
+    { path: `${getLocalizedPath('admin', lang)}/${getLocalizedPath('users', lang)}`, element: <Navigate to={`/${lang}`} replace /> },
+    { path: `${getLocalizedPath('admin', lang)}/${getLocalizedPath('plans', lang)}`, element: <Navigate to={`/${lang}`} replace /> },
+    { path: `${getLocalizedPath('admin', lang)}/${getLocalizedPath('settings', lang)}`, element: <Navigate to={`/${lang}`} replace /> },
   ];
   
   return routes;
@@ -144,6 +123,11 @@ const routes: RouteObject[] = [
     element: <MainLayout />,
     children: generateLocalizedRoutes(lang),
   })),
+  // Redirect non-prefixed slugs → /es/:slug  (e.g. /analisis → /es/analisis)
+  {
+    path: '/:slug',
+    element: <RedirectToEs />,
+  },
   // Catch-all route for 404 errors (ensure this is last)
   {
     path: '*',
@@ -151,6 +135,14 @@ const routes: RouteObject[] = [
   },
 ];
 
-const router = createBrowserRouter(routes);
+const normalizedBaseName = (() => {
+  const base = import.meta.env.BASE_URL || '/';
+  if (base === '/') return '/';
+  return base.endsWith('/') ? base.slice(0, -1) : base;
+})();
+
+const router = createBrowserRouter(routes, {
+  basename: normalizedBaseName,
+});
 
 export default router;

@@ -55,7 +55,7 @@ const CarouselSection: React.FC = () => {
   };
 
   return (
-    <section className="w-full bg-surface dark:bg-neutral-background py-16 md:py-24">
+    <section className="w-full bg-gray-50 dark:bg-neutral-background py-16 md:py-24">
       <div className="container mx-auto px-space-md text-center">
         <motion.h2
           className="text-3xl md:text-4xl font-bold mb-space-lg text-default"

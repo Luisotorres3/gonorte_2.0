@@ -76,7 +76,7 @@ const StatsSection: React.FC = () => {
   };
 
   return (
-    <section className="w-full bg-gradient-to-r from-slate-900 via-teal-900 to-slate-900 dark:from-slate-950 dark:via-teal-950 dark:to-slate-950 py-20 relative overflow-hidden">
+    <section className="w-full bg-gradient-to-r from-slate-900 via-teal-900 to-slate-900 dark:from-slate-950 dark:via-teal-950 dark:to-slate-950 py-12 sm:py-16 md:py-20 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -110,24 +110,24 @@ const StatsSection: React.FC = () => {
         }}
       />
 
-      <div className="relative container mx-auto px-space-md">
+      <div className="relative container mx-auto px-4 sm:px-6 lg:px-space-md">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-8 sm:mb-12 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-teal-200 bg-clip-text text-transparent">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white to-teal-200 bg-clip-text text-transparent">
             {t('statsTitle', 'Resultados que Hablan por Sí Mismos')}
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">
             {t('statsSubtitle', 'Estos números representan la dedicación y el compromiso con la excelencia en el entrenamiento personal')}
           </p>
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-8"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -142,7 +142,7 @@ const StatsSection: React.FC = () => {
               <div className="relative">
                 {/* Icon */}
                 <motion.div
-                  className="text-4xl mb-4 inline-block"
+                  className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3 md:mb-4 inline-block"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   transition={{ duration: 0.3 }}
                 >
@@ -151,7 +151,7 @@ const StatsSection: React.FC = () => {
 
                 {/* Number */}
                 <motion.div
-                  className="text-4xl md:text-5xl font-bold text-white mb-2 group-hover:text-teal-300 transition-colors duration-300"
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-1 sm:mb-2 group-hover:text-teal-300 transition-colors duration-300"
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
@@ -161,7 +161,7 @@ const StatsSection: React.FC = () => {
                 </motion.div>
 
                 {/* Label */}
-                <p className="text-gray-300 text-sm md:text-base font-medium">
+                <p className="text-gray-300 text-xs sm:text-sm md:text-base font-medium">
                   {t(stat.labelKey, stat.defaultLabel)}
                 </p>
 
@@ -174,14 +174,14 @@ const StatsSection: React.FC = () => {
 
         {/* Bottom CTA */}
         <motion.div
-          className="text-center mt-16"
+          className="text-center mt-8 sm:mt-12 md:mt-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
           <div className="inline-flex items-center space-x-2 text-teal-300 hover:text-white transition-colors duration-300 cursor-pointer">
-            <span className="text-lg font-medium">
+            <span className="text-sm sm:text-base md:text-lg font-medium">
               {t('statsCTA', '¿Quieres ser parte de estas estadísticas?')}
             </span>
             <motion.svg

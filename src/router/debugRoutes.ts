@@ -4,6 +4,7 @@
  */
 
 import { SUPPORTED_LANGUAGES, getLocalizedPath } from './routes.config';
+import type { RouteKey } from './routes.config';
 
 /**
  * Log all generated routes for debugging
@@ -14,7 +15,7 @@ export const debugRoutes = () => {
   SUPPORTED_LANGUAGES.forEach(lang => {
     console.group(`Language: ${lang}`);
     
-    const routes = [
+    const routes: RouteKey[] = [
       'home', 'about', 'projects', 'catalog', 'services', 'legal', 
       'testimonials', 'contact', 'booking', 'login', 'register', 
       'forgotPassword', 'privacy', 'profile', 'dashboard', 'trainingPlan',
@@ -23,7 +24,7 @@ export const debugRoutes = () => {
     ];
     
     routes.forEach(routeKey => {
-      const path = getLocalizedPath(routeKey as any, lang);
+      const path = getLocalizedPath(routeKey, lang);
       const fullPath = path ? `/${lang}/${path}` : `/${lang}`;
       console.log(`${routeKey}: ${fullPath}`);
     });

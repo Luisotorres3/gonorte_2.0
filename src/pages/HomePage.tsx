@@ -7,11 +7,11 @@
  */
 import AnimatedPage from '../components/motion/AnimatedPage';
 import HeroSection from '../components/landing/home/HeroSection';
-import FeaturesSection from '../components/landing/home/FeaturesSection';
-import StatsSection from '../components/landing/home/StatsSection';
-import ProfileSection from '../components/landing/home/ProfileSection';
-import ServicesSection from '../components/landing/home/ServicesSection';
-import TestimonialsSection from '../components/landing/home/TestimonialsSection';
+import ForWhomSection from '../components/landing/home/ForWhomSection';
+import OutcomesSection from '../components/landing/home/OutcomesSection';
+import HowItWorksSection from '../components/landing/home/HowItWorksSection';
+import WhatIsItSection from '../components/landing/home/WhatIsItSection';
+import InPersonAnalysisSection from '../components/landing/home/InPersonAnalysisSection';
 import FAQSection from '../components/landing/home/FAQSection';
 import ContactSection from '../components/landing/home/ContactSection';
 
@@ -25,11 +25,11 @@ const HomePage: React.FC = () => {
   return (
     <AnimatedPage className="flex flex-col items-center w-full min-h-full">
       <HeroSection />
-      <FeaturesSection />
-      <StatsSection />
-      <ProfileSection />
-      <ServicesSection />
-      <TestimonialsSection />
+      <ForWhomSection />
+      <OutcomesSection />
+      <HowItWorksSection />
+      <WhatIsItSection />
+      <InPersonAnalysisSection />
       <FAQSection />
       <ContactSection />
     </AnimatedPage>

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 const AboutSection: React.FC = () => {
   const { t } = useTranslation();
   return (
-    <section className="w-full py-16 md:py-24 bg-background dark:bg-neutral-surface text-default">
+    <section className="w-full py-16 md:py-24 bg-bg-base text-fg-base">
       <div className="container mx-auto px-space-md text-center">
         <motion.h2
           className="text-3xl md:text-4xl font-bold mb-space-lg"
@@ -17,7 +17,7 @@ const AboutSection: React.FC = () => {
           {t('aboutTitle', 'Acerca de Gonorte')}
         </motion.h2>
         <motion.p
-          className="text-lg md:text-xl max-w-2xl mx-auto"
+          className="text-lg md:text-xl max-w-2xl mx-auto text-fg-muted"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}

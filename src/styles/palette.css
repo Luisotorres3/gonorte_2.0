@@ -1,0 +1,212 @@
+/**
+ * COLOR PALETTE SYSTEM
+ * ====================
+ * 
+ * This file defines the color palette for the entire application.
+ * To change the color scheme, simply modify the HSL values below.
+ * 
+ * The palette uses CSS custom properties (variables) with HSL format
+ * for easy manipulation and theme switching.
+ * 
+ * STRUCTURE:
+ * - :root contains light mode colors
+ * - .dark contains dark mode colors
+ * 
+ * HOW TO CHANGE COLORS:
+ * 1. Find the color you want to change
+ * 2. Update the HSL value (Hue, Saturation%, Lightness%)
+ * 3. Save and the entire app will update automatically
+ * 
+ * TIP: Use https://hslpicker.com to find HSL values for any color
+ */
+
+:root {
+  /* ============================================
+     PRIMARY COLORS (Main brand color)
+     Current: Warm Taupe (#ac9f8e)
+     ============================================ */
+  --color-primary-50: 36 24% 96%; /* Lightest - backgrounds */
+  --color-primary-100: 34 23% 91%; /* Very light */
+  --color-primary-200: 34 20% 84%; /* Light */
+  --color-primary-300: 34 18% 76%; /* Medium light */
+  --color-primary-400: 34 16% 68%; /* Medium */
+  --color-primary-500: 34 15% 62%; /* DEFAULT - #ac9f8e */
+  --color-primary-600: 34 16% 52%; /* Medium dark */
+  --color-primary-700: 33 18% 42%; /* Dark */
+  --color-primary-800: 32 22% 33%; /* Very dark */
+  --color-primary-900: 31 25% 25%; /* Darkest */
+
+  /* ============================================
+     SECONDARY COLORS (Supporting brand color)
+     Current: Dark Brown (#5a4633)
+     ============================================ */
+  --color-secondary-50: 30 28% 95%;
+  --color-secondary-100: 30 26% 89%;
+  --color-secondary-200: 30 25% 78%;
+  --color-secondary-300: 30 25% 64%;
+  --color-secondary-400: 29 26% 48%;
+  --color-secondary-500: 29 28% 28%; /* DEFAULT - #5a4633 */
+  --color-secondary-600: 29 30% 24%;
+  --color-secondary-700: 29 32% 20%;
+  --color-secondary-800: 28 34% 16%;
+  --color-secondary-900: 27 36% 12%;
+
+  /* ============================================
+     ACCENT COLORS (Highlights and CTAs)
+     Current: Bright Green
+     ============================================ */
+  --color-accent-50: 145 80% 97%;
+  --color-accent-100: 145 75% 92%;
+  --color-accent-200: 145 70% 82%;
+  --color-accent-300: 145 65% 72%;
+  --color-accent-400: 145 60% 62%;
+  --color-accent-500: 145 65% 78%; /* DEFAULT */
+  --color-accent-600: 145 55% 52%;
+  --color-accent-700: 145 50% 42%;
+  --color-accent-800: 145 55% 32%;
+  --color-accent-900: 145 60% 22%;
+
+  /* ============================================
+     NEUTRAL COLORS (Backgrounds, borders, text)
+     Current: Slate Gray scale
+     ============================================ */
+  --color-neutral-50: 210 40% 98%; /* Lightest background */
+  --color-neutral-100: 210 35% 96%; /* Light background */
+  --color-neutral-200: 214 32% 91%; /* Lighter gray */
+  --color-neutral-300: 213 27% 84%; /* Light gray */
+  --color-neutral-400: 215 20% 65%; /* Medium gray */
+  --color-neutral-500: 215 16% 47%; /* Gray */
+  --color-neutral-600: 215 19% 35%; /* Dark gray */
+  --color-neutral-700: 215 25% 27%; /* Darker gray */
+  --color-neutral-800: 217 33% 17%; /* Very dark gray */
+  --color-neutral-900: 222 47% 11%; /* Darkest - near black */
+
+  /* ============================================
+     SEMANTIC COLORS
+     ============================================ */
+  /* Success - Green */
+  --color-success-50: 142 76% 95%;
+  --color-success-100: 141 84% 85%;
+  --color-success-500: 142 71% 45%;
+  --color-success-600: 142 76% 36%;
+  --color-success-700: 142 72% 29%;
+
+  /* Error - Red */
+  --color-error-50: 0 86% 97%;
+  --color-error-100: 0 93% 90%;
+  --color-error-500: 0 84% 60%;
+  --color-error-600: 0 72% 51%;
+  --color-error-700: 0 74% 42%;
+
+  /* Warning - Orange */
+  --color-warning-50: 38 92% 95%;
+  --color-warning-100: 38 97% 83%;
+  --color-warning-500: 25 95% 53%;
+  --color-warning-600: 21 90% 48%;
+  --color-warning-700: 17 88% 40%;
+
+  /* Info - Blue */
+  --color-info-50: 214 100% 97%;
+  --color-info-100: 214 95% 90%;
+  --color-info-500: 217 91% 60%;
+  --color-info-600: 221 83% 53%;
+  --color-info-700: 224 76% 48%;
+
+  /* ============================================
+     THEME-SPECIFIC COLORS (Light Mode)
+     ============================================ */
+  /* Backgrounds */
+  --color-bg-base: var(--color-neutral-50);
+  --color-bg-surface: 0 0% 100%; /* Pure white */
+  --color-bg-elevated: 0 0% 100%; /* Cards, modals */
+  --color-bg-muted: var(--color-neutral-100);
+
+  /* Foreground/Text */
+  --color-fg-base: var(--color-neutral-900);
+  --color-fg-muted: var(--color-neutral-600);
+  --color-fg-subtle: var(--color-neutral-500);
+  --color-fg-on-primary: 0 0% 100%; /* Text on primary color */
+  --color-fg-on-accent: var(--color-neutral-900);
+
+  /* Borders */
+  --color-border-base: var(--color-neutral-300);
+  --color-border-muted: var(--color-neutral-200);
+  --color-border-strong: var(--color-neutral-400);
+
+  /* Interactive states */
+  --color-hover-overlay: 0 0% 0% / 0.05;
+  --color-active-overlay: 0 0% 0% / 0.1;
+  --color-focus-ring: var(--color-primary-500);
+}
+
+/* ============================================
+   DARK MODE OVERRIDES
+   ============================================ */
+.dark {
+  /* Primary - Keep same hue, adjust for dark mode visibility */
+  --color-primary-50: 31 25% 18%;
+  --color-primary-100: 32 24% 24%;
+  --color-primary-200: 33 22% 32%;
+  --color-primary-300: 34 20% 42%;
+  --color-primary-400: 34 18% 54%;
+  --color-primary-500: 34 16% 64%; /* Main brand - slightly brighter */
+  --color-primary-600: 34 17% 56%;
+  --color-primary-700: 33 19% 46%;
+  --color-primary-800: 32 22% 36%;
+  --color-primary-900: 31 24% 26%;
+
+  /* Secondary - Adjusted for dark mode */
+  --color-secondary-50: 28 30% 16%;
+  --color-secondary-100: 29 30% 21%;
+  --color-secondary-200: 29 29% 28%;
+  --color-secondary-300: 29 28% 36%;
+  --color-secondary-400: 29 28% 45%;
+  --color-secondary-500: 29 28% 54%;
+  --color-secondary-600: 29 28% 46%;
+  --color-secondary-700: 29 29% 38%;
+  --color-secondary-800: 28 30% 30%;
+  --color-secondary-900: 28 31% 22%;
+
+  /* Accent - Adjusted for dark mode */
+  --color-accent-50: 145 35% 12%;
+  --color-accent-100: 145 40% 18%;
+  --color-accent-200: 145 50% 28%;
+  --color-accent-300: 145 55% 40%;
+  --color-accent-400: 145 60% 52%;
+  --color-accent-500: 145 60% 60%;
+  --color-accent-600: 145 55% 50%;
+  --color-accent-700: 145 50% 42%;
+  --color-accent-800: 145 45% 32%;
+  --color-accent-900: 145 40% 22%;
+
+  /* Semantic colors - Brighter for dark mode */
+  --color-success-500: 142 69% 58%;
+  --color-success-600: 142 76% 48%;
+  --color-error-500: 0 91% 71%;
+  --color-error-600: 0 86% 60%;
+  --color-warning-500: 38 92% 63%;
+  --color-warning-600: 38 90% 53%;
+  --color-info-500: 217 91% 70%;
+  --color-info-600: 217 85% 60%;
+
+  /* Theme-specific - Dark mode backgrounds (dark colors) */
+  --color-bg-base: 222 47% 11%; /* Darkest background */
+  --color-bg-surface: 217 33% 17%; /* Cards, surfaces */
+  --color-bg-elevated: 215 25% 22%; /* Elevated elements */
+  --color-bg-muted: 215 25% 20%; /* Muted backgrounds */
+
+  /* Theme-specific - Dark mode text (light colors) */
+  --color-fg-base: 210 35% 95%; /* Primary text - almost white */
+  --color-fg-muted: 214 25% 78%; /* Secondary text */
+  --color-fg-subtle: 213 20% 68%; /* Subtle text */
+  --color-fg-on-primary: 210 35% 98%; /* Text on primary buttons */
+  --color-fg-on-accent: 222 47% 11%; /* Text on accent (dark on light) */
+
+  /* Theme-specific - Dark mode borders */
+  --color-border-base: 215 20% 30%; /* Default borders */
+  --color-border-muted: 215 25% 25%; /* Subtle borders */
+  --color-border-strong: 215 16% 42%; /* Strong borders */
+
+  --color-hover-overlay: 255 255 255 / 0.05;
+  --color-active-overlay: 255 255 255 / 0.1;
+}

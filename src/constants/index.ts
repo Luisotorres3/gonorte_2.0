@@ -69,6 +69,12 @@ export const ROUTES = {
   NOTIFICATIONS: '/notifications',
 } as const;
 
+// External links and marketing assets (change as needed)
+export const MARKETING = {
+  CALENDLY_URL: 'https://calendly.com/gonorte-biomechanics/videollamada-inicial',
+  LEAD_MAGNET_FILENAME: 'Guia_base_solida_GonorteTraining.pdf', // Replace if different
+} as const;
+
 // Animation Durations (ms)
 export const ANIMATION_DURATION = {
   FAST: 150,

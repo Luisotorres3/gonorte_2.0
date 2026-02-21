@@ -17,6 +17,10 @@ dist-ssr
 .env.local
 .env.production
 
+# Generated reports (scripts output)
+missing-keys.json
+fallback-values.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

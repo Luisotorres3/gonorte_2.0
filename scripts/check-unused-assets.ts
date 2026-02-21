@@ -4,7 +4,7 @@
  * Run with: npx tsx scripts/check-unused-assets.ts
  */
 
-import { readdirSync, statSync } from 'fs';
+import { readdirSync, statSync, readFileSync } from 'fs';
 import { join, extname } from 'path';
 
 // Asset directories to check
@@ -70,7 +70,7 @@ function isAssetUsed(assetPath: string, sourceFiles: string[]): boolean {
   
   for (const sourceFile of sourceFiles) {
     try {
-      const content = require('fs').readFileSync(sourceFile, 'utf-8');
+      const content = readFileSync(sourceFile, 'utf-8');
       if (content.includes(assetName)) {
         return true;
       }

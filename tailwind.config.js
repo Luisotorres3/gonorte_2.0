@@ -5,94 +5,201 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Brand Colors - Aqua Green Theme
-        "brand-aqua-lightest": "#E0F7F2", // Very Light Aqua Green (for backgrounds)
-        "brand-aqua-light": "#A0EADE", // Light Aqua Green
-        "brand-aqua-DEFAULT": "#6AD3B1", // Medium Aqua Green (Primary)
-        "brand-aqua-dark": "#4F9E81", // Dark Aqua Green
-        "brand-aqua-darkest": "#3E7C68", // Very Dark Aqua Green (for text or dark accents)
-
-        // Primary Colors (Aqua Green based)
+        /* ============================================
+         * CSS VARIABLE BASED PALETTE SYSTEM
+         * Colors are defined in src/styles/palette.css
+         * Simply edit that file to change the entire color scheme
+         * ============================================ */
+        
+        // Primary Colors - Main brand color scale
         primary: {
-          light: "#A0EADE", // Light Aqua Green
-          DEFAULT: "#6AD3B1", // Medium Aqua Green
-          dark: "#4F9E81", // Dark Aqua Green
-          hover: "#5FBBA0", // Slightly darker for hover
-          active: "#4F9E81", // Same as dark or a bit darker for active
+          50: "hsl(var(--color-primary-50) / <alpha-value>)",
+          100: "hsl(var(--color-primary-100) / <alpha-value>)",
+          200: "hsl(var(--color-primary-200) / <alpha-value>)",
+          300: "hsl(var(--color-primary-300) / <alpha-value>)",
+          400: "hsl(var(--color-primary-400) / <alpha-value>)",
+          500: "hsl(var(--color-primary-500) / <alpha-value>)",
+          DEFAULT: "hsl(var(--color-primary-500) / <alpha-value>)",
+          600: "hsl(var(--color-primary-600) / <alpha-value>)",
+          700: "hsl(var(--color-primary-700) / <alpha-value>)",
+          800: "hsl(var(--color-primary-800) / <alpha-value>)",
+          900: "hsl(var(--color-primary-900) / <alpha-value>)",
+          // Legacy aliases for compatibility
+          light: "hsl(var(--color-primary-300) / <alpha-value>)",
+          dark: "hsl(var(--color-primary-700) / <alpha-value>)",
+          hover: "hsl(var(--color-primary-600) / <alpha-value>)",
+          active: "hsl(var(--color-primary-700) / <alpha-value>)",
         },
-        // Secondary Colors (Complementary or analogous to Aqua Green)
+        
+        // Secondary Colors - Supporting brand color scale
         secondary: {
-          light: "#BCF0E4", // Lighter variant for secondary elements
-          DEFAULT: "#88DCCC", // A distinct shade of Aqua or a complementary color
-          dark: "#5FBBA0", // Darker variant for secondary elements
-          hover: "#7ACAAE", // Hover state for secondary
-          active: "#6AD3B1", // Active state for secondary
+          50: "hsl(var(--color-secondary-50) / <alpha-value>)",
+          100: "hsl(var(--color-secondary-100) / <alpha-value>)",
+          200: "hsl(var(--color-secondary-200) / <alpha-value>)",
+          300: "hsl(var(--color-secondary-300) / <alpha-value>)",
+          400: "hsl(var(--color-secondary-400) / <alpha-value>)",
+          500: "hsl(var(--color-secondary-500) / <alpha-value>)",
+          DEFAULT: "hsl(var(--color-secondary-500) / <alpha-value>)",
+          600: "hsl(var(--color-secondary-600) / <alpha-value>)",
+          700: "hsl(var(--color-secondary-700) / <alpha-value>)",
+          800: "hsl(var(--color-secondary-800) / <alpha-value>)",
+          900: "hsl(var(--color-secondary-900) / <alpha-value>)",
+          // Legacy aliases for compatibility
+          light: "hsl(var(--color-secondary-300) / <alpha-value>)",
+          dark: "hsl(var(--color-secondary-700) / <alpha-value>)",
+          hover: "hsl(var(--color-secondary-600) / <alpha-value>)",
+          active: "hsl(var(--color-secondary-700) / <alpha-value>)",
         },
-        // Tertiary/Accent Colors (Can be a contrasting color or another shade of green)
+        
+        // Accent Colors - Highlights and CTAs
         accent: {
-          light: "#F0FDF4", // Very light green or a contrasting light color
-          DEFAULT: "#A7F3D0", // A bright, eye-catching accent
-          dark: "#6EE7B7", // Darker accent
-          hover: "#86EFAC", // Hover state for accent
-          active: "#6EE7B7", // Active state for accent
+          50: "hsl(var(--color-accent-50) / <alpha-value>)",
+          100: "hsl(var(--color-accent-100) / <alpha-value>)",
+          200: "hsl(var(--color-accent-200) / <alpha-value>)",
+          300: "hsl(var(--color-accent-300) / <alpha-value>)",
+          400: "hsl(var(--color-accent-400) / <alpha-value>)",
+          500: "hsl(var(--color-accent-500) / <alpha-value>)",
+          DEFAULT: "hsl(var(--color-accent-500) / <alpha-value>)",
+          600: "hsl(var(--color-accent-600) / <alpha-value>)",
+          700: "hsl(var(--color-accent-700) / <alpha-value>)",
+          800: "hsl(var(--color-accent-800) / <alpha-value>)",
+          900: "hsl(var(--color-accent-900) / <alpha-value>)",
+          // Legacy aliases for compatibility
+          light: "hsl(var(--color-accent-300) / <alpha-value>)",
+          dark: "hsl(var(--color-accent-700) / <alpha-value>)",
+          hover: "hsl(var(--color-accent-600) / <alpha-value>)",
+          active: "hsl(var(--color-accent-700) / <alpha-value>)",
         },
-        // Neutral Colors
+        
+        // Neutral Colors - Backgrounds, borders, text
         neutral: {
+          50: "hsl(var(--color-neutral-50) / <alpha-value>)",
+          100: "hsl(var(--color-neutral-100) / <alpha-value>)",
+          200: "hsl(var(--color-neutral-200) / <alpha-value>)",
+          300: "hsl(var(--color-neutral-300) / <alpha-value>)",
+          400: "hsl(var(--color-neutral-400) / <alpha-value>)",
+          500: "hsl(var(--color-neutral-500) / <alpha-value>)",
+          DEFAULT: "hsl(var(--color-neutral-500) / <alpha-value>)",
+          600: "hsl(var(--color-neutral-600) / <alpha-value>)",
+          700: "hsl(var(--color-neutral-700) / <alpha-value>)",
+          800: "hsl(var(--color-neutral-800) / <alpha-value>)",
+          900: "hsl(var(--color-neutral-900) / <alpha-value>)",
+          // Legacy aliases for compatibility
           background: {
-            light: "#FFFFFF", // White background for light mode
-            dark: "#1A202C", // Dark Slate Gray for dark mode background
-            DEFAULT: "#FFFFFF",
+            light: "hsl(var(--color-neutral-50) / <alpha-value>)",
+            dark: "hsl(var(--color-neutral-900) / <alpha-value>)",
+            DEFAULT: "hsl(var(--color-bg-base) / <alpha-value>)",
           },
           surface: {
-            light: "#F7FAFC", // Light Gray for cards/surfaces in light mode
-            dark: "#2D3748", // Darker Gray for cards/surfaces in dark mode
-            DEFAULT: "#F7FAFC",
+            light: "hsl(var(--color-bg-surface) / <alpha-value>)",
+            dark: "hsl(var(--color-bg-surface) / <alpha-value>)",
+            DEFAULT: "hsl(var(--color-bg-surface) / <alpha-value>)",
           },
           border: {
-            light: "#E2E8F0", // Light Gray for borders in light mode
-            dark: "#4A5568", // Gray for borders in dark mode
-            DEFAULT: "#E2E8F0",
+            light: "hsl(var(--color-border-base) / <alpha-value>)",
+            dark: "hsl(var(--color-border-base) / <alpha-value>)",
+            DEFAULT: "hsl(var(--color-border-base) / <alpha-value>)",
           },
         },
-        // Text Colors
+        
+        // Semantic Background Colors
+        bg: {
+          base: "hsl(var(--color-bg-base) / <alpha-value>)",
+          surface: "hsl(var(--color-bg-surface) / <alpha-value>)",
+          elevated: "hsl(var(--color-bg-elevated) / <alpha-value>)",
+          muted: "hsl(var(--color-bg-muted) / <alpha-value>)",
+        },
+        
+        // Semantic Foreground/Text Colors
+        fg: {
+          base: "hsl(var(--color-fg-base) / <alpha-value>)",
+          muted: "hsl(var(--color-fg-muted) / <alpha-value>)",
+          subtle: "hsl(var(--color-fg-subtle) / <alpha-value>)",
+          "on-primary": "hsl(var(--color-fg-on-primary) / <alpha-value>)",
+          "on-accent": "hsl(var(--color-fg-on-accent) / <alpha-value>)",
+        },
+        
+        // Semantic Border Colors
+        border: {
+          base: "hsl(var(--color-border-base) / <alpha-value>)",
+          muted: "hsl(var(--color-border-muted) / <alpha-value>)",
+          strong: "hsl(var(--color-border-strong) / <alpha-value>)",
+        },
+        
+        // Text Colors (Legacy - for backwards compatibility)
         text: {
           default: {
-            light: "#1A202C", // Dark Gray for text on light backgrounds
-            dark: "#E2E8F0", // Light Gray for text on dark backgrounds
-            DEFAULT: "#1A202C",
+            light: "hsl(var(--color-fg-base) / <alpha-value>)",
+            dark: "hsl(var(--color-fg-base) / <alpha-value>)",
+            DEFAULT: "hsl(var(--color-fg-base) / <alpha-value>)",
           },
           muted: {
-            light: "#4A5568", // Increased contrast for light mode
-            dark: "#CBD5E0", // Increased contrast for dark mode
-            DEFAULT: "#4A5568",
+            light: "hsl(var(--color-fg-muted) / <alpha-value>)",
+            dark: "hsl(var(--color-fg-muted) / <alpha-value>)",
+            DEFAULT: "hsl(var(--color-fg-muted) / <alpha-value>)",
           },
           primary: {
-            light: "#4F9E81", // Dark Aqua Green for text on light backgrounds
-            dark: "#A0EADE", // Light Aqua Green for text on dark backgrounds
-            DEFAULT: "#4F9E81",
+            light: "hsl(var(--color-primary-600) / <alpha-value>)",
+            dark: "hsl(var(--color-primary-400) / <alpha-value>)",
+            DEFAULT: "hsl(var(--color-primary-600) / <alpha-value>)",
           },
           accent: {
-            light: "#3E7C68", // Darkest Aqua for accent text on light backgrounds
-            dark: "#A0EADE", // Light Aqua for accent text on dark backgrounds
-            DEFAULT: "#3E7C68",
+            light: "hsl(var(--color-accent-700) / <alpha-value>)",
+            dark: "hsl(var(--color-accent-400) / <alpha-value>)",
+            DEFAULT: "hsl(var(--color-accent-700) / <alpha-value>)",
           },
         },
+        
         // Semantic Colors
+        success: {
+          50: "hsl(var(--color-success-50) / <alpha-value>)",
+          100: "hsl(var(--color-success-100) / <alpha-value>)",
+          500: "hsl(var(--color-success-500) / <alpha-value>)",
+          DEFAULT: "hsl(var(--color-success-500) / <alpha-value>)",
+          600: "hsl(var(--color-success-600) / <alpha-value>)",
+          700: "hsl(var(--color-success-700) / <alpha-value>)",
+        },
+        error: {
+          50: "hsl(var(--color-error-50) / <alpha-value>)",
+          100: "hsl(var(--color-error-100) / <alpha-value>)",
+          500: "hsl(var(--color-error-500) / <alpha-value>)",
+          DEFAULT: "hsl(var(--color-error-500) / <alpha-value>)",
+          600: "hsl(var(--color-error-600) / <alpha-value>)",
+          700: "hsl(var(--color-error-700) / <alpha-value>)",
+        },
+        warning: {
+          50: "hsl(var(--color-warning-50) / <alpha-value>)",
+          100: "hsl(var(--color-warning-100) / <alpha-value>)",
+          500: "hsl(var(--color-warning-500) / <alpha-value>)",
+          DEFAULT: "hsl(var(--color-warning-500) / <alpha-value>)",
+          600: "hsl(var(--color-warning-600) / <alpha-value>)",
+          700: "hsl(var(--color-warning-700) / <alpha-value>)",
+        },
+        info: {
+          50: "hsl(var(--color-info-50) / <alpha-value>)",
+          100: "hsl(var(--color-info-100) / <alpha-value>)",
+          500: "hsl(var(--color-info-500) / <alpha-value>)",
+          DEFAULT: "hsl(var(--color-info-500) / <alpha-value>)",
+          600: "hsl(var(--color-info-600) / <alpha-value>)",
+          700: "hsl(var(--color-info-700) / <alpha-value>)",
+        },
+        
+        // Legacy semantic colors (for backwards compatibility)
         semantic: {
           success: {
-            light: "#38A169", // Green
-            dark: "#68D391", // Lighter Green for dark mode
-            DEFAULT: "#38A169",
+            light: "hsl(var(--color-success-500) / <alpha-value>)",
+            dark: "hsl(var(--color-success-500) / <alpha-value>)",
+            DEFAULT: "hsl(var(--color-success-500) / <alpha-value>)",
           },
           error: {
-            light: "#E53E3E", // Red
-            dark: "#FC8181", // Lighter Red for dark mode
-            DEFAULT: "#E53E3E",
+            light: "hsl(var(--color-error-500) / <alpha-value>)",
+            dark: "hsl(var(--color-error-500) / <alpha-value>)",
+            DEFAULT: "hsl(var(--color-error-500) / <alpha-value>)",
           },
           warning: {
-            light: "#DD6B20", // Orange
-            dark: "#F6AD55", // Lighter Orange for dark mode
-            DEFAULT: "#DD6B20",
+            light: "hsl(var(--color-warning-500) / <alpha-value>)",
+            dark: "hsl(var(--color-warning-500) / <alpha-value>)",
+            DEFAULT: "hsl(var(--color-warning-500) / <alpha-value>)",
           },
         },
       },

@@ -39,7 +39,11 @@ const ProjectsPage: React.FC = () => {
   // TODO: Add filtering or sorting options for projects (e.g., by technology, date).
   return (
     <AnimatedPage className="container mx-auto px-space-md py-12">
-      <h1 className="text-4xl font-bold mb-10 text-center text-primary">{t('projectsTitle')}</h1>
+      <div className="text-center mb-10 sm:mb-14">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary-600 dark:text-primary-400 mb-4">
+          {t('projectsTitle')}
+        </h1>
+      </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-space-xl">
         {projects.map((project, index) => (
           // Each card can still have its own motion component for staggered animations

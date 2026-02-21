@@ -1,508 +1,284 @@
 /**
  * @file AboutPage.tsx
- * @description Defines the "About Us" page for the application.
- * This page provides information about the project, its purpose, and the technologies used.
- * It uses framer-motion for entry animations and react-i18next for internationalization.
+ * @description Compact and visually appealing "About Me" page for personal coaching website.
  */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { AnimatePresence, motion } from 'framer-motion';
 import { getLocalizedRoute } from '../router/routes.config';
 import AnimatedPage from '../components/motion/AnimatedPage';
 import { 
-  FaPersonRunning, 
   FaDumbbell, 
-  FaPenToSquare, 
-  FaWind, 
   FaBowlFood, 
-  FaStopwatch,
-  FaBullseye,
-  FaHandshake,
-  FaMicroscope,
-  FaSeedling,
-  FaCompass,
-  FaEarthAmericas,
-  FaLightbulb,
-  FaWandMagicSparkles,
-  FaRocket
+  FaBrain,
+  FaHeart,
+  FaGraduationCap,
+  FaQuoteLeft,
+  FaArrowRight
 } from 'react-icons/fa6';
+import perfilImg from '../assets/perfil.webp';
+import carmenPlaceholder from '../assets/carmen-placeholder.webp';
+import aumentoImg from '../assets/aumento.webp';
+import rehabilitacionImg from '../assets/rehabilitacion.webp';
+import rendimientoImg from '../assets/rendimiento.webp';
+import yogaImg from '../assets/yoga.webp';
 
-/**
- * The About page of the application.
- * It provides information about the team and the project's purpose and technologies used.
- * Content is internationalized and the page uses animations.
- * @returns {JSX.Element} The rendered AboutPage component.
- */
 const AboutPage: React.FC = () => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language || 'es';
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-  const splitParagraph = (content: string) =>
-    content
-      .split('\n')
-      .map((line) => line.trim())
-      .filter(Boolean);
-
-  const missionLines = splitParagraph(
-    t(
-      'aboutParagraph2',
-      'Guided Mission\nDesigning human-centered training plans so every athlete feels seen and supported.'
-    )
-  );
-  const globalLines = splitParagraph(
-    t(
-      'aboutParagraph3',
-      'Global Perspective\nServing multilingual communities online with inclusive fitness experiences.'
-    )
-  );
-  const innovationLinesRaw = splitParagraph(
-    t(
-      'aboutParagraph4',
-      'Innovative Coaching\n• Individualized data-driven assessments\n• Sustainable performance habits\n• Mobility, strength, and mindset synergy'
-    )
-  );
-  const innovationTitle = innovationLinesRaw[0] ?? t('aboutParagraph4TitleFallback', 'Innovative Coaching');
-  const innovationBullets = innovationLinesRaw
-    .slice(1)
-    .filter((line) => line.startsWith('•'))
-    .map((line) => line.replace(/^•\s*/, ''));
-
-  const statHighlights = [
-    { value: '12+', label: t('aboutStatYears', 'Years of tailored coaching') },
-    { value: '500+', label: t('aboutStatClients', 'Athletes guided worldwide') },
-    { value: '4', label: t('aboutStatLanguages', 'Languages for coaching') },
+  const stats = [
+    { value: '2+', label: t('aboutStatYears', 'Años de entrenamiento personalizado') },
+    { value: '50+', label: t('aboutStatClients', 'Personas guiadas') },
   ];
 
-  const timelineMilestones = [
-    {
-      year: '2014',
-      title: t('aboutTimelineSparkTitle', 'The Spark'),
-      description: t(
-        'aboutTimelineSparkDescription',
-        'Moved from competitive athlete to coach, determined to blend science with empathy.'
-      ),
-    },
-    {
-      year: '2018',
-      title: t('aboutTimelineExpansionTitle', 'Global Expansion'),
-      description: t(
-        'aboutTimelineExpansionDescription',
-        'Launched hybrid online coaching, building community across Europe and LATAM.'
-      ),
-    },
-    {
-      year: '2021',
-      title: t('aboutTimelineInnovationTitle', 'Innovation Mode'),
-      description: t(
-        'aboutTimelineInnovationDescription',
-        'Integrated wearable insights, breathwork, and mindset labs into every plan.'
-      ),
-    },
-    {
-      year: 'Today',
-      title: t('aboutTimelineNowTitle', 'Impact Today'),
-      description: t(
-        'aboutTimelineNowDescription',
-        'Helping leaders, parents, and creators build resilient lifestyles that last.'
-      ),
-    },
+  const specialties = [
+    { icon: <FaDumbbell />, name: t('aboutSpecialty1', 'Fuerza & Acondicionamiento') },
+    { icon: <FaBowlFood />, name: t('aboutSpecialty2', 'Prevención y Readaptación') },
+    { icon: <FaBrain />, name: t('aboutSpecialty3', 'Mentalidad & Hábitos') },
+    { icon: <FaHeart />, name: t('aboutSpecialty4', 'Salud Integral') },
   ];
 
-  const toolset = [
-    { name: t('aboutToolset1', 'Mobility Flow Systems'), icon: <FaPersonRunning /> },
-    { name: t('aboutToolset2', 'Strength & Conditioning'), icon: <FaDumbbell /> },
-    { name: t('aboutToolset3', 'Mindset Journaling'), icon: <FaPenToSquare /> },
-    { name: t('aboutToolset4', 'Breathwork Protocols'), icon: <FaWind /> },
-    { name: t('aboutToolset5', 'Nutrition Micro-habits'), icon: <FaBowlFood /> },
-    { name: t('aboutToolset6', 'Wearable Analytics'), icon: <FaStopwatch /> },
+  const certifications = [
+    t('aboutCertificationList1', 'Graduada en Ciencias del Deporte (Universidad de Granada)'),
+    t('aboutCertificationList2', 'Monitora de pilates suelo'),
+    t('aboutCertificationList3', 'Máster en Tecnología Humana en el Deporte y la Medicina (Universidad Alemana de Colonia)'),
+    t('aboutCertificationList4', 'Especialista en Biomecánica Deportiva'),
+    t('aboutCertificationList5', 'Operadora remota en primera y segunda división de fútbol en partidos de Bundesliga, MLS, Eredivisie. Tracab'),
+    t('aboutCertificationList6', 'Asistente de investigación en la simulación de cargas musculoesqueléticas en la cabeza y el cuello tras golpes de boxeo. Universidad Deportiva de Colonia, Alemania.'),
   ];
 
-  const skills = [
-    { name: t('aboutSkill1', 'Program Design'), level: 95 },
-    { name: t('aboutSkill2', 'Mobility & Recovery'), level: 90 },
-    { name: t('aboutSkill3', 'Nutrition Strategy'), level: 85 },
-    { name: t('aboutSkill4', 'Mental Coaching'), level: 88 },
+  const galleryImages = [
+    { src: perfilImg, alt: t('aboutGalleryAlt1', 'Carmen entrenando y evaluando postura') },
+    { src: carmenPlaceholder, alt: t('aboutGalleryAlt2', 'Gonorte Training - sesión de fuerza') },
+    { src: aumentoImg, alt: t('aboutGalleryAlt3', 'Trabajo de fuerza progresiva') },
+    { src: rehabilitacionImg, alt: t('aboutGalleryAlt4', 'Readaptación y control del movimiento') },
+    { src: rendimientoImg, alt: t('aboutGalleryAlt5', 'Rendimiento y técnica') },
+    { src: yogaImg, alt: t('aboutGalleryAlt6', 'Movilidad y estabilidad') },
   ];
 
-  const values = [
-    {
-      icon: <FaBullseye />,
-      title: t('aboutValue1Title', 'Results-Driven'),
-      description: t('aboutValue1Desc', 'Every program is built around measurable progress and sustainable outcomes'),
-    },
-    {
-      icon: <FaHandshake />,
-      title: t('aboutValue2Title', 'Human-First'),
-      description: t('aboutValue2Desc', 'Your life context shapes the training, not the other way around'),
-    },
-    {
-      icon: <FaMicroscope />,
-      title: t('aboutValue3Title', 'Evidence-Based'),
-      description: t('aboutValue3Desc', 'Rooted in exercise science, refined through real-world application'),
-    },
-    {
-      icon: <FaSeedling />,
-      title: t('aboutValue4Title', 'Growth Mindset'),
-      description: t('aboutValue4Desc', 'Building habits that compound over years, not just weeks'),
-    },
-  ];
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % galleryImages.length);
+    }, 3500);
 
-  const quote = t(
-    'aboutSignatureQuote',
-    '“Training is not punishment for what you ate; it is a daily vote for the kind of life you want.”'
-  );
+    return () => window.clearInterval(intervalId);
+  }, [galleryImages.length]);
 
   return (
-    <AnimatedPage className="container mx-auto px-space-md py-12 min-h-full flex flex-col gap-space-xl text-text-default dark:text-text-default-dark">
-      {/* Hero Section with Enhanced Visuals */}
-      <section className="relative overflow-hidden rounded-3xl border border-primary/20 bg-gradient-to-br from-primary/10 via-primary/5 to-transparent p-8 shadow-lg dark:from-primary-dark/20 dark:via-primary-dark/5 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_30%_20%,_rgba(106,211,177,0.15),_transparent_50%)] before:pointer-events-none">
-        <div className="flex flex-col gap-10 lg:flex-row lg:items-center">
-          <div className="flex-1 space-y-6">
-            <p className="text-sm uppercase tracking-[0.3em] text-primary dark:text-primary-dark">
-              {t('aboutTagline', 'Purpose-driven performance coaching')}
-            </p>
-            <div className="space-y-4">
-              <h1 className="text-4xl font-extrabold text-primary dark:text-primary-dark lg:text-5xl">
-                {t('aboutTitlePage', 'Gonorte - About Me')}
-              </h1>
-              <p className="text-lg text-text-muted dark:text-text-muted-dark">
-                {t(
-                  'aboutParagraph1',
-                  'I blend science-backed methodology with the art of human connection so every program feels handcrafted for your lifestyle.'
-                )}
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-4">
-              <Link
-                to={getLocalizedRoute('contact', currentLang)}
-                className="group rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:scale-105 relative overflow-hidden"
-              >
-                <span className="relative z-10">{t('aboutCTAContact', 'Book a discovery call')}</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-primary-dark to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </Link>
-              <Link
-                to={getLocalizedRoute('services', currentLang)}
-                className="group rounded-full border border-primary px-6 py-3 text-sm font-semibold text-primary transition-all duration-300 hover:bg-primary/10 hover:scale-105 dark:text-primary-dark dark:hover:bg-primary-dark/10"
-              >
-                <span className="flex items-center gap-2">
-                  {t('aboutCTAPrograms', 'Explore coaching tracks')}
-                  <span className="transition-transform group-hover:translate-x-1">→</span>
-                </span>
-              </Link>
-            </div>
-          </div>
-          <div className="flex-1">
-            <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-primary to-primary-dark text-white shadow-2xl">
-              <div className="absolute inset-0 opacity-40 blur-3xl bg-[radial-gradient(circle_at_top,_rgba(255,255,255,0.4),_transparent_55%)]" aria-hidden="true" />
-              <div className="relative p-8 space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="h-20 w-20 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-3xl font-semibold">
-                    GT
-                  </div>
-                  <div>
-                    <p className="text-sm uppercase tracking-[0.3em] text-white/70">Coach</p>
-                    <p className="text-2xl font-bold">Gonorte Trainer</p>
-                    <p className="text-white/70">{t('aboutLocationTag', 'Based in Spain • Working globally')}</p>
-                  </div>
-                </div>
-                <p className="text-white/80">
-                  {t(
-                    'aboutProfileSnippet',
-                    'Athlete-turned-coach obsessed with helping busy humans build rituals that feel luxurious yet doable.'
-                  )}
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {[missionLines[0], globalLines[0], innovationTitle].filter(Boolean).map((label) => (
-                    <span key={label} className="rounded-full border border-white/30 px-4 py-1 text-sm text-white/90">
-                      {label}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {statHighlights.map((stat, index) => (
-            <div 
-              key={stat.label} 
-              className="group rounded-2xl border border-white/40 bg-white/60 p-6 backdrop-blur dark:border-white/10 dark:bg-white/5 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-primary/40 dark:hover:border-primary-dark/40"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <p className="text-4xl font-extrabold text-primary dark:text-primary-dark group-hover:scale-110 transition-transform duration-300">{stat.value}</p>
-              <p className="text-sm uppercase tracking-wide text-text-muted dark:text-text-muted-dark">
-                {stat.label}
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Core Values Section - Enhanced */}
-      <section className="relative overflow-hidden rounded-3xl border border-primary/20 bg-gradient-to-br from-primary/5 via-transparent to-primary/5 p-8 shadow-lg dark:from-primary-dark/10 dark:to-primary-dark/10">
-        <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl" aria-hidden="true" />
-        <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl" aria-hidden="true" />
+    <AnimatedPage className="min-h-full bg-bg-base">
+      {/* Hero Section with Photo */}
+      <section className="relative overflow-hidden py-6 sm:py-8 md:py-12" style={{ backgroundColor: 'hsl(var(--color-bg-base))' }}>
+        {/* Background gradient */}
+        <div 
+          className="absolute inset-0 opacity-50"
+          style={{ 
+            background: 'linear-gradient(to bottom right, hsl(var(--color-primary-500) / 0.1), transparent, hsl(var(--color-primary-500) / 0.05))'
+          }}
+        />
         
-        <div className="relative z-10 mb-10 text-center">
-          <p className="text-sm uppercase tracking-[0.3em] text-primary dark:text-primary-dark mb-2">
-            {t('aboutValuesLabel', 'Our Foundation')}
-          </p>
-          <h2 className="text-4xl font-extrabold text-primary dark:text-primary-dark">
-            {t('aboutValuesTitle', 'Core Values')}
-          </h2>
-          <p className="mt-3 text-lg text-text-muted dark:text-text-muted-dark max-w-2xl mx-auto">
-            {t('aboutValuesSubtitle', 'The principles that guide every coaching decision and client interaction')}
-          </p>
-        </div>
-
-        <div className="relative z-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {values.map((value, index) => (
-            <div
-              key={value.title}
-              className="group relative rounded-2xl border-2 border-neutral-border-light bg-white p-8 shadow-md transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 hover:border-primary dark:border-neutral-border-dark dark:bg-neutral-surface-dark dark:hover:border-primary-dark overflow-hidden"
-              style={{ animationDelay: `${index * 100}ms` }}
+        <div className="container mx-auto px-4 max-w-6xl relative z-10">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-center">
+            
+            {/* Photo */}
+            <motion.div
+              className="relative order-1 lg:order-1"
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              
-              <div className="relative z-10">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5 dark:from-primary-dark/20 dark:to-primary-dark/5 mb-5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
-                  <span className="text-4xl transform transition-transform duration-500 group-hover:scale-125">{value.icon}</span>
-                </div>
-                
-                <h3 className="text-xl font-bold text-primary dark:text-primary-dark mb-3 group-hover:translate-x-1 transition-transform duration-300">
-                  {value.title}
-                </h3>
-                
-                <p className="text-sm leading-relaxed text-text-default/80 dark:text-text-default-dark/80 group-hover:text-text-default dark:group-hover:text-text-default-dark transition-colors">
-                  {value.description}
-                </p>
-              </div>
-              
-              <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Mission, Vision & About Section */}
-      <section className="grid gap-8 lg:grid-cols-[2fr_1fr]">
-        <div className="space-y-8 rounded-3xl border border-neutral-border-light bg-surface p-8 shadow-sm dark:border-neutral-border-dark overflow-hidden relative">
-          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-0" aria-hidden="true" />
-          
-          <div className="relative z-10">
-            <p className="text-sm uppercase tracking-[0.3em] text-primary dark:text-primary-dark mb-2">
-              {t('aboutSectionLabel', 'Who I Am')}
-            </p>
-            <h2 className="text-3xl font-semibold text-primary dark:text-primary-dark">
-              {t('aboutSectionMainHeading', 'About Me')}
-            </h2>
-          </div>
-
-          <div className="space-y-6 relative z-10">
-            {[missionLines, globalLines].map((lines, index) => {
-              if (!lines.length) return null;
-              const [title, ...body] = lines;
-              const icons = [<FaCompass />, <FaEarthAmericas />];
-              const gradients = [
-                'from-primary/10 to-primary/5',
-                'from-secondary/10 to-secondary/5'
-              ];
-              
-              return (
+              <div className="relative max-w-md mx-auto lg:mx-0">
+                {/* Decorative background */}
                 <div 
-                  key={title ?? index} 
-                  className={`group relative rounded-2xl border border-neutral-border-light bg-gradient-to-br ${gradients[index]} p-6 shadow-sm hover:shadow-lg transition-all duration-300 dark:border-neutral-border-dark overflow-hidden`}
-                >
-                  <div className="absolute -right-8 -top-8 text-8xl opacity-5 group-hover:opacity-10 transition-opacity">
-                    {icons[index]}
-                  </div>
-                  
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-white dark:bg-neutral-surface-dark shadow-sm">
-                        <span className="text-2xl">{icons[index]}</span>
-                      </div>
-                      <h3 className="text-2xl font-bold text-primary dark:text-primary-dark group-hover:translate-x-1 transition-transform">
-                        {title}
-                      </h3>
-                    </div>
-                    <p className="text-lg leading-relaxed text-text-default/90 dark:text-text-default-dark/90 pl-15">
-                      {body.join(' ')}
-                    </p>
-                  </div>
-                  
-                  <div className="absolute bottom-0 right-0 w-24 h-24 bg-primary/5 rounded-tl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </div>
-              );
-            })}
-            <div className="relative rounded-2xl border border-neutral-border-light bg-gradient-to-br from-accent/10 to-accent/5 p-6 shadow-sm hover:shadow-lg transition-all duration-300 dark:border-neutral-border-dark overflow-hidden group">
-              <div className="absolute -right-8 -top-8 text-8xl opacity-5 group-hover:opacity-10 transition-opacity"><FaLightbulb /></div>
-              
-              <div className="relative z-10">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-white dark:bg-neutral-surface-dark shadow-sm">
-                    <span className="text-2xl"><FaLightbulb /></span>
-                  </div>
-                  <h3 className="text-2xl font-bold text-primary dark:text-primary-dark">{innovationTitle}</h3>
-                </div>
+                  className="absolute inset-0 rounded-3xl transform rotate-3 scale-105"
+                  style={{ backgroundColor: 'hsl(var(--color-primary-500) / 0.2)' }}
+                />
                 
-                <ul className="grid gap-3 text-lg text-text-default/90 dark:text-text-default-dark/90 pl-15">
-                  {innovationBullets.map((item, idx) => (
-                    <li key={item} className="flex items-start gap-3 group/item">
-                      <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/20 dark:bg-primary-dark/20 flex-shrink-0 mt-1 group-hover/item:scale-125 group-hover/item:bg-primary/30 dark:group-hover/item:bg-primary-dark/30 transition-all">
-                        <span className="text-xs font-bold text-primary dark:text-primary-dark">{idx + 1}</span>
+                {/* Photo container */}
+                <div 
+                  className="relative rounded-3xl p-3 shadow-2xl"
+                  style={{ backgroundColor: 'hsl(var(--color-bg-surface))' }}
+                >
+                  <div className="relative w-full h-[380px] sm:h-[440px] md:h-[500px] rounded-2xl overflow-hidden">
+                    <AnimatePresence mode="wait">
+                      <motion.img
+                        key={galleryImages[currentSlide].src}
+                        src={galleryImages[currentSlide].src}
+                        alt={galleryImages[currentSlide].alt}
+                        className="absolute inset-0 w-full h-full rounded-2xl object-cover"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.4 }}
+                      />
+                    </AnimatePresence>
+
+                    <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-neutral-900/50">
+                      {galleryImages.map((image, index) => (
+                        <button
+                          key={image.alt}
+                          type="button"
+                          aria-label={t('aboutGoToImage', 'Ir a imagen {{index}}', { index: index + 1 })}
+                          onClick={() => setCurrentSlide(index)}
+                          className={`w-2 h-2 rounded-full transition-all ${
+                            currentSlide === index ? 'bg-white scale-110' : 'bg-white/55 hover:bg-white/85'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Stats overlay */}
+                  <div 
+                    className="absolute -bottom-4 sm:-bottom-6 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-4 p-2 sm:p-4 rounded-xl sm:rounded-2xl shadow-xl"
+                    style={{ backgroundColor: 'hsl(var(--color-bg-surface))' }}
+                  >
+                    {stats.map((stat) => (
+                      <div key={stat.label} className="text-center px-1.5 sm:px-3">
+                        <p className="text-lg sm:text-xl md:text-2xl font-bold text-primary-500">{stat.value}</p>
+                        <p className="text-[10px] sm:text-xs" style={{ color: 'hsl(var(--color-fg-muted))' }}>{stat.label}</p>
                       </div>
-                      <span className="group-hover/item:text-primary dark:group-hover/item:text-primary-dark group-hover/item:translate-x-1 transition-all">{item}</span>
-                    </li>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Content */}
+            <motion.div
+              className="space-y-4 order-2 lg:order-2 mt-6 lg:mt-0"
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary-600 dark:text-primary-400 mb-4">
+                  {t('aboutHeroTitle', 'Sobre Gonorte Training')}
+                </h1>
+              </div>
+
+              <p className="text-base sm:text-lg leading-relaxed" style={{ color: 'hsl(var(--color-fg-muted))' }}>
+                {t('aboutHeroDescription', 'Soy Carmen, fundadora de Gonorte Training y especialista en biomecánica deportiva. Nuestro enfoque parte de una idea simple: el movimiento es medicina, pero solo cuando se adapta a tu cuerpo, a tu contexto y a tu punto de partida.')}
+              </p>
+
+              <div
+                className="p-4 sm:p-5 rounded-xl border"
+                style={{
+                  backgroundColor: 'hsl(var(--color-bg-surface))',
+                  borderColor: 'hsl(var(--color-border-base))',
+                }}
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <FaGraduationCap className="text-primary-500" />
+                  <h2 className="text-base sm:text-lg font-bold text-primary-600 dark:text-primary-400">{t('aboutEducationTitle', 'Formación')}</h2>
+                </div>
+                <ul className="list-disc list-inside space-y-1.5 text-sm sm:text-base" style={{ color: 'hsl(var(--color-fg-muted))' }}>
+                  {certifications.map((cert) => (
+                    <li key={cert}>{cert}</li>
                   ))}
                 </ul>
               </div>
-            </div>
 
-            {/* Skills Progress Bars */}
-            <div className="relative rounded-2xl border border-neutral-border-light bg-white dark:bg-neutral-surface-dark p-6 shadow-sm dark:border-neutral-border-dark mt-6">
-              <div className="flex items-center gap-3 mb-5">
-                <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 dark:from-primary-dark/20 dark:to-primary-dark/5">
-                  <span className="text-xl"><FaBullseye /></span>
-                </div>
-                <h3 className="text-xl font-bold text-primary dark:text-primary-dark">{t('aboutSkillsTitle', 'Expertise Areas')}</h3>
+              {/* CTA Buttons */}
+              <div className="flex flex-wrap gap-4 pt-2">
+                <Link to={getLocalizedRoute('videoCall', currentLang)}>
+                  <button className="inline-flex items-center gap-2 bg-primary-500 hover:bg-primary-600 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
+                    {t('aboutCtaPrimary', 'Agendar videollamada inicial')}
+                    <FaArrowRight className="text-sm" />
+                  </button>
+                </Link>
               </div>
-              
-              <div className="space-y-5">
-                {skills.map((skill, idx) => (
-                  <div key={skill.name} className="group space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="font-semibold text-text-default dark:text-text-default-dark group-hover:text-primary dark:group-hover:text-primary-dark transition-colors">{skill.name}</span>
-                      <span className="text-text-muted dark:text-text-muted-dark font-medium">{skill.level}%</span>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-4 sm:py-5 md:py-6">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5 items-start">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-left text-primary-600 dark:text-primary-400 mb-4 sm:mb-5">
+                {t('aboutSpecialtiesTitle', 'Especialidades')}
+              </h2>
+
+              <div className="grid grid-cols-2 gap-3 md:gap-4">
+                {specialties.map((spec, index) => (
+                  <motion.div
+                    key={spec.name}
+                    className="group text-center p-3 sm:p-4 rounded-xl transition-all duration-300 hover:scale-[1.03] hover:shadow-lg"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    style={{
+                      backgroundColor: 'hsl(var(--color-bg-surface))',
+                      border: '1px solid hsl(var(--color-border-base))'
+                    }}
+                  >
+                    <div className="text-xl sm:text-2xl text-primary-500 mb-1.5 sm:mb-2 group-hover:scale-110 transition-transform duration-300">
+                      {spec.icon}
                     </div>
-                    <div className="relative h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                      <div 
-                        className="h-full bg-gradient-to-r from-primary via-primary-light to-primary-dark rounded-full transition-all duration-1000 ease-out shadow-sm relative overflow-hidden"
-                        style={{ 
-                          width: `${skill.level}%`,
-                          animationDelay: `${idx * 200}ms`
-                        }}
-                      >
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
-                      </div>
-                    </div>
-                  </div>
+                    <p className="text-[11px] sm:text-xs md:text-sm font-medium" style={{ color: 'hsl(var(--color-fg-base))' }}>
+                      {spec.name}
+                    </p>
+                  </motion.div>
                 ))}
               </div>
-            </div>
-          </div>
-        </div>
+            </motion.div>
 
-        <div className="space-y-6 rounded-3xl border border-neutral-border-light bg-gradient-to-b from-white via-white to-white/70 p-6 shadow-sm dark:border-neutral-border-dark dark:from-neutral-surface-dark dark:via-neutral-surface-dark dark:to-neutral-surface-dark/70 hover:shadow-lg transition-shadow duration-300">
-          <div>
-            <p className="text-sm uppercase tracking-[0.3em] text-primary dark:text-primary-dark">
-              {t('aboutQuoteLabel', 'Signature mantra')}
-            </p>
-            <blockquote className="mt-4 text-xl italic text-text-default/90 dark:text-text-default-dark/90 relative pl-4 border-l-4 border-primary dark:border-primary-dark">
-              {quote}
-            </blockquote>
-          </div>
-          <div>
-            <p className="text-sm uppercase tracking-[0.3em] text-primary dark:text-primary-dark">
-              {t('aboutScheduleLabel', 'Weekly rhythm')}
-            </p>
-            <ul className="mt-4 space-y-3 text-sm text-text-muted dark:text-text-muted-dark">
-              <li className="flex items-start gap-2 group">
-                <span className="text-primary dark:text-primary-dark mt-0.5 group-hover:scale-125 transition-transform">•</span>
-                <span className="group-hover:text-text-default dark:group-hover:text-text-default-dark transition-colors">{t('aboutRoutine1', 'Deep work blocks for custom plan design')}</span>
-              </li>
-              <li className="flex items-start gap-2 group">
-                <span className="text-primary dark:text-primary-dark mt-0.5 group-hover:scale-125 transition-transform">•</span>
-                <span className="group-hover:text-text-default dark:group-hover:text-text-default-dark transition-colors">{t('aboutRoutine2', 'Live check-ins Tuesdays & Thursdays')}</span>
-              </li>
-              <li className="flex items-start gap-2 group">
-                <span className="text-primary dark:text-primary-dark mt-0.5 group-hover:scale-125 transition-transform">•</span>
-                <span className="group-hover:text-text-default dark:group-hover:text-text-default-dark transition-colors">{t('aboutRoutine3', 'Community mobility labs every weekend')}</span>
-              </li>
-            </ul>
+            <motion.div
+              className="text-center p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl relative overflow-hidden h-full"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              style={{
+                background: 'linear-gradient(135deg, hsl(var(--color-primary-500) / 0.1), hsl(var(--color-primary-500) / 0.05))',
+                border: '1px solid hsl(var(--color-primary-500) / 0.2)'
+              }}
+            >
+              <FaQuoteLeft className="text-xl sm:text-2xl text-primary-500/30 mx-auto mb-2 sm:mb-3" />
+              <blockquote className="text-sm sm:text-base md:text-lg italic font-medium mb-2 sm:mb-3" style={{ color: 'hsl(var(--color-fg-base))' }}>
+                {t('aboutQuote', '"El movimiento es medicina"')}
+              </blockquote>
+              <p className="text-primary-600 dark:text-primary-400 font-semibold text-sm sm:text-base">
+                {t('aboutQuoteAuthor', '— Gonorte')}
+              </p>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      <section className="rounded-3xl border border-neutral-border-light bg-surface p-8 shadow-sm dark:border-neutral-border-dark">
-        <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr]">
-          <div className="space-y-4">
-            <p className="text-sm uppercase tracking-[0.3em] text-primary dark:text-primary-dark">
-              {t('aboutSectionCertifications', 'Training and Background')}
+      {/* Final CTA */}
+      <section className="py-6 sm:py-8 md:py-12">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <motion.div 
+            className="text-center p-5 sm:p-8 md:p-12 rounded-2xl sm:rounded-3xl"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            style={{ 
+              background: 'linear-gradient(135deg, hsl(var(--color-primary-600)), hsl(var(--color-primary-500)))',
+            }}
+          >
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4">
+              {t('aboutFinalCTA', '¿Lista para empezar tu transformación?')}
+            </h2>
+            <p className="text-sm sm:text-base text-white/80 mb-4 sm:mb-6 max-w-xl mx-auto">
+              {t('aboutFinalCTADesc', 'Da el primer paso hacia tu mejor versión. Estoy aquí para ayudarte.')}
             </p>
-            <p className="text-lg text-text-default/90 dark:text-text-default-dark/90">{t('aboutParagraph5')}</p>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {[t('aboutCertification1', 'NSCA Strength & Conditioning Specialist'), t('aboutCertification2', 'Precision Nutrition Level 1'), t('aboutCertification3', 'Breathwork & Mobility Specialist'), t('aboutCertification4', 'Functional Range Conditioning Coach')].map((cert, idx) => (
-                <div 
-                  key={cert} 
-                  className="group rounded-2xl border border-neutral-border-light/70 px-4 py-3 text-sm font-semibold text-text-default dark:text-text-default-dark dark:border-neutral-border-dark/50 hover:border-primary dark:hover:border-primary-dark hover:bg-primary/5 dark:hover:bg-primary-dark/5 transition-all duration-300 cursor-default"
-                  style={{ animationDelay: `${idx * 50}ms` }}
-                >
-                  <span className="flex items-center gap-2">
-                    <span className="text-primary dark:text-primary-dark opacity-0 group-hover:opacity-100 transition-opacity">✓</span>
-                    {cert}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div>
-            <p className="text-sm uppercase tracking-[0.3em] text-primary dark:text-primary-dark">
-              {t('aboutSectionPhilosophy', 'Gonorte Philosophy')}
-            </p>
-            <p className="mt-4 text-lg text-text-default/90 dark:text-text-default-dark/90">{t('aboutParagraph6')}</p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              {toolset.map((tool, idx) => (
-                <span 
-                  key={tool.name} 
-                  className="group rounded-full border border-neutral-border-light px-4 py-2 text-xs font-semibold uppercase tracking-wide text-text-muted dark:text-text-muted-dark dark:border-neutral-border-dark hover:border-primary hover:text-primary dark:hover:border-primary-dark dark:hover:text-primary-dark hover:shadow-md transition-all duration-300 cursor-default"
-                  style={{ animationDelay: `${idx * 50}ms` }}
-                >
-                  <span className="flex items-center gap-2">
-                    <span className="transition-transform group-hover:scale-125">{tool.icon}</span>
-                    {tool.name}
-                  </span>
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline Section with Enhanced Styling */}
-      <section className="rounded-3xl border border-neutral-border-light bg-surface p-8 shadow-sm dark:border-neutral-border-dark relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -z-0" aria-hidden="true" />
-        <div className="mb-8 relative z-10">
-          <p className="text-sm uppercase tracking-[0.3em] text-primary dark:text-primary-dark">
-            {t('aboutTimelineLabel', 'Milestones & evolution')}
-          </p>
-          <h2 className="text-3xl font-semibold text-primary dark:text-primary-dark">
-            {t('aboutTimelineTitle', 'The journey so far')}
-          </h2>
-        </div>
-        <div className="relative pl-6 z-10">
-          <div className="absolute left-3 top-2 bottom-2 w-px bg-gradient-to-b from-primary via-primary/50 to-primary/20 dark:from-primary-dark dark:via-primary-dark/50 dark:to-primary-dark/20" aria-hidden="true" />
-          <div className="space-y-8">
-            {timelineMilestones.map((item, idx) => (
-              <div 
-                key={item.title} 
-                className="group relative rounded-2xl border border-neutral-border-light/70 bg-white/80 p-6 shadow-sm backdrop-blur dark:border-neutral-border-dark/50 dark:bg-white/5 hover:shadow-xl hover:scale-[1.02] transition-all duration-300"
-                style={{ animationDelay: `${idx * 100}ms` }}
-              >
-                <div className="absolute -left-[38px] top-6 h-3 w-3 rounded-full border-4 border-white bg-primary dark:border-neutral-surface-dark group-hover:scale-150 group-hover:shadow-lg transition-all duration-300" aria-hidden="true" />
-                <div className="flex items-start justify-between gap-4 flex-wrap">
-                  <div className="flex-1">
-                    <p className="text-sm uppercase tracking-[0.3em] text-text-muted dark:text-text-muted-dark group-hover:text-primary dark:group-hover:text-primary-dark transition-colors">{item.year}</p>
-                    <h3 className="mt-2 text-2xl font-bold text-primary dark:text-primary-dark">{item.title}</h3>
-                    <p className="mt-2 text-lg text-text-default/90 dark:text-text-default-dark/90">{item.description}</p>
-                  </div>
-                  <div className="text-3xl opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 text-primary dark:text-primary-dark">
-                    {idx === 0 ? <FaWandMagicSparkles /> : idx === 1 ? <FaEarthAmericas /> : idx === 2 ? <FaRocket /> : <FaBullseye />}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+            <Link to={getLocalizedRoute('videoCall', currentLang)}>
+              <button className="bg-white text-primary-600 px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-bold text-sm sm:text-base hover:bg-white/90 transition-all duration-300 hover:shadow-lg hover:scale-105">
+                {t('aboutFinalCTAButton', 'Agendar videollamada inicial')}
+              </button>
+            </Link>
+          </motion.div>
         </div>
       </section>
     </AnimatedPage>

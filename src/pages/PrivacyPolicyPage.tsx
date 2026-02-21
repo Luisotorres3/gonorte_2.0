@@ -2,9 +2,14 @@ import AnimatedPage from '../components/motion/AnimatedPage';
 
 const PrivacyPolicyPage: React.FC = () => (
   <AnimatedPage className="container mx-auto px-space-md py-12">
+    <header className="text-center mb-10 sm:mb-14">
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary-600 dark:text-primary-400 mb-4">
+        Política de Privacidad
+      </h1>
+      <p className="text-base sm:text-lg max-w-2xl mx-auto text-fg-muted">Última actualización: 9 de julio de 2025</p>
+    </header>
+
     <section className="max-w-3xl mx-auto p-6 bg-white dark:bg-slate-800 rounded-radius-lg shadow-md mt-8">
-      <h1 className="text-3xl font-bold mb-4">Política de Privacidad</h1>
-      <p className="mb-4 text-gray-500 text-sm">Última actualización: 9 de julio de 2025</p>
       <p>En Gonorte, la privacidad de nuestros usuarios es prioritaria. Los datos personales que nos facilites serán tratados con la máxima confidencialidad y conforme a la normativa vigente. Solo se recabarán los datos estrictamente necesarios para la prestación de los servicios y nunca serán cedidos a terceros sin tu consentimiento, salvo obligación legal.</p>
       <h2 className="text-xl font-semibold mt-6 mb-2">Responsable del Tratamiento</h2>
       <p>Carmen María González Ortega<br/>Email: <a href="mailto:gonorte.biomechanics@gmail.com" className="text-primary underline">gonorte.biomechanics@gmail.com</a></p>

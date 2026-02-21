@@ -14,7 +14,6 @@ export default defineConfig(({ mode }) => {
           manualChunks(id) {
             if (!id.includes('node_modules')) return undefined
 
-            if (id.includes('firebase')) return 'firebase'
             if (id.includes('framer-motion')) return 'motion'
             if (id.includes('react-router-dom')) return 'router'
             if (id.includes('react-i18next') || id.includes('i18next')) return 'i18n'

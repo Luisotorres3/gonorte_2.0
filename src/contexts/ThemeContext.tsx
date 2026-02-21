@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /**
  * @file ThemeContext.tsx
  * @description This file defines the context for theme management (light/dark modes) within the application.

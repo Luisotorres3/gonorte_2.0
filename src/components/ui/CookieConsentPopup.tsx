@@ -42,7 +42,7 @@ const CookieConsentPopup: React.FC = () => {
         <motion.div
           role="region"
           aria-label={t('cookieConsentBannerLabel', 'Cookie Consent Banner')}
-          className="fixed bottom-0 z-[100] w-full bg-neutral-surface-light dark:bg-neutral-surface-dark text-text-default-light dark:text-text-default-dark p-space-md shadow-[-2px_0px_15px_rgba(0,0,0,0.2)] transition-colors duration-300"
+          className="fixed bottom-0 z-[100] w-full bg-white dark:bg-neutral-surface-dark text-gray-700 dark:text-text-default-dark p-space-md shadow-[-2px_0px_15px_rgba(0,0,0,0.15)] transition-colors duration-300 border-t border-gray-200 dark:border-transparent"
           initial={{ y: "100%" }}
           animate={{ y: "0%" }}
           exit={{ y: "100%" }}

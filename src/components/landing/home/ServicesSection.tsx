@@ -1,222 +1,223 @@
+/**
+ * @file ServicesSection.tsx
+ * @description Overview of the Gonorte program for the HomePage.
+ * Shows programme highlights (what it is / is not), how it works, and a 3D analysis upsell.
+ */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { FaXmark, FaCheck, FaArrowRight, FaMapPin, FaClock, FaBrain } from 'react-icons/fa6';
 import { getLocalizedRoute } from '../../../router/routes.config';
-import { FaDumbbell, FaBowlFood, FaHouse, FaCheck, FaArrowRight } from 'react-icons/fa6';
 
-interface Service {
-  id: string;
-  titleKey: string;
-  defaultTitle: string;
-  descriptionKey: string;
-  defaultDescription: string;
-  icon: React.ReactNode;
-  features: string[];
-  price?: string;
-  popular?: boolean;
-}
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1 } },
+};
+const itemVariants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: 'easeOut' as const } },
+};
 
-const services: Service[] = [
+const notItems = [
+  'Una plantilla de ejercicios y estiramientos para aliviar el dolor.',
+  'Una solución rápida al dolor de tus articulaciones.',
+  'Clases grupales.',
+];
+const isItems = [
+  'Un programa de ejercicios adaptado a tu caso.',
+  'Una solución efectiva y duradera a largo plazo para tu dolor.',
+  'Ejercicios personalizados y mejora de hábitos.',
+];
+const steps = [
+  { title: 'Entrevista inicial (videollamada)', desc: 'Conoceré tu situación, molestias y objetivos. Vemos si encaja contigo.' },
+  { title: 'Evaluación en directo', desc: 'Definimos tu punto de partida y qué ejercicios te convienen o deberías evitar.' },
+  { title: 'Programa individualizado', desc: 'Plan adaptado a tu horario, material y necesidades.' },
+  { title: 'Seguimiento semanal', desc: 'Revisiones, ajustes y resolución de bloqueos.' },
+  { title: 'Ejercicios perfectamente explicados', desc: 'Técnica y seguridad en cada movimiento.' },
+  { title: 'Soporte por WhatsApp', desc: 'Dudas, correcciones y acompañamiento real.' },
+];
+const mapsUrl = 'https://maps.app.goo.gl/ZXPstJWdyFbfrDqBA';
+const analysisItems = [
   {
-    id: 'personal-training',
-    titleKey: 'service1Title',
-    defaultTitle: 'Entrenamiento Personalizado',
-    descriptionKey: 'service1Desc',
-    defaultDescription: 'Planes completamente personalizados adaptados a tus objetivos, nivel y estilo de vida.',
-    icon: <FaDumbbell />,
-    features: [
-      'Evaluación inicial completa',
-      'Plan de entrenamiento personalizado',
-      'Seguimiento semanal',
-      'Ajustes según progreso',
-      'Soporte 24/7'
-    ],
-    price: 'Desde $80/mes'
+    icon: <FaMapPin className="text-primary-400 mt-0.5 flex-shrink-0" />,
+    text: (
+      <>
+        Servicio presencial en Jaén (
+        <a
+          href={mapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-2 hover:text-white"
+        >
+          Calle Doctor Federico del Castillo nº1, CADE
+        </a>
+        ).
+      </>
+    ),
   },
-  {
-    id: 'nutrition-coaching',
-    titleKey: 'service2Title',
-    defaultTitle: 'Asesoría Nutricional',
-    descriptionKey: 'service2Desc',
-    defaultDescription: 'Guía nutricional personalizada para complementar tu entrenamiento y maximizar resultados.',
-    icon: <FaBowlFood />,
-    features: [
-      'Análisis de composición corporal',
-      'Plan nutricional personalizado',
-      'Recetas y menús semanales',
-      'Educación nutricional',
-      'Seguimiento de progreso'
-    ],
-    price: 'Desde $60/mes'
-  },
-  {
-    id: 'online-classes',
-    titleKey: 'service3Title',
-    defaultTitle: 'Clases Online',
-    descriptionKey: 'service3Desc',
-    defaultDescription: 'Entrena desde donde quieras con clases en vivo y rutinas grabadas de alta calidad.',
-    icon: <FaHouse />,
-    features: [
-      'Clases en vivo diarias',
-      'Biblioteca de rutinas',
-      'Diferentes niveles',
-      'Comunidad online',
-      'Acceso 24/7'
-    ],
-    price: 'Desde $40/mes',
-    popular: true
-  }
+  { icon: <FaClock className="text-primary-400 mt-0.5 flex-shrink-0" />, text: 'Duración aproximada: 45–60 minutos.' },
+  { icon: <FaBrain className="text-primary-400 mt-0.5 flex-shrink-0" />, text: 'Estudio con tecnología 3D, análisis postural e informe de resultados con recomendaciones individualizadas.' },
 ];
 
 const ServicesSection: React.FC = () => {
-  const { t, i18n } = useTranslation();
-  const currentLang = i18n.language || 'es';
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.9 },
-    visible: { 
-      opacity: 1, 
-      y: 0, 
-      scale: 1,
-      transition: { 
-        duration: 0.6,
-        ease: "easeOut" as const
-      }
-    },
-  };
+  const { t } = useTranslation();
 
   return (
-    <section className="w-full py-20 lg:py-32 bg-surface dark:bg-neutral-surface-dark">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="w-full bg-white dark:bg-neutral-900 py-16 sm:py-20 md:py-28">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-space-md">
+
         {/* Header */}
         <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
+          className="text-center mb-12 sm:mb-16"
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.55 }}
         >
-          <h2 className="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
-            {t('servicesTitle', 'Mis Servicios')}
+          <p className="text-xs sm:text-sm font-semibold uppercase tracking-widest text-primary-500 mb-3">
+            {t('servicesSectionLabel', 'El programa')}
+          </p>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-[1.25] pb-2 text-primary-700 dark:text-primary-300 mb-5">
+            {t('servicesSectionTitle', 'El Programa Gonorte')}
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            {t('servicesSubtitle', 'Ofrezco una amplia gama de servicios personalizados para ayudarte a alcanzar tus objetivos fitness de manera efectiva y sostenible')}
+          <p className="max-w-2xl mx-auto text-base sm:text-lg text-fg-muted leading-relaxed">
+            <span className="font-semibold text-fg-base">{t('servicesSectionSubStrong', 'No es una plantilla ni una solución rápida:')}</span>{' '}
+            {t('servicesSectionSub', 'es un proceso individualizado para mejorar postura, reducir molestias y construir fuerza de forma sostenible.')}
           </p>
         </motion.div>
 
-        {/* Services Grid */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-        >
-          {services.map((service) => (
-            <motion.div
-              key={service.id}
-              className="group relative"
-              variants={cardVariants}
-              whileHover={{ y: -8, scale: 1.02 }}
-              transition={{ duration: 0.3 }}
-            >
-              {/* Popular Badge */}
-              {service.popular && (
-                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                  <span className="bg-gradient-to-r from-teal-500 to-cyan-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                    {t('popularBadge', 'Más Popular')}
-                  </span>
-                </div>
-              )}
+        {/* ES / NO ES + Pasos */}
+        <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
 
-              {/* Service Card */}
-              <div className={`bg-surface dark:bg-neutral-surface-dark rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 border ${
-                service.popular 
-                  ? 'border-teal-500 dark:border-teal-400' 
-                  : 'border-gray-300 dark:border-teal-700'
-              } relative overflow-hidden h-full flex flex-col`}>
-                
-                {/* Background Pattern */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-teal-100 to-cyan-100 dark:from-teal-900/20 dark:to-cyan-900/20 rounded-full -translate-y-16 translate-x-16 opacity-50 group-hover:opacity-70 transition-opacity duration-300" />
-                
-                {/* Icon */}
-                <div className="text-5xl mb-6 relative z-10 text-teal-600 dark:text-teal-400">
-                  {service.icon}
-                </div>
-
-                {/* Title */}
-                <h3 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white relative z-10">
-                  {t(service.titleKey, service.defaultTitle)}
-                </h3>
-
-                {/* Description */}
-                <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed relative z-10 flex-grow">
-                  {t(service.descriptionKey, service.defaultDescription)}
-                </p>
-
-                {/* Features */}
-                <ul className="space-y-3 mb-8 relative z-10">
-                  {service.features.slice(0, 3).map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center text-gray-700 dark:text-gray-200">
-                      <span className="text-teal-500 mr-3 flex-shrink-0">
-                        <FaCheck className="w-5 h-5" />
-                      </span>
-                      <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                  <li className="text-sm text-gray-500 italic pl-8">...y más</li>
-                </ul>
-
-                {/* CTA Button */}
-                <Link
-                  to={getLocalizedRoute('services', currentLang)}
-                  className={`w-full py-3 px-6 rounded-xl font-semibold transition-all duration-300 relative z-10 text-center block ${
-                    service.popular
-                      ? 'bg-gradient-to-r from-teal-500 to-cyan-500 text-white hover:shadow-lg'
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-teal-50 dark:hover:bg-teal-900/20'
-                  }`}
-                >
-                  {t('serviceCTA', 'Ver Detalles')}
-                </Link>
-
-                {/* Decorative Element */}
-                <div className="absolute bottom-4 right-4 w-8 h-8 bg-gradient-to-br from-teal-400 to-cyan-400 rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-300" />
+          {/* Is / Is not */}
+          <motion.div
+            className="space-y-6"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            {/* NOT */}
+            <div className="bg-red-50 dark:bg-neutral-800 rounded-2xl p-6 border border-red-100 dark:border-red-900/30">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="w-7 h-7 rounded-full bg-red-100 dark:bg-red-900/40 flex items-center justify-center">
+                  <FaXmark className="w-3.5 h-3.5 text-red-500" />
+                </span>
+                <span className="text-sm font-bold uppercase tracking-wider text-red-500">NO es</span>
               </div>
-            </motion.div>
-          ))}
-        </motion.div>
+              <ul className="space-y-2.5">
+                {notItems.map((item, i) => (
+                  <motion.li key={i} className="flex items-start gap-3" variants={itemVariants}>
+                    <FaXmark className="flex-shrink-0 mt-0.5 w-4 h-4 text-red-400" />
+                    <span className="text-sm text-fg-muted leading-relaxed">{item}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
 
-        {/* CTA Section */}
+            {/* IS */}
+            <div className="bg-primary-50 dark:bg-neutral-800 rounded-2xl p-6 border border-primary-100 dark:border-primary-900/30">
+              <div className="flex items-center gap-2 mb-4">
+                <span className="w-7 h-7 rounded-full bg-primary-100 dark:bg-primary-900/40 flex items-center justify-center">
+                  <FaCheck className="w-3.5 h-3.5 text-primary-500" />
+                </span>
+                <span className="text-sm font-bold uppercase tracking-wider text-primary-500">SÍ es</span>
+              </div>
+              <ul className="space-y-2.5">
+                {isItems.map((item, i) => (
+                  <motion.li key={i} className="flex items-start gap-3" variants={itemVariants}>
+                    <FaCheck className="flex-shrink-0 mt-0.5 w-4 h-4 text-primary-500" />
+                    <span className="text-sm text-fg-base leading-relaxed font-medium">{item}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+
+          {/* How it works */}
+          <motion.div
+            className="bg-bg-surface dark:bg-neutral-800 rounded-2xl p-6 border border-border-base"
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.55, delay: 0.1 }}
+          >
+            <h3 className="text-base font-bold uppercase tracking-wider text-primary-500 mb-5">
+              {t('servicesSectionHowTitle', 'Cómo funciona')}
+            </h3>
+            <ol className="space-y-4">
+              {steps.map((step, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary-100 dark:bg-primary-900/40 text-primary-600 dark:text-primary-400 text-xs font-bold flex items-center justify-center mt-0.5">
+                    {i + 1}
+                  </span>
+                  <div>
+                    <p className="text-sm font-semibold text-fg-base leading-snug">{step.title}</p>
+                    <p className="text-xs text-fg-muted mt-0.5 leading-relaxed">{step.desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+
+            <div className="mt-6 pt-5 border-t border-border-base">
+              <Link
+                to={getLocalizedRoute('videoCall')}
+                className="inline-flex items-center justify-center w-full gap-2 bg-primary-500 hover:bg-primary-600 text-white px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-95"
+              >
+                {t('servicesSectionCTA', 'Agendar videollamada inicial')}
+                <FaArrowRight className="text-xs" />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* 3D Analysis upsell */}
         <motion.div
-          className="text-center mt-16"
-          initial={{ opacity: 0, y: 30 }}
+          className="max-w-5xl mx-auto bg-gradient-to-br from-primary-600 to-secondary-600 text-white rounded-2xl p-7 sm:p-10 relative overflow-hidden"
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.55 }}
         >
-          <Link
-            to={getLocalizedRoute('services', currentLang)}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-500 to-cyan-500 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-          >
-            {t('servicesViewAll', 'Ver Todos los Servicios')}
-            <FaArrowRight />
-          </Link>
+          {/* Decorative blobs */}
+          <div className="absolute -top-10 -right-10 w-48 h-48 rounded-full bg-white/10 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-10 -left-10 w-40 h-40 rounded-full bg-white/10 blur-3xl pointer-events-none" />
+
+          <div className="relative z-10 max-w-3xl">
+            <p className="text-xs font-bold uppercase tracking-widest text-white/70 mb-2">
+              {t('analysisLabel', 'Opción adicional')}
+            </p>
+            <h3 className="text-xl sm:text-2xl font-bold mb-3">
+              {t('analysisTitle', '¿Quieres empezar con la máxima claridad?')}
+            </h3>
+            <p className="text-white/85 text-sm sm:text-base leading-relaxed mb-6">
+              {t('analysisDesc', 'Además de El Plan, puedes realizar un análisis postural 3D presencial: una valoración detallada para conocer tu punto de partida y salir con un informe y recomendaciones adaptadas.')}
+            </p>
+            <ul className="space-y-3 mb-7">
+              {analysisItems.map((item, i) => (
+                <li key={i} className="flex items-start gap-3 text-sm text-white/90">
+                  {item.icon}
+                  <span>{item.text}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="text-white/70 text-xs italic mb-6">
+              {t('analysisNote', 'Este servicio se valora y se agenda después de la videollamada inicial, para asegurarnos de que encaja contigo.')}
+            </p>
+            <Link
+              to={getLocalizedRoute('videoCall')}
+              className="inline-flex items-center gap-2 bg-white text-primary-700 hover:bg-primary-50 px-7 py-3 rounded-full font-bold text-sm transition-all duration-300 hover:shadow-xl hover:scale-105 active:scale-95"
+            >
+              {t('servicesSectionCTA', 'Agendar videollamada inicial')}
+              <FaArrowRight className="text-xs" />
+            </Link>
+          </div>
         </motion.div>
+
       </div>
     </section>
   );
 };
 
-export default ServicesSection; 
+export default ServicesSection;

@@ -74,9 +74,11 @@ const CatalogPage: React.FC = () => {
 
   return (
     <AnimatedPage className="container mx-auto px-space-md py-12">
-      <h1 className="text-4xl font-bold mb-space-lg text-center text-primary dark:text-primary-dark">
-        {t('catalogTitle', 'Our Products & Services')}
-      </h1>
+      <div className="text-center mb-10 sm:mb-14">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary-600 dark:text-primary-400 mb-4">
+          {t('catalogTitle', 'Our Products & Services')}
+        </h1>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-space-lg">
         {catalogItemsData.map((item, index) => (
           <CatalogItem

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { getLocalizedRoute } from '../router/routes.config';
 import { InlineWidget } from 'react-calendly';
 import AnimatedPage from '../components/motion/AnimatedPage';
+import { MARKETING } from '../constants';
 import { FaCheck, FaArrowLeft } from 'react-icons/fa6';
 import BookingSteps from '../components/ui/BookingSteps';
 
@@ -30,6 +31,8 @@ interface BookingPageState {
   plan: Plan;
   billingCycle: BillingCycle;
 }
+
+const CALENDLY_FALLBACK_MS = 10_000;
 
 const BookingPage: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -61,12 +64,42 @@ const BookingPage: React.FC = () => {
   const [privacyConsent, setPrivacyConsent] = useState(false);
   const [marketingConsent, setMarketingConsent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isCalendlyLoaded, setIsCalendlyLoaded] = useState(false);
 
   useEffect(() => {
     if (!plan) {
       navigate(getLocalizedRoute('services', currentLang));
     }
   }, [plan, navigate, currentLang]);
+
+  useEffect(() => {
+    if (step !== 3) {
+      return;
+    }
+
+    setIsCalendlyLoaded(false);
+
+    const fallbackTimeout = window.setTimeout(() => {
+      setIsCalendlyLoaded(true);
+    }, CALENDLY_FALLBACK_MS);
+
+    const handler = (e: MessageEvent) => {
+      if (
+        e.origin === 'https://calendly.com' &&
+        e.data?.event === 'calendly.event_type_viewed'
+      ) {
+        window.clearTimeout(fallbackTimeout);
+        setIsCalendlyLoaded(true);
+      }
+    };
+
+    window.addEventListener('message', handler);
+
+    return () => {
+      window.removeEventListener('message', handler);
+      window.clearTimeout(fallbackTimeout);
+    };
+  }, [step]);
 
   if (!plan) return null;
 
@@ -162,16 +195,22 @@ const BookingPage: React.FC = () => {
   };
 
   return (
-    <AnimatedPage className="min-h-screen bg-neutral-background-light dark:bg-neutral-background-dark py-12 sm:py-16 md:py-20">
+    <AnimatedPage className="min-h-screen py-8 sm:py-12 md:py-16 lg:py-20" style={{ backgroundColor: 'hsl(var(--color-bg-base))' }}>
       <div className="container mx-auto px-3 sm:px-4">
         {/* Back Button - Top Left */}
-        <div className="mb-6">
+        <div className="mb-4 sm:mb-6">
           <button
             onClick={handleBack}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-neutral-surface-light dark:bg-neutral-surface-dark border-2 border-neutral-border-light dark:border-neutral-border-dark text-text-default dark:text-text-default-dark hover:border-primary dark:hover:border-primary hover:bg-primary/5 dark:hover:bg-primary/10 transition-all duration-300 font-medium shadow-sm hover:shadow-md group"
+            className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg text-sm sm:text-base font-medium shadow-md hover:shadow-lg group transition-all duration-300"
+            style={{ 
+              backgroundColor: 'hsl(var(--color-bg-surface))', 
+              color: 'hsl(var(--color-fg-base))',
+              border: '1px solid hsl(var(--color-border-base))'
+            }}
           >
             <FaArrowLeft className="transition-transform duration-300 group-hover:-translate-x-1" />
-            <span>{step === 2 ? t('backToPlanSelection', 'Volver a selección de plan') : t('backToInfo', 'Volver a mis datos')}</span>
+            <span className="hidden sm:inline">{step === 2 ? t('backToPlanSelection', 'Volver a selección de plan') : t('backToInfo', 'Volver a mis datos')}</span>
+            <span className="sm:hidden">{t('back', 'Volver')}</span>
           </button>
         </div>
 
@@ -181,45 +220,51 @@ const BookingPage: React.FC = () => {
           {/* Plan Summary */}
           <div className="space-y-4 sm:space-y-6 md:space-y-8">
             <div className="hidden md:block">
-              <h1 className="text-3xl md:text-4xl font-bold text-primary dark:text-primary-dark mb-4">
-                {step === 2 ? t('bookingTitleInfo', 'Tus Datos') : t('bookingTitleSchedule', 'Agenda tu Sesión')}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary-600 dark:text-primary-400 mb-4">
+                {step === 2 ? 'Tus Datos' : 'Agenda tu Sesión'}
               </h1>
-              <p className="text-text-muted-light dark:text-text-muted-dark">
-                {step === 2 
-                  ? t('bookingSubtitleInfo', 'Completa tus datos para personalizar tu experiencia.')
-                  : t('bookingSubtitleSchedule', 'Selecciona el horario que mejor te convenga para nuestra primera reunión.')}
+              <p className="text-base sm:text-lg max-w-2xl" style={{ color: 'hsl(var(--color-fg-muted))' }}>
+                {step === 2
+                  ? 'Completa tus datos para personalizar tu experiencia.'
+                  : 'Selecciona el horario que mejor te convenga para nuestra primera reunión.'}
               </p>
             </div>
 
-            <div className="bg-neutral-surface-light dark:bg-neutral-surface-dark border border-neutral-border-light dark:border-neutral-border-dark rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg">
-              <h2 className="text-lg sm:text-xl font-bold text-text-default dark:text-text-default-dark mb-3 sm:mb-4">
+            <div 
+              className="rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg"
+              style={{ 
+                backgroundColor: 'hsl(var(--color-bg-surface))', 
+                border: '1px solid hsl(var(--color-border-base))'
+              }}
+            >
+              <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4" style={{ color: 'hsl(var(--color-fg-base))' }}>
                 {t('selectedPlan', 'Plan Seleccionado')}
               </h2>
               
               <div className="mb-4 sm:mb-6">
-                <h3 className="text-xl sm:text-2xl font-bold text-primary dark:text-primary-dark mb-1 sm:mb-2">
+                <h3 className="text-xl sm:text-2xl font-bold text-primary-600 dark:text-primary-400 mb-1 sm:mb-2">
                   {plan.name}
                 </h3>
-                <p className="text-sm sm:text-base text-text-muted-light dark:text-text-muted-dark mb-3 sm:mb-4">
+                <p className="text-sm sm:text-base mb-3 sm:mb-4" style={{ color: 'hsl(var(--color-fg-muted))' }}>
                   {plan.description}
                 </p>
                 <div className="flex items-baseline gap-1.5 sm:gap-2">
-                  <span className="text-2xl sm:text-3xl font-bold text-text-default dark:text-text-default-dark">
+                  <span className="text-2xl sm:text-3xl font-bold" style={{ color: 'hsl(var(--color-fg-base))' }}>
                     {new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(plan.pricing[billingCycle])}
                   </span>
-                  <span className="text-text-muted-light dark:text-text-muted-dark">
+                  <span style={{ color: 'hsl(var(--color-fg-muted))' }}>
                     /{billingCycle === 'monthly' ? t('perMonth', 'mes') : billingCycle === 'quarterly' ? t('perQuarter', 'trimestre') : t('perSemiannual', 'semestre')}
                   </span>
                 </div>
               </div>
 
               <div className="space-y-3">
-                <h4 className="font-semibold text-text-default dark:text-text-default-dark">
+                <h4 className="font-semibold" style={{ color: 'hsl(var(--color-fg-base))' }}>
                   {t('whatsIncluded', '¿Qué incluye?')}
                 </h4>
                 <ul className="space-y-2">
                   {plan.features.filter((f) => f.included).map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-2 text-sm text-text-muted-light dark:text-text-muted-dark">
+                    <li key={idx} className="flex items-start gap-2 text-sm" style={{ color: 'hsl(var(--color-fg-muted))' }}>
                       <FaCheck className="text-green-500 mt-1 flex-shrink-0" />
                       <span>{feature.text}</span>
                     </li>
@@ -230,7 +275,13 @@ const BookingPage: React.FC = () => {
           </div>
 
           {/* Step Content */}
-          <div className="bg-neutral-surface-light dark:bg-neutral-surface-dark rounded-xl sm:rounded-2xl overflow-hidden shadow-lg min-h-[500px] p-4 sm:p-6 md:p-8 border border-neutral-border-light dark:border-neutral-border-dark">
+          <div 
+            className="rounded-xl sm:rounded-2xl overflow-hidden shadow-lg min-h-[500px] p-4 sm:p-6 md:p-8"
+            style={{ 
+              backgroundColor: 'hsl(var(--color-bg-surface))', 
+              border: '1px solid hsl(var(--color-border-base))'
+            }}
+          >
             {step === 2 ? (
               <form onSubmit={handleInfoSubmit} className="space-y-4 sm:space-y-6">
                 {/* Mobile Title */}
@@ -495,9 +546,25 @@ const BookingPage: React.FC = () => {
                 </div>
               </form>
             ) : (
-              <div className="h-full min-h-[600px] flex flex-col">
+              <div className="h-full min-h-[600px] flex flex-col relative">
+                {!isCalendlyLoaded && (
+                  <div
+                    className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3"
+                    style={{
+                      backgroundColor: 'hsl(var(--color-bg-surface) / 0.88)',
+                      backdropFilter: 'blur(2px)'
+                    }}
+                    aria-live="polite"
+                    aria-busy="true"
+                  >
+                    <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+                    <p className="text-sm sm:text-base font-medium text-text-default dark:text-text-default-dark">
+                      {t('loadingBookingWidget', 'Cargando agenda...')}
+                    </p>
+                  </div>
+                )}
                 <InlineWidget 
-                  url="https://calendly.com/luisotorres3" 
+                  url={MARKETING.CALENDLY_URL} 
                   styles={{ height: '100%', width: '100%', minHeight: '600px' }}
                   prefill={{
                     name: userInfo.name,

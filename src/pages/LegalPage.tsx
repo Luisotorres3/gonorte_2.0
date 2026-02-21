@@ -3,7 +3,6 @@
  * @description Defines the Legal Information page, displaying Terms of Use and Privacy Policy.
  * Content is placeholder text, with internationalized headings.
  */
-import { useTranslation } from 'react-i18next';
 import AnimatedPage from '../components/motion/AnimatedPage';
 import i18n from '../i18n/config';
 
@@ -13,7 +12,6 @@ import i18n from '../i18n/config';
  * @returns {JSX.Element} The rendered LegalPage.
  */
 const LegalPage: React.FC = () => {
-  const { t } = useTranslation();
   const lastUpdatedDate = new Date().toLocaleDateString(i18n.language, { // Use i18n language for date format
     year: 'numeric',
     month: 'long',
@@ -22,12 +20,12 @@ const LegalPage: React.FC = () => {
 
   return (
     <AnimatedPage className="container mx-auto px-space-md py-12">
-      <header className="text-center mb-space-lg">
-        <h1 className="text-4xl font-bold text-primary dark:text-primary-dark">
-          {t('legalPageTitle', 'Legal Information')}
+      <header className="text-center mb-10 sm:mb-14">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary-600 dark:text-primary-400 mb-4">
+          Aviso Legal
         </h1>
-        <p className="text-sm text-text-muted mt-space-xs">
-          {t('lastUpdated', 'Last Updated')}: {lastUpdatedDate}
+        <p className="text-base sm:text-lg max-w-2xl mx-auto" style={{ color: 'hsl(var(--color-fg-muted))' }}>
+          Última actualización: {lastUpdatedDate}
         </p>
       </header>
 

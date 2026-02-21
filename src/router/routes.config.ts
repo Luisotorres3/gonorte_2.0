@@ -9,6 +9,7 @@ import i18n from '../i18n/config';
 export type RouteKey = 
   | 'home'
   | 'about'
+  | 'resources'
   | 'projects'
   | 'catalog'
   | 'services'
@@ -30,7 +31,8 @@ export type RouteKey =
   | 'schedule'
   | 'admin'
   | 'users'
-  | 'plans';
+  | 'plans'
+  | 'videoCall';
 
 export const SUPPORTED_LANGUAGES = ['es', 'en', 'fr'] as const;
 export type SupportedLanguage = typeof SUPPORTED_LANGUAGES[number];
@@ -44,10 +46,11 @@ export const ROUTE_TRANSLATIONS: Record<RouteKey, Record<SupportedLanguage, stri
   about: { es: 'acerca-de', en: 'about', fr: 'a-propos' },
   projects: { es: 'proyectos', en: 'projects', fr: 'projets' },
   catalog: { es: 'catalogo', en: 'catalog', fr: 'catalogue' },
-  services: { es: 'servicios', en: 'services', fr: 'services' },
+  services: { es: 'plan', en: 'plan', fr: 'plan' },
   legal: { es: 'legal', en: 'legal', fr: 'legal' },
   testimonials: { es: 'testimonios', en: 'testimonials', fr: 'temoignages' },
   contact: { es: 'contacto', en: 'contact', fr: 'contact' },
+  resources: { es: 'analisis', en: 'analysis', fr: 'analyse-posturale' },
   booking: { es: 'reservar', en: 'booking', fr: 'reserver' },
   login: { es: 'iniciar-sesion', en: 'login', fr: 'connexion' },
   register: { es: 'registrarse', en: 'register', fr: 'inscription' },
@@ -64,6 +67,7 @@ export const ROUTE_TRANSLATIONS: Record<RouteKey, Record<SupportedLanguage, stri
   admin: { es: 'admin', en: 'admin', fr: 'admin' },
   users: { es: 'usuarios', en: 'users', fr: 'utilisateurs' },
   plans: { es: 'planes', en: 'plans', fr: 'plans' },
+  videoCall: { es: 'agendar-videollamada', en: 'book-a-call', fr: 'prendre-rendez-vous' },
 };
 
 /**
@@ -125,8 +129,8 @@ export const parseLocalizedPath = (pathname: string): { language: string; routeK
 
   // Find matching route key
   const routeKeys: RouteKey[] = [
-    'home', 'about', 'projects', 'catalog', 'services', 'legal', 'testimonials',
-    'contact', 'booking', 'login', 'register', 'forgotPassword', 'privacy',
+    'home', 'about', 'resources', 'projects', 'catalog', 'services', 'legal', 'testimonials',
+    'contact', 'booking', 'videoCall', 'login', 'register', 'forgotPassword', 'privacy',
     'profile', 'dashboard', 'trainingPlan', 'trainingHistory', 'notifications',
     'settings', 'analytics', 'schedule', 'admin', 'users', 'plans'
   ];

@@ -1,167 +1,262 @@
+@import './palette.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   BASE STYLES
+   Uses CSS variables from palette.css for automatic
+   light/dark mode switching
+   ============================================ */
 body {
   font-family: theme("fontFamily.sans");
-  @apply bg-neutral-background-light text-text-default-light;
-}
-
-.dark body {
-  @apply bg-neutral-background-dark text-text-default-dark;
+  background-color: hsl(var(--color-bg-base));
+  color: hsl(var(--color-fg-base));
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 @layer utilities {
-  /* Text Utilities */
+  /* ============================================
+     TEXT UTILITIES
+     These now automatically switch colors based on
+     the current theme (light/dark mode)
+     ============================================ */
   .text-default {
-    @apply text-text-default-light;
-  }
-  .dark .text-default {
-    @apply text-text-default-dark;
+    color: hsl(var(--color-fg-base));
   }
 
   .text-primary {
-    @apply text-text-primary-light;
+    color: hsl(var(--color-primary-600));
   }
   .dark .text-primary {
-    @apply text-text-primary-dark;
+    color: hsl(var(--color-primary-400));
   }
 
   .text-secondary {
-    /* Added for secondary text color */
-    @apply text-secondary-DEFAULT; /* Assuming you want to use the DEFAULT secondary color */
+    color: hsl(var(--color-secondary-600));
   }
   .dark .text-secondary {
-    @apply text-secondary-dark; /* Or a specific dark variant if defined */
+    color: hsl(var(--color-secondary-400));
   }
 
   .text-accent {
-    @apply text-text-accent-light;
+    color: hsl(var(--color-accent-700));
   }
   .dark .text-accent {
-    @apply text-text-accent-dark;
+    color: hsl(var(--color-accent-400));
   }
 
   .text-muted {
-    @apply text-text-muted-light;
+    color: hsl(var(--color-fg-muted));
   }
-  .dark .text-muted {
-    @apply text-text-muted-dark;
+
+  .text-subtle {
+    color: hsl(var(--color-fg-subtle));
   }
 
   .text-success {
-    @apply text-semantic-success-light;
+    color: hsl(var(--color-success-600));
   }
   .dark .text-success {
-    @apply text-semantic-success-dark;
+    color: hsl(var(--color-success-500));
   }
 
   .text-warning {
-    @apply text-semantic-warning-light;
+    color: hsl(var(--color-warning-600));
   }
   .dark .text-warning {
-    @apply text-semantic-warning-dark;
+    color: hsl(var(--color-warning-500));
   }
 
   .text-error {
-    @apply text-semantic-error-light;
+    color: hsl(var(--color-error-600));
   }
   .dark .text-error {
-    @apply text-semantic-error-dark;
+    color: hsl(var(--color-error-500));
   }
 
-  /* Background Utilities */
+  /* ============================================
+     BACKGROUND UTILITIES
+     ============================================ */
   .bg-background {
-    @apply bg-neutral-background-light;
-  }
-  .dark .bg-background {
-    @apply bg-neutral-background-dark;
+    background-color: hsl(var(--color-bg-base));
   }
 
   .bg-surface {
-    @apply bg-neutral-surface-light;
-  }
-  .dark .bg-surface {
-    @apply bg-neutral-surface-dark;
-  }
-
-  .bg-primary {
-    @apply bg-primary-DEFAULT hover:bg-primary-hover active:bg-primary-active;
-  }
-  .dark .bg-primary {
-    @apply bg-primary-dark hover:bg-primary-hover active:bg-primary-active; /* Consider if hover/active need dark variants */
+    background-color: hsl(var(--color-bg-surface));
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    border: 1px solid hsl(var(--color-border-base));
   }
 
-  .bg-secondary {
-    /* Added for secondary background color */
-    @apply bg-secondary-DEFAULT hover:bg-secondary-hover active:bg-secondary-active;
-  }
-  .dark .bg-secondary {
-    @apply bg-secondary-dark hover:bg-secondary-hover active:bg-secondary-active; /* Consider if hover/active need dark variants */
+  .bg-elevated {
+    background-color: hsl(var(--color-bg-elevated));
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    border: 1px solid hsl(var(--color-border-muted));
   }
 
-  .bg-accent {
-    @apply bg-accent-DEFAULT hover:bg-accent-hover active:bg-accent-active;
-  }
-  .dark .bg-accent {
-    @apply bg-accent-dark hover:bg-accent-hover active:bg-accent-active; /* Consider if hover/active need dark variants */
+  .bg-muted {
+    background-color: hsl(var(--color-bg-muted));
   }
 
-  /* Border Utilities */
+  .bg-primary-gradient {
+    background-image: linear-gradient(to right, hsl(var(--color-primary-500)), hsl(var(--color-primary-600)));
+  }
+
+  .bg-accent-gradient {
+    background-image: linear-gradient(to right, hsl(var(--color-accent-500)), hsl(var(--color-accent-600)));
+  }
+
+  /* ============================================
+     BORDER UTILITIES
+     ============================================ */
   .border-default {
-    @apply border-neutral-border-light;
-  }
-  .dark .border-default {
-    @apply border-neutral-border-dark;
+    border-color: hsl(var(--color-border-base));
   }
 
-  .border-primary {
-    /* Added for primary border color */
-    @apply border-primary-DEFAULT;
-  }
-  .dark .border-primary {
-    @apply border-primary-dark;
+  .border-muted {
+    border-color: hsl(var(--color-border-muted));
   }
 
-  .border-secondary {
-    /* Added for secondary border color */
-    @apply border-secondary-DEFAULT;
-  }
-  .dark .border-secondary {
-    @apply border-secondary-dark;
+  .border-strong {
+    border-color: hsl(var(--color-border-strong));
   }
 
-  .border-accent {
-    /* Added for accent border color */
-    @apply border-accent-DEFAULT;
-  }
-  .dark .border-accent {
-    @apply border-accent-dark;
-  }
-
-  /* Icon Utilities */
+  /* ============================================
+     ICON UTILITIES
+     ============================================ */
   .icon-default {
-    @apply text-text-default-light; /* Or a specific icon color if defined */
+    color: hsl(var(--color-fg-base));
   }
-  .dark .icon-default {
-    @apply text-text-default-dark; /* Or a specific icon color for dark mode */
+
+  .icon-muted {
+    color: hsl(var(--color-fg-muted));
   }
 
   .icon-primary {
-    @apply text-primary-DEFAULT;
-  }
-  .dark .icon-primary {
-    @apply text-primary-dark; /* Or light depending on contrast needs */
+    color: hsl(var(--color-primary-500));
   }
 
   .icon-accent {
-    @apply text-accent-DEFAULT;
-  }
-  .dark .icon-accent {
-    @apply text-accent-dark; /* Or light depending on contrast needs */
+    color: hsl(var(--color-accent-500));
   }
 
-  /* Animation Utilities */
+  /* ============================================
+     INTERACTIVE UTILITIES
+     ============================================ */
+  .btn-primary {
+    background-color: hsl(var(--color-primary-500));
+    color: hsl(var(--color-fg-on-primary));
+    transition: background-color 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover {
+    background-color: hsl(var(--color-primary-600));
+  }
+  .btn-primary:active {
+    background-color: hsl(var(--color-primary-700));
+  }
+  .btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--color-primary-500) / 0.5);
+  }
+
+  .btn-secondary {
+    background-color: hsl(var(--color-secondary-500));
+    color: hsl(var(--color-fg-on-primary));
+    transition: background-color 0.2s, box-shadow 0.2s;
+  }
+  .btn-secondary:hover {
+    background-color: hsl(var(--color-secondary-600));
+  }
+  .btn-secondary:active {
+    background-color: hsl(var(--color-secondary-700));
+  }
+
+  .btn-accent {
+    background-color: hsl(var(--color-accent-500));
+    color: hsl(var(--color-fg-on-accent));
+    transition: background-color 0.2s, box-shadow 0.2s;
+  }
+  .btn-accent:hover {
+    background-color: hsl(var(--color-accent-600));
+  }
+  .btn-accent:active {
+    background-color: hsl(var(--color-accent-700));
+  }
+
+  .btn-outline {
+    border: 2px solid hsl(var(--color-primary-500));
+    color: hsl(var(--color-primary-600));
+    background-color: transparent;
+    transition: background-color 0.2s;
+  }
+  .btn-outline:hover {
+    background-color: hsl(var(--color-primary-50));
+  }
+  .btn-outline:active {
+    background-color: hsl(var(--color-primary-100));
+  }
+  .dark .btn-outline:hover {
+    background-color: hsl(var(--color-primary-900) / 0.2);
+  }
+  .dark .btn-outline:active {
+    background-color: hsl(var(--color-primary-900) / 0.4);
+  }
+
+  .btn-ghost {
+    color: hsl(var(--color-fg-base));
+    background-color: transparent;
+    transition: background-color 0.2s;
+  }
+  .btn-ghost:hover {
+    background-color: hsl(var(--color-neutral-100));
+  }
+  .btn-ghost:active {
+    background-color: hsl(var(--color-neutral-200));
+  }
+  .dark .btn-ghost:hover {
+    background-color: hsl(var(--color-neutral-800));
+  }
+  .dark .btn-ghost:active {
+    background-color: hsl(var(--color-neutral-700));
+  }
+
+  /* ============================================
+     CARD UTILITIES
+     ============================================ */
+  .card {
+    background-color: hsl(var(--color-bg-surface));
+    border: 1px solid hsl(var(--color-border-base));
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  }
+
+  .card-elevated {
+    background-color: hsl(var(--color-bg-elevated));
+    border: 1px solid hsl(var(--color-border-muted));
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+
+  .card-interactive {
+    background-color: hsl(var(--color-bg-surface));
+    border: 1px solid hsl(var(--color-border-base));
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    transition: box-shadow 0.2s, border-color 0.2s;
+    cursor: pointer;
+  }
+  .card-interactive:hover {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    border-color: hsl(var(--color-primary-300));
+  }
+  .dark .card-interactive:hover {
+    border-color: hsl(var(--color-primary-600));
+  }
+
+  /* ============================================
+     ANIMATION UTILITIES
+     ============================================ */
   .animate-fade-in {
     animation: fadeIn 0.3s ease-in-out;
   }

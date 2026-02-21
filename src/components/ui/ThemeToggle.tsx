@@ -18,17 +18,17 @@ const ThemeToggle = () => {
   return (
     <button
       onClick={toggleTheme}
-      className="relative p-2 rounded-full bg-neutral-surface-light dark:bg-neutral-surface-dark hover:bg-neutral-border-light dark:hover:bg-neutral-border-dark transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary overflow-hidden group shadow-sm hover:shadow-md"
+      className="relative p-2 rounded-full bg-bg-surface hover:bg-neutral-100 dark:hover:bg-neutral-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 overflow-hidden group shadow-md hover:shadow-lg border border-border-base"
       aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
     >
       <div className="relative w-5 h-5 md:w-6 md:h-6">
         <FaSun 
-          className={`absolute inset-0 w-full h-full text-yellow-500 transition-all duration-500 transform ${
+          className={`absolute inset-0 w-full h-full text-warning-500 transition-all duration-500 transform ${
             theme === 'light' ? 'rotate-0 opacity-100 scale-100' : 'rotate-90 opacity-0 scale-0'
           }`} 
         />
         <FaMoon 
-          className={`absolute inset-0 w-full h-full text-primary transition-all duration-500 transform ${
+          className={`absolute inset-0 w-full h-full text-primary-500 transition-all duration-500 transform ${
             theme === 'dark' ? 'rotate-0 opacity-100 scale-100' : '-rotate-90 opacity-0 scale-0'
           }`} 
         />

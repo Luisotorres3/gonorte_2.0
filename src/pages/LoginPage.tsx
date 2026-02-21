@@ -5,6 +5,11 @@ import { useTranslation } from 'react-i18next';
 import { getLocalizedRoute } from '../router/routes.config';
 import { FaGoogle } from 'react-icons/fa'; // Example icon
 
+type AuthError = {
+  code?: string;
+  message?: string;
+};
+
 const LoginPage: React.FC = () => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language || 'es';
@@ -25,10 +30,11 @@ const LoginPage: React.FC = () => {
     try {
       await loginWithEmailPassword(email, password);
       navigate(from, { replace: true });
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const authError = err as AuthError;
       let errorMessage = t('login.errorDefault', 'An unknown error occurred. Please try again.');
-      if (err.code) {
-        switch (err.code) {
+      if (authError.code) {
+        switch (authError.code) {
           case 'auth/user-not-found':
           case 'auth/invalid-credential':
             errorMessage = t('login.errorInvalidCredentials', 'Invalid email or password. Please try again.');
@@ -48,8 +54,8 @@ const LoginPage: React.FC = () => {
           default:
             errorMessage = t('login.errorDefault', 'Login failed. Please try again.');
         }
-      } else if (err.message) {
-        errorMessage = err.message;
+      } else if (authError.message) {
+        errorMessage = authError.message;
       }
       setError(errorMessage);
       console.error("Login Page Error (Email):", err);
@@ -68,10 +74,11 @@ const LoginPage: React.FC = () => {
       // user is signed out by AuthContext.
       // We assume successful Google login means user *should* have a profile.
       navigate(from, { replace: true });
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const authError = err as AuthError;
       let errorMessage = t('login.errorDefaultGoogle', 'An error occurred during Google Sign-In. Please try again.');
-      if (err.code) {
-        switch (err.code) {
+      if (authError.code) {
+        switch (authError.code) {
           case 'auth/popup-closed-by-user':
             errorMessage = t('login.errorPopupClosed', 'Google Sign-In was cancelled.');
             break;
@@ -87,8 +94,8 @@ const LoginPage: React.FC = () => {
           default:
             errorMessage = t('login.errorGoogleDefault', 'Google Sign-In failed. Please try again.');
         }
-      } else if (err.message) {
-        errorMessage = err.message;
+      } else if (authError.message) {
+        errorMessage = authError.message;
       }
       setError(errorMessage);
       console.error("Login Page Error (Google):", err);
